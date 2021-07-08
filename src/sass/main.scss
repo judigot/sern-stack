@@ -1,0 +1,26 @@
+@import "bootstrap/master-bootstrap";
+
+$primary: black;
+
+body {
+  color: $primary;
+  background-image: url("../images/background.jpg");
+  background-size: cover;
+  background-repeat: no-repeat;
+  background-position: center;
+  background-attachment: fixed;
+}
+
+@font-face {
+  font-family: Digital;
+  src: url("../fonts/digital-7.ttf");
+}
+
+#fontImport {
+  font-family: Digital;
+}
+
+// This unused CSS must be removed by PurgeCSS after building
+.unused-CSS {
+  color: red;
+}
