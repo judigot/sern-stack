@@ -40,10 +40,10 @@ const main = {
 
     app: [
       // `bootstrap/dist/css/bootstrap.min.css`,
-      `jquery/dist/jquery.js`,
-      `bootstrap/dist/js/bootstrap.min.js`,
+      // `jquery/dist/jquery.js`,
+      // `bootstrap/dist/js/bootstrap.min.js`,
       `./${entryFolder}/${jsDirectory}/main.js`,
-      `./${entryFolder}/${sassDirectory}/main.scss`,
+      // `./${entryFolder}/${sassDirectory}/main.scss`,
     ],
 
     // , // Add vendors dependencies here
