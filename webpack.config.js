@@ -159,19 +159,19 @@ const main = {
     }),
 
     // new HtmlWebpackPlugin({
-    //   filename: "index.ejs",
+    //   filename: "index.ejs", // Output file name
     //   template: `./${entryFolder}/${viewsDirectory}/index.ejs`,
     //   chunks: ["app"], // Specify specific bundles in string (e.g. `app`, `main`, `index`)
     // }),
 
     new HtmlWebpackPlugin({
-      filename: "index.html",
+      filename: "index.html", // Output file name
       template: `./${entryFolder}/index.html`,
       chunks: ["app"], // Specify specific bundles in string (e.g. `app`, `main`, `index`)
     }),
 
     new HtmlWebpackPlugin({
-      filename: "users.html",
+      filename: "users.html", // Output file name
       template: `./${entryFolder}/users.html`,
       chunks: ["app"], // Specify specific bundles in string (e.g. `app`, `main`, `index`)
     }),
