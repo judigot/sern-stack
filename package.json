@@ -13,7 +13,7 @@
     "build": "clear && tsc && webpack --mode development",
     "watch": "clear && tsc && webpack --watch --mode development",
     "clean": "clear && rm -r dist",
-    "__________build": "clear && tsc && webpack --mode production"
+    "clean & build - production": "clear && npm run clean && tsc && webpack --mode production"
   },
   "keywords": [],
   "author": "",
