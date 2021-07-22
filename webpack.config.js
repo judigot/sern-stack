@@ -2,15 +2,16 @@ const path = require("path");
 const glob = require("glob");
 const webpack = require("webpack");
 
+const entryFolder = "src";
+const outputFolder = "dist";
+
 const jsDirectory = "js";
 const cssDirectory = "css";
 const sassDirectory = "sass";
 const imagesDirectory = "images";
 const fontsDirectory = "fonts";
 const viewsDirectory = "views";
-
-const entryFolder = "src";
-const outputFolder = "dist";
+const templatingEngineExtension = "ejs";
 
 const assetsFolderName = "public";
 
@@ -170,22 +171,10 @@ const main = {
     }),
 
     new HtmlWebpackPlugin({
-      filename: `./${outputFolder}/${viewsDirectory}/index.ejs`, // Output file name
-      template: `./${entryFolder}/${viewsDirectory}/index.ejs`,
+      filename: `./${outputFolder}/${viewsDirectory}/index.${templatingEngineExtension}`, // Destination
+      template: `./${entryFolder}/${viewsDirectory}/index.${templatingEngineExtension}`, // Source
       chunks: ["app"], // Specify specific bundles in string (e.g. `app`, `main`, `index`)
     }),
-
-    // new HtmlWebpackPlugin({
-    //   filename: "index.html", // Output file name
-    //   template: `./${entryFolder}/index.html`,
-    //   chunks: ["app"], // Specify specific bundles in string (e.g. `app`, `main`, `index`)
-    // }),
-
-    // new HtmlWebpackPlugin({
-    //   filename: "users.html", // Output file name
-    //   template: `./${entryFolder}/users.html`,
-    //   chunks: ["app"], // Specify specific bundles in string (e.g. `app`, `main`, `index`)
-    // }),
 
     // Removes too much. Causing bug on bootstrap modal backdrop
     // new PurgeCSSPlugin({
