@@ -27,154 +27,153 @@ const PurgeCSSPlugin = require("purgecss-webpack-plugin");
 
 const buildMode = "production"; // production/development
 
-module.exports = [
-  {
-    mode: buildMode,
+const main = {
+  mode: buildMode,
 
-    entry: {
-      // entry1: './src/js/entry1.js',
-      // entry2: './src/js/entry2.js',
+  entry: {
+    // entry1: './src/js/entry1.js',
+    // entry2: './src/js/entry2.js',
 
-      // pageOne: './src/pageOne/index.js',
-      // pageTwo: './src/pageTwo/index.js',
-      // users: './src/users/index.js',
+    // pageOne: './src/pageOne/index.js',
+    // pageTwo: './src/pageTwo/index.js',
+    // users: './src/users/index.js',
 
-      app: [
-        // `bootstrap/dist/css/bootstrap.min.css`,
-        `jquery/dist/jquery.js`,
-        `bootstrap/dist/js/bootstrap.min.js`,
-        `./${entryFolder}/${jsDirectory}/main.js`,
-        `./${entryFolder}/${sassDirectory}/main.scss`,
-      ],
+    app: [
+      // `bootstrap/dist/css/bootstrap.min.css`,
+      `jquery/dist/jquery.js`,
+      `bootstrap/dist/js/bootstrap.min.js`,
+      `./${entryFolder}/${jsDirectory}/main.js`,
+      `./${entryFolder}/${sassDirectory}/main.scss`,
+    ],
 
-      // , // Add vendors dependencies here
-      // styles: [
-      //     `bootstrap`
-      // ]
-    },
+    // , // Add vendors dependencies here
+    // styles: [
+    //     `bootstrap`
+    // ]
+  },
 
-    output: {
-      path: path.resolve(__dirname, `./${outputFolder}`),
-      filename: `${assetFolderOutput}${jsDirectory}/[name].[chunkhash].js`, // Chunkhash for file versioning/long-term caching
-    },
+  output: {
+    path: path.resolve(__dirname, `./${outputFolder}`),
+    filename: `${assetFolderOutput}${jsDirectory}/[name].[chunkhash].js`, // Chunkhash for file versioning/long-term caching
+  },
 
-    module: {
-      rules: [
-        // TypeScript
-        {
-          test: /\.tsx?$/,
-          use: "ts-loader",
-          exclude: /node_modules/,
-        },
+  module: {
+    rules: [
+      // TypeScript
+      {
+        test: /\.tsx?$/,
+        use: "ts-loader",
+        exclude: /node_modules/,
+      },
 
-        // Babel
-        // {
-        //   test: /\.m?js$/,
-        //   exclude: /node_modules/,
-        //   use: {
-        //     loader: "babel-loader",
-        //     options: {
-        //       presets: [["@babel/preset-env", { targets: "defaults" }]],
-        //       plugins: ["@babel/plugin-proposal-class-properties"],
-        //     },
-        //   },
-        // },
+      // Babel
+      // {
+      //   test: /\.m?js$/,
+      //   exclude: /node_modules/,
+      //   use: {
+      //     loader: "babel-loader",
+      //     options: {
+      //       presets: [["@babel/preset-env", { targets: "defaults" }]],
+      //       plugins: ["@babel/plugin-proposal-class-properties"],
+      //     },
+      //   },
+      // },
 
-        // HTML/PAGES
-        // {
-        //     // test: /\.(html|php)$/,
-        //     test: /\.html$/,
-        //     use: [
-        //         {
-        //             loader: 'file-loader',
-        //             options: {
-        //                 name: `[name].[ext]`
-        //             }
-        //         }
-        //     ],
-        //     exclude: path.resolve(__dirname, `${entryDirectory}/index.html`)
-        // },
+      // HTML/PAGES
+      // {
+      //     // test: /\.(html|php)$/,
+      //     test: /\.html$/,
+      //     use: [
+      //         {
+      //             loader: 'file-loader',
+      //             options: {
+      //                 name: `[name].[ext]`
+      //             }
+      //         }
+      //     ],
+      //     exclude: path.resolve(__dirname, `${entryDirectory}/index.html`)
+      // },
 
-        // SCSS
-        {
-          test: /\.(css|sass|scss)$/,
-          use: [
-            MiniCssExtractPlugin.loader,
-            {
-              loader: "css-loader",
-              options: { url: true },
-            },
-            "sass-loader",
-          ],
-          // It will take effect from right to left
-        },
-
-        // Images
-        {
-          test: /\.(png|jpg|jpeg|gif|bmp)$/,
-          use: [
-            {
-              loader: "file-loader",
-              options: {
-                name: `${assetFolderOutput}${imagesDirectory}/[name].[hash].[ext]`,
-                regExp: /\/([a-z0-9]+)\/[a-z0-9]+\.png$/i,
-              },
-            },
-          ],
-        },
-
-        // Fonts
-        {
-          test: /\.(svg|eot|ttf|woff|woff2)$/,
-          loader: "file-loader",
-          options: {
-            name: `${assetFolderOutput}${fontsDirectory}/[name].[ext]`,
-          },
-        },
-      ],
-    },
-    resolve: {
-      extensions: [".tsx", ".ts", ".js"],
-    },
-    plugins: [
-      // new CleanWebpackPlugin(),
-
-      new webpack.LoaderOptionsPlugin({
-        minimize: buildMode === "production" ? true : false,
-      }),
-
-      new MiniCssExtractPlugin({
-        filename: `${assetFolderOutput}${cssDirectory}/[name].[chunkhash].css`, // Chunkhash for file versioning/long-term caching
-      }),
-
-      new CopyPlugin({
-        patterns: [
+      // SCSS
+      {
+        test: /\.(css|sass|scss)$/,
+        use: [
+          MiniCssExtractPlugin.loader,
           {
-            from: `${entryFolder}/${viewsDirectory}`,
-            to: `${viewsDirectory}`,
+            loader: "css-loader",
+            options: { url: true },
+          },
+          "sass-loader",
+        ],
+        // It will take effect from right to left
+      },
+
+      // Images
+      {
+        test: /\.(png|jpg|jpeg|gif|bmp)$/,
+        use: [
+          {
+            loader: "file-loader",
+            options: {
+              name: `${assetFolderOutput}${imagesDirectory}/[name].[hash].[ext]`,
+              regExp: /\/([a-z0-9]+)\/[a-z0-9]+\.png$/i,
+            },
           },
         ],
+      },
+
+      // Fonts
+      {
+        test: /\.(svg|eot|ttf|woff|woff2)$/,
+        loader: "file-loader",
         options: {
-          concurrency: 100,
+          name: `${assetFolderOutput}${fontsDirectory}/[name].[ext]`,
         },
-      }),
-
-      new HtmlWebpackPlugin({
-        filename: "index.html",
-        template: `./${entryFolder}/index.html`,
-        chunks: ["app"], // Specify specific bundles in string (e.g. `app`, `main`, `index`)
-      }),
-
-      new HtmlWebpackPlugin({
-        filename: "users.html",
-        template: `./${entryFolder}/users.html`,
-        chunks: ["app"], // Specify specific bundles in string (e.g. `app`, `main`, `index`)
-      }),
-
-      // Removes too much. Causing bug on bootstrap modal backdrop
-      // new PurgeCSSPlugin({
-      //     paths: glob.sync(`${path.join(__dirname, 'src')}/**/*`, { nodir: true })
-      // }),
+      },
     ],
   },
-];
+  resolve: {
+    extensions: [".tsx", ".ts", ".js"],
+  },
+  plugins: [
+    // new CleanWebpackPlugin(),
+
+    new webpack.LoaderOptionsPlugin({
+      minimize: buildMode === "production" ? true : false,
+    }),
+
+    new MiniCssExtractPlugin({
+      filename: `${assetFolderOutput}${cssDirectory}/[name].[chunkhash].css`, // Chunkhash for file versioning/long-term caching
+    }),
+
+    new CopyPlugin({
+      patterns: [
+        {
+          from: `${entryFolder}/${viewsDirectory}`,
+          to: `${viewsDirectory}`,
+        },
+      ],
+      options: {
+        concurrency: 100,
+      },
+    }),
+
+    new HtmlWebpackPlugin({
+      filename: "index.html",
+      template: `./${entryFolder}/index.html`,
+      chunks: ["app"], // Specify specific bundles in string (e.g. `app`, `main`, `index`)
+    }),
+
+    new HtmlWebpackPlugin({
+      filename: "users.html",
+      template: `./${entryFolder}/users.html`,
+      chunks: ["app"], // Specify specific bundles in string (e.g. `app`, `main`, `index`)
+    }),
+
+    // Removes too much. Causing bug on bootstrap modal backdrop
+    // new PurgeCSSPlugin({
+    //     paths: glob.sync(`${path.join(__dirname, 'src')}/**/*`, { nodir: true })
+    // }),
+  ],
+};
+module.exports = [main];
