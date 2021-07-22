@@ -66,6 +66,17 @@ const main = {
         exclude: /node_modules/,
       },
 
+      {
+        test: /\.ejs$/,
+        loader: "ejs-loader",
+        options: {
+          variable: "data",
+          esModule: false,
+          interpolate: "\\{\\{(.+?)\\}\\}",
+          evaluate: "\\[\\[(.+?)\\]\\]",
+        },
+      },
+
       // Babel
       // {
       //   test: /\.m?js$/,
@@ -158,23 +169,23 @@ const main = {
       },
     }),
 
+    new HtmlWebpackPlugin({
+      filename: `./${outputFolder}/${viewsDirectory}/index.ejs`, // Output file name
+      template: `./${entryFolder}/${viewsDirectory}/index.ejs`,
+      chunks: ["app"], // Specify specific bundles in string (e.g. `app`, `main`, `index`)
+    }),
+
     // new HtmlWebpackPlugin({
-    //   filename: "index.ejs", // Output file name
-    //   template: `./${entryFolder}/${viewsDirectory}/index.ejs`,
+    //   filename: "index.html", // Output file name
+    //   template: `./${entryFolder}/index.html`,
     //   chunks: ["app"], // Specify specific bundles in string (e.g. `app`, `main`, `index`)
     // }),
 
-    new HtmlWebpackPlugin({
-      filename: "index.html", // Output file name
-      template: `./${entryFolder}/index.html`,
-      chunks: ["app"], // Specify specific bundles in string (e.g. `app`, `main`, `index`)
-    }),
-
-    new HtmlWebpackPlugin({
-      filename: "users.html", // Output file name
-      template: `./${entryFolder}/users.html`,
-      chunks: ["app"], // Specify specific bundles in string (e.g. `app`, `main`, `index`)
-    }),
+    // new HtmlWebpackPlugin({
+    //   filename: "users.html", // Output file name
+    //   template: `./${entryFolder}/users.html`,
+    //   chunks: ["app"], // Specify specific bundles in string (e.g. `app`, `main`, `index`)
+    // }),
 
     // Removes too much. Causing bug on bootstrap modal backdrop
     // new PurgeCSSPlugin({

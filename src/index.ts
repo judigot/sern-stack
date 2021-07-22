@@ -1,32 +1,35 @@
+// Require .env file
 require("dotenv").config();
 
 // *production environment port may not be 5000, hence the "process.env.PORT"
 const PORT = process.env.PORT || 3000;
-
 console.log(PORT);
 
 // Set up Express
 import express, { Application, Request, Response, NextFunction } from "express";
-
 const app: Application = express();
-// Variables
 
-const path = require("path");
+// Variables
+import path from "path";
 const viewsFolder: string = `views`;
 
 // Set view engine
 app.set("views", path.resolve(__dirname, viewsFolder));
-
 app.set("view engine", "ejs");
 
-var Database = require("./app/Classes/Database.ts");
+//================================================================================//
+
+import Database from "./app/Classes/Database";
 var DB = new Database();
 
 console.log(DB.helloWorld());
 
+// Set up route
 app.get("/", (req: Request, res: Response) => {
   res.render("index.ejs", { name: "Hey" });
 });
+
+//================================================================================//
 
 // Initialize port
 app.listen(PORT);
