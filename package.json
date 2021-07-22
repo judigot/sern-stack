@@ -5,14 +5,15 @@
   "main": "index.js",
   "scripts": {
     "copy": "cp -r tsc/* dist/",
-    "start": "clear && nodemon dist/index.js",
-    "start:dev": "webpack serve",
-    "build": "clear && tsc && webpack --mode production",
+    "start-dist": "clear && nodemon dist/index.js",
+    "start-src": "clear && nodemon src/index.ts",
+    "start:webpack": "webpack serve",
     "clean & build": "clear && npm run clean && npm run build",
-    "clean": "clear && rm -r dist",
-    "dev": "clear && nodemon src/index.ts",
+    "clean & watch": "clear && npm run clean && tsc && webpack --watch --mode development",
     "build-dev": "clear && webpack --mode development",
-    "watch": "clear && npm run clean && tsc && webpack --watch --mode development"
+    "build": "clear && tsc && webpack --mode production",
+    "watch": "clear && tsc && webpack --watch --mode development",
+    "clean": "clear && rm -r dist"
   },
   "keywords": [],
   "author": "",
