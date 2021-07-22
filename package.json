@@ -1,5 +1,5 @@
 {
-  "name": "webfuck",
+  "name": "webpack",
   "version": "1.0.0",
   "description": "",
   "main": "index.js",
@@ -10,9 +10,10 @@
     "start:webpack": "webpack serve",
     "clean & build": "clear && npm run clean && npm run build",
     "clean & watch": "clear && npm run clean && tsc && webpack --watch --mode development",
-    "build": "clear && tsc && webpack --mode production",
+    "build": "clear && tsc && webpack --mode development",
     "watch": "clear && tsc && webpack --watch --mode development",
-    "clean": "clear && rm -r dist"
+    "clean": "clear && rm -r dist",
+    "__________build": "clear && tsc && webpack --mode production"
   },
   "keywords": [],
   "author": "",
