@@ -32,6 +32,13 @@ const main = {
   mode: buildMode,
 
   entry: {
+    // entry1: './src/js/entry1.js',
+    // entry2: './src/js/entry2.js',
+
+    // pageOne: './src/pageOne/index.js',
+    // pageTwo: './src/pageTwo/index.js',
+    // users: './src/users/index.js',
+
     app: [
       // `bootstrap/dist/css/bootstrap.min.css`,
       `jquery/dist/jquery.js`,
@@ -39,12 +46,16 @@ const main = {
       `./${entryFolder}/${jsDirectory}/main.js`,
       `./${entryFolder}/${sassDirectory}/main.scss`,
     ],
+
+    // , // Add vendors dependencies here
+    // styles: [
+    //     `bootstrap`
+    // ]
   },
 
   output: {
     path: path.resolve(__dirname, `./${outputFolder}`),
-    filename: `${assetFolderOutput}${jsDirectory}/[name].js`, // Chunkhash for file versioning/long-term caching
-    // filename: `${assetFolderOutput}${jsDirectory}/[name].[chunkhash].js`, // Chunkhash for file versioning/long-term caching
+    filename: `${assetFolderOutput}${jsDirectory}/[name].[chunkhash].js`, // Chunkhash for file versioning/long-term caching
   },
 
   module: {
@@ -67,6 +78,34 @@ const main = {
         },
       },
 
+      // Babel
+      // {
+      //   test: /\.m?js$/,
+      //   exclude: /node_modules/,
+      //   use: {
+      //     loader: "babel-loader",
+      //     options: {
+      //       presets: [["@babel/preset-env", { targets: "defaults" }]],
+      //       plugins: ["@babel/plugin-proposal-class-properties"],
+      //     },
+      //   },
+      // },
+
+      // HTML/PAGES
+      // {
+      //     // test: /\.(html|php)$/,
+      //     test: /\.html$/,
+      //     use: [
+      //         {
+      //             loader: 'file-loader',
+      //             options: {
+      //                 name: `[name].[ext]`
+      //             }
+      //         }
+      //     ],
+      //     exclude: path.resolve(__dirname, `${entryDirectory}/index.html`)
+      // },
+
       // SCSS
       {
         test: /\.(css|sass|scss)$/,
@@ -88,7 +127,6 @@ const main = {
           {
             loader: "file-loader",
             options: {
-              publicPath: "/",
               name: `${assetFolderOutput}${imagesDirectory}/[name].[hash].[ext]`,
               regExp: /\/([a-z0-9]+)\/[a-z0-9]+\.png$/i,
             },
@@ -101,7 +139,6 @@ const main = {
         test: /\.(svg|eot|ttf|woff|woff2)$/,
         loader: "file-loader",
         options: {
-          publicPath: "/",
           name: `${assetFolderOutput}${fontsDirectory}/[name].[ext]`,
         },
       },
@@ -111,32 +148,33 @@ const main = {
     extensions: [".tsx", ".ts", ".js"],
   },
   plugins: [
+    // new CleanWebpackPlugin(),
+
     new webpack.LoaderOptionsPlugin({
       minimize: buildMode === "production" ? true : false,
     }),
 
-    // new HtmlWebpackPlugin({
-    //   template: `${entryFolder}/${viewsDirectory}/index.${templatingEngineExtension}`, // Destination
-    //   filename: `${viewsDirectory}/index.${templatingEngineExtension}`, // Destination
-    //   chunks: ["app"], // Specify specific bundles in string (e.g. `app`, `main`, `index`)
-    // }),
-
-    new CopyPlugin({
-      patterns: [
-        {
-          from: `${entryFolder}/${viewsDirectory}`,
-          to: `${viewsDirectory}`,
-        },
-      ],
-      options: {
-        concurrency: 100,
-      },
+    new HtmlWebpackPlugin({
+      template: `${entryFolder}/${viewsDirectory}/index.${templatingEngineExtension}`, // Destination
+      filename: `${viewsDirectory}/index.${templatingEngineExtension}`, // Destination
+      chunks: ["app"], // Specify specific bundles in string (e.g. `app`, `main`, `index`)
     }),
 
     new MiniCssExtractPlugin({
-      filename: `${assetFolderOutput}${cssDirectory}/[name].css`, // Chunkhash for file versioning/long-term caching
-      // filename: `${assetFolderOutput}${cssDirectory}/[name].[chunkhash].css`, // Chunkhash for file versioning/long-term caching
+      filename: `${assetFolderOutput}${cssDirectory}/[name].[chunkhash].css`, // Chunkhash for file versioning/long-term caching
     }),
+
+    // new CopyPlugin({
+    //   patterns: [
+    //     {
+    //       from: `${entryFolder}/${viewsDirectory}`,
+    //       to: `${viewsDirectory}`,
+    //     },
+    //   ],
+    //   options: {
+    //     concurrency: 100,
+    //   },
+    // }),
   ],
 };
 module.exports = [main];
