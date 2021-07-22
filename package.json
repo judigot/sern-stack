@@ -10,7 +10,6 @@
     "start:webpack": "webpack serve",
     "clean & build": "clear && npm run clean && npm run build",
     "clean & watch": "clear && npm run clean && tsc && webpack --watch --mode development",
-    "build-dev": "clear && webpack --mode development",
     "build": "clear && tsc && webpack --mode production",
     "watch": "clear && tsc && webpack --watch --mode development",
     "clean": "clear && rm -r dist"
