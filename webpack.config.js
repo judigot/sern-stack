@@ -158,6 +158,12 @@ const main = {
       },
     }),
 
+    // new HtmlWebpackPlugin({
+    //   filename: "index.ejs",
+    //   template: `./${entryFolder}/${viewsDirectory}/index.ejs`,
+    //   chunks: ["app"], // Specify specific bundles in string (e.g. `app`, `main`, `index`)
+    // }),
+
     new HtmlWebpackPlugin({
       filename: "index.html",
       template: `./${entryFolder}/index.html`,
