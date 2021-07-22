@@ -96,13 +96,6 @@ module.exports = [
         // },
 
         // SCSS
-        // {
-        //     test: /\.(css|sass|scss)$/,
-        //     use: ["style-loader", "css-loader", "sass-loader"]
-        //     // It will take effect from right to left
-        // },
-
-        // SCSS
         {
           test: /\.(css|sass|scss)$/,
           use: [
@@ -115,36 +108,6 @@ module.exports = [
           ],
           // It will take effect from right to left
         },
-
-        // {
-        //     loaders: [{
-        //         loader: 'file-loader',
-        //         options: {
-        //             publicPath: '..',
-        //             name: `${imagesDirectory}/[name].[hash].[ext]`
-        //         }
-        //     },
-        //         'img-loader'
-        //     ]
-        // },
-
-        // {
-        //     test: /\.(png|jpg|jpeg|gif|bmp)$/,
-        //     use: [
-        //         'url-loader?limit=10000',
-        //         'img-loader'
-
-        //         'url-loader?limit=10000',
-        //         {
-        //             loader: 'img-loader',
-        //             options: {
-        //                 publicPath: '..',
-        //                 name: `${imagesDirectory}/[name].[hash].[ext]`,
-        //                 regExp: /\/([a-z0-9]+)\/[a-z0-9]+\.png$/i
-        //             }
-        //         }
-        //     ]
-        // },
 
         // Images
         {
@@ -174,6 +137,8 @@ module.exports = [
       extensions: [".tsx", ".ts", ".js"],
     },
     plugins: [
+      // new CleanWebpackPlugin(),
+
       new webpack.LoaderOptionsPlugin({
         minimize: buildMode === "production" ? true : false,
       }),
@@ -182,14 +147,8 @@ module.exports = [
         filename: `${assetFolderOutput}${cssDirectory}/[name].[chunkhash].css`, // Chunkhash for file versioning/long-term caching
       }),
 
-      // new CleanWebpackPlugin(),
-
       new CopyPlugin({
         patterns: [
-          {
-            from: `${entryFolder}/${fontsDirectory}`,
-            to: `${assetFolderOutput}${fontsDirectory}`,
-          },
           {
             from: `${entryFolder}/${viewsDirectory}`,
             to: `${viewsDirectory}`,
@@ -212,9 +171,10 @@ module.exports = [
         chunks: ["app"], // Specify specific bundles in string (e.g. `app`, `main`, `index`)
       }),
 
+      // Removes too much. Causing bug on bootstrap modal backdrop
       // new PurgeCSSPlugin({
       //     paths: glob.sync(`${path.join(__dirname, 'src')}/**/*`, { nodir: true })
-      // }), // Removes too much. Causing bug on bootstrap modal backdrop
+      // }),
     ],
   },
 ];
