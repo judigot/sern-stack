@@ -9,7 +9,7 @@
     "start-src": "clear && nodemon src/index.ts",
     "start:webpack": "webpack serve",
     "clean & build": "clear && npm run clean && npm run build",
-    "clean & watch": "clear && npm run clean && tsc && webpack --watch --mode development",
+    "clean & watch": "clear && npm run clean && tsc && webpack --watch --mode production",
     "build": "clear && tsc && webpack --mode development",
     "watch": "clear && tsc && webpack --watch --mode development",
     "clean": "clear && rm -r dist",
