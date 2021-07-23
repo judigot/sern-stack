@@ -26,23 +26,21 @@ const CopyPlugin = require("copy-webpack-plugin");
 const PurgeCSSPlugin = require("purgecss-webpack-plugin");
 //====================Plugins====================//
 
-const simple = {
+const main = {
   entry: {
     app: [
       // `bootstrap/dist/css/bootstrap.min.css`,
       `jquery/dist/jquery.js`,
       `bootstrap/dist/js/bootstrap.min.js`,
-      // `./${entryFolder}/${jsDirectory}/main.js`,
-      `./${entryFolder}/${assetsFolderName}/${jsDirectory}/main.js`,
-      // `./${entryFolder}/${assetsFolderName}/${sassDirectory}/main.js`,
-      `./${entryFolder}/${assetsFolderName}/${sassDirectory}/main.scss`,
+      `./${entryFolder}/${jsDirectory}/main.js`,
+      `./${entryFolder}/${sassDirectory}/main.scss`,
     ],
   },
 
   output: {
     publicPath: `/`,
     path: path.resolve(__dirname, `./${outputFolder}/${assetsFolderName}`),
-    filename: `[name].[chunkhash].js`, // Chunkhash for file versioning/long-term caching
+    filename: `${jsDirectory}/[name].[chunkhash].js`, // Chunkhash for file versioning/long-term caching
   },
 
   resolve: {
@@ -87,6 +85,8 @@ const simple = {
         options: {
           name: `[name].[hash].[ext]`,
           regExp: /\/([a-z0-9]+)\/[a-z0-9]+\.png$/i,
+          outputPath: `${imagesDirectory}`,
+          publicPath: `../${imagesDirectory}`, // Path that is prepended to CSS files in dist (e.g. url(../${imagesDirectory}/[name].[ext]]))
         },
       },
 
@@ -97,6 +97,8 @@ const simple = {
         options: {
           name: `[name].[hash].[ext]`,
           regExp: /\/([a-z0-9]+)\/[a-z0-9]+\.png$/i,
+          outputPath: `${fontsDirectory}`,
+          publicPath: `../${fontsDirectory}`, // Path that is prepended to CSS files in dist (e.g. url(../${imagesDirectory}/[name].[ext]]))
         },
       },
     ],
@@ -115,8 +117,8 @@ const simple = {
     }),
 
     new MiniCssExtractPlugin({
-      filename: `[name].[chunkhash].css`, // Chunkhash for file versioning/long-term caching
+      filename: `${cssDirectory}/[name].[chunkhash].css`, // Chunkhash for file versioning/long-term caching
     }),
   ],
 };
-module.exports = [simple];
+module.exports = [main];
