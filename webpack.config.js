@@ -23,11 +23,7 @@ const CopyPlugin = require("copy-webpack-plugin");
 const PurgeCSSPlugin = require("purgecss-webpack-plugin");
 //====================Plugins====================//
 
-const buildMode = "production"; // production/development
-
 const main = {
-  mode: buildMode,
-
   entry: {
     app: [
       // `bootstrap/dist/css/bootstrap.min.css`,
@@ -44,8 +40,20 @@ const main = {
     filename: `${jsDirectory}/[name].[chunkhash].js`, // Chunkhash for file versioning/long-term caching
   },
 
+  resolve: {
+    extensions: [".tsx", ".ts", ".js"],
+  },
+
   module: {
     rules: [
+      // TypeScript
+      {
+        test: /\.tsx?$/,
+        use: "ts-loader",
+        exclude: /node_modules/,
+      },
+
+      // EJS
       {
         test: /\.ejs$/,
         loader: "ejs-loader",
@@ -89,10 +97,6 @@ const main = {
     ],
   },
   plugins: [
-    new webpack.LoaderOptionsPlugin({
-      minimize: buildMode === "production" ? true : false,
-    }),
-
     new HtmlWebpackPlugin({
       template: path.resolve(
         __dirname,
