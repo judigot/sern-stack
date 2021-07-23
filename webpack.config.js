@@ -15,9 +15,6 @@ const templatingEngineExtension = "ejs";
 
 const assetsFolderName = "public";
 
-const assetFolderOutput = `${assetsFolderName}/`;
-// const assetFolderOutput = ``;
-
 //====================Plugins====================//
 const MiniCssExtractPlugin = require("mini-css-extract-plugin");
 const { CleanWebpackPlugin } = require("clean-webpack-plugin");
@@ -42,9 +39,9 @@ const main = {
   },
 
   output: {
-    path: path.resolve(__dirname, `./${outputFolder}`),
-    filename: `${assetFolderOutput}${jsDirectory}/[name].js`, // Chunkhash for file versioning/long-term caching
-    // filename: `${assetFolderOutput}${jsDirectory}/[name].[chunkhash].js`, // Chunkhash for file versioning/long-term caching
+    publicPath: `/`,
+    path: path.resolve(__dirname, `./${outputFolder}/${assetsFolderName}`),
+    filename: `${jsDirectory}/[name].[chunkhash].js`, // Chunkhash for file versioning/long-term caching
   },
 
   module: {
@@ -70,30 +67,20 @@ const main = {
       // SCSS
       {
         test: /\.(css|sass|scss)$/,
-        use: [
-          MiniCssExtractPlugin.loader,
-          {
-            loader: "css-loader",
-            options: { url: true },
-          },
-          "sass-loader",
-        ],
+        use: [MiniCssExtractPlugin.loader, "css-loader", "sass-loader"],
         // It will take effect from right to left
       },
 
       // Images
       {
         test: /\.(png|jpg|jpeg|gif|bmp)$/,
-        use: [
-          {
-            loader: "file-loader",
-            options: {
-              publicPath: "/",
-              name: `${assetFolderOutput}${imagesDirectory}/[name].[hash].[ext]`,
-              regExp: /\/([a-z0-9]+)\/[a-z0-9]+\.png$/i,
-            },
-          },
-        ],
+        loader: "file-loader",
+        options: {
+          name: `[name].[hash].[ext]`,
+          regExp: /\/([a-z0-9]+)\/[a-z0-9]+\.png$/i,
+          outputPath: `${imagesDirectory}`,
+          publicPath: `../${imagesDirectory}`,
+        },
       },
 
       // Fonts
@@ -101,8 +88,10 @@ const main = {
         test: /\.(svg|eot|ttf|woff|woff2)$/,
         loader: "file-loader",
         options: {
-          publicPath: "/",
-          name: `${assetFolderOutput}${fontsDirectory}/[name].[ext]`,
+          name: `[name].[hash].[ext]`,
+          regExp: /\/([a-z0-9]+)\/[a-z0-9]+\.png$/i,
+          outputPath: `${fontsDirectory}`,
+          publicPath: `../${fontsDirectory}`,
         },
       },
     ],
@@ -115,27 +104,20 @@ const main = {
       minimize: buildMode === "production" ? true : false,
     }),
 
-    // new HtmlWebpackPlugin({
-    //   template: `${entryFolder}/${viewsDirectory}/index.${templatingEngineExtension}`, // Destination
-    //   filename: `${viewsDirectory}/index.${templatingEngineExtension}`, // Destination
-    //   chunks: ["app"], // Specify specific bundles in string (e.g. `app`, `main`, `index`)
-    // }),
-
-    new CopyPlugin({
-      patterns: [
-        {
-          from: `${entryFolder}/${viewsDirectory}`,
-          to: `${viewsDirectory}`,
-        },
-      ],
-      options: {
-        concurrency: 100,
-      },
+    new HtmlWebpackPlugin({
+      template: path.resolve(
+        __dirname,
+        `${entryFolder}/${viewsDirectory}/index.${templatingEngineExtension}`
+      ), // Destination
+      filename: path.resolve(
+        __dirname,
+        `${outputFolder}/${viewsDirectory}/index.${templatingEngineExtension}`
+      ), // Destination
+      chunks: ["app"], // Specify specific bundles in string (e.g. `app`, `main`, `index`)
     }),
 
     new MiniCssExtractPlugin({
-      filename: `${assetFolderOutput}${cssDirectory}/[name].css`, // Chunkhash for file versioning/long-term caching
-      // filename: `${assetFolderOutput}${cssDirectory}/[name].[chunkhash].css`, // Chunkhash for file versioning/long-term caching
+      filename: `${cssDirectory}/[name].[chunkhash].css`, // Chunkhash for file versioning/long-term caching
     }),
   ],
 };
