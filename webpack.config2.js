@@ -29,7 +29,6 @@ const PurgeCSSPlugin = require("purgecss-webpack-plugin");
 const main = {
   entry: {
     app: [
-      // `bootstrap/dist/css/bootstrap.min.css`,
       `jquery/dist/jquery.js`,
       `bootstrap/dist/js/bootstrap.min.js`,
       `./${entryFolder}/${jsDirectory}/main.js`,
