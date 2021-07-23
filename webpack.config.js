@@ -46,13 +46,6 @@ const main = {
 
   module: {
     rules: [
-      // TypeScript
-      {
-        test: /\.tsx?$/,
-        use: "ts-loader",
-        exclude: /node_modules/,
-      },
-
       {
         test: /\.ejs$/,
         loader: "ejs-loader",
@@ -79,7 +72,7 @@ const main = {
           name: `[name].[hash].[ext]`,
           regExp: /\/([a-z0-9]+)\/[a-z0-9]+\.png$/i,
           outputPath: `${imagesDirectory}`,
-          publicPath: `../${imagesDirectory}`,
+          publicPath: `../${imagesDirectory}`, // Path that is prepended to CSS files in dist (e.g. url(../${imagesDirectory}/[name].[ext]]))
         },
       },
 
@@ -91,13 +84,10 @@ const main = {
           name: `[name].[hash].[ext]`,
           regExp: /\/([a-z0-9]+)\/[a-z0-9]+\.png$/i,
           outputPath: `${fontsDirectory}`,
-          publicPath: `../${fontsDirectory}`,
+          publicPath: `../${fontsDirectory}`, // Path that is prepended to CSS files in dist (e.g. url(../${imagesDirectory}/[name].[ext]]))
         },
       },
     ],
-  },
-  resolve: {
-    extensions: [".tsx", ".ts", ".js"],
   },
   plugins: [
     new webpack.LoaderOptionsPlugin({
