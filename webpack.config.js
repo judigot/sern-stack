@@ -60,8 +60,7 @@ const main = {
       // SCSS
       {
         test: /\.(css|sass|scss)$/,
-        use: [MiniCssExtractPlugin.loader, "css-loader", "sass-loader"],
-        // It will take effect from right to left
+        use: [MiniCssExtractPlugin.loader, "css-loader", "sass-loader"], // It will take effect from right to left
       },
 
       // Images
