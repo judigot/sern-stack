@@ -91,21 +91,6 @@ const main = {
       //   },
       // },
 
-      // HTML/PAGES
-      // {
-      //     // test: /\.(html|php)$/,
-      //     test: /\.html$/,
-      //     use: [
-      //         {
-      //             loader: 'file-loader',
-      //             options: {
-      //                 name: `[name].[ext]`
-      //             }
-      //         }
-      //     ],
-      //     exclude: path.resolve(__dirname, `${entryDirectory}/index.html`)
-      // },
-
       // SCSS
       {
         test: /\.(css|sass|scss)$/,
