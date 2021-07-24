@@ -25,7 +25,7 @@ console.log(DB.helloWorld());
 
 // Set up route
 app.get("/", (req: Request, res: Response) => {
-  res.render("index.ejs", { name: "Hey" });
+  res.render("index.ejs", { name: "EJS" });
 });
 
 //================================================================================//

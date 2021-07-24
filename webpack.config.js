@@ -108,7 +108,7 @@ const main = {
   },
   plugins: [
     new HtmlWebpackPlugin({
-      favicon: `${entryFolder}/${assetsFolderName}/${imagesDirectory}/favicon.png`,
+      favicon: `${entryFolder}/${assetsFolderName}/${imagesDirectory}/favicon.png`, // Version 1
       template: path.resolve(
         __dirname,
         `${entryFolder}/${viewsDirectory}/index.${templatingEngineExtension}`
@@ -124,6 +124,18 @@ const main = {
       filename: `[name].[chunkhash].css`, // Chunkhash for file versioning/long-term caching - Version 1
       // filename: `${cssDirectory}/[name].[chunkhash].css`, // Chunkhash for file versioning/long-term caching - Version 2
     }),
+
+    // new CopyPlugin({ // Version 2 - comment out favicon in HtmlWebpackPlugin, then add favicon statically in HTML pages (<link rel="icon" type="image/png" href="/favicon.png">)
+    //   patterns: [
+    //     {
+    //       from: `${entryFolder}/${assetsFolderName}/${imagesDirectory}`,
+    //       to: `./`,
+    //     },
+    //   ],
+    //   options: {
+    //     concurrency: 100,
+    //   },
+    // }),
   ],
 };
 module.exports = [main];
