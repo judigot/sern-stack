@@ -9,7 +9,7 @@
     "build": "tsc && webpack --mode production",
     "clean": "rm -r dist"
   },
-  "backup-scripts": {
+  "scripts-backup": {
     "start-dist": "clear && nodemon dist/index.js",
     "start-src": "clear && nodemon src/index.ts",
     "start:webpack": "webpack serve",
