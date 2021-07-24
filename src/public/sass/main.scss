@@ -1,6 +1,10 @@
 @import "bootstrap/master-bootstrap";
 
-$primary: white;
+$primary: black;
+
+main {
+  color: white;
+}
 
 body {
   color: $primary;
