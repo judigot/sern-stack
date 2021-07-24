@@ -1,0 +1,33 @@
+Docker Commands:
+
+Run docker app:
+	docker run -p 3000:3000 app
+
+Download image in Docker Hub:
+    docker pull judigot/hello-world
+
+Run docker image:
+    docker run hello-world
+
+Build container:
+* -t to give a docker image a name
+* . means the current directory; reference the current directory
+
+	docker build -t app .
+
+Show all running containers
+	docker ps
+
+Show all containers
+	docker ps -a
+	
+Delete docker container
+* add -f at the end to force delete
+	docker container rm *first-3-characters-of-the-container-id
+	
+Show docker images
+	docker images
+
+Delete docker image
+* add -f at the end to force delete
+	docker image rm *first-3-characters-of-the-image-id

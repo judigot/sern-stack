@@ -1,3 +1,0 @@
-1. Open directory on terminal
-2. Run "npm install"
-3. Run "npm run build"
