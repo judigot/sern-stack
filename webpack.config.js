@@ -108,6 +108,7 @@ const main = {
   },
   plugins: [
     new HtmlWebpackPlugin({
+      favicon: `${entryFolder}/${assetsFolderName}/${imagesDirectory}/favicon.png`,
       template: path.resolve(
         __dirname,
         `${entryFolder}/${viewsDirectory}/index.${templatingEngineExtension}`

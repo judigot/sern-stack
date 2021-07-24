@@ -7,6 +7,8 @@ const PORT = process.env.PORT || 3000;
 // Load environment
 import express, { Application, Request, Response, NextFunction } from "express";
 import path from "path";
+// import favicon from "serve-favicon";
+var favicon = require("serve-favicon");
 
 // Variables
 const app: Application = express();
@@ -16,7 +18,8 @@ const viewsFolder: string = `views`;
 app.set("views", path.resolve(__dirname, viewsFolder));
 app.set("view engine", "ejs");
 
-
+// Set favicon
+app.use(favicon(path.join(__dirname, "public", "favicon.png")));
 
 //================================================================================//
 

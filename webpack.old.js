@@ -140,6 +140,7 @@ const main = {
     }),
 
     new HtmlWebpackPlugin({
+      favicon: `${entryFolder}/${assetsFolderName}/${imagesDirectory}/favicon.png`,
       template: `${entryFolder}/${viewsDirectory}/index.${templatingEngineExtension}`, // Destination
       filename: `${viewsDirectory}/index.${templatingEngineExtension}`, // Destination
       chunks: ["app"], // Specify specific bundles in string (e.g. `app`, `main`, `index`)
