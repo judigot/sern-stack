@@ -7,8 +7,7 @@ const PORT = process.env.PORT || 3000;
 // Load environment
 import express, { Application, Request, Response, NextFunction } from "express";
 import path from "path";
-// import favicon from "serve-favicon";
-var favicon = require("serve-favicon");
+import favicon from "serve-favicon";
 
 // Variables
 const app: Application = express();

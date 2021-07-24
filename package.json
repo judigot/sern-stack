@@ -5,9 +5,7 @@
   "main": "index.js",
   "scripts": {
     "Start - dist": "clear && nodemon dist/index.js",
-    "Clean & Build - Production": "clear && npm run clean && tsc && npm run build",
-    "build": "tsc && webpack --mode production",
-    "clean": "rm -r dist"
+    "Clean & Build - Production": "clear && rm -r dist && tsc && webpack --mode production"
   },
   "scripts-backup": {
     "start-dist": "clear && nodemon dist/index.js",
@@ -29,6 +27,7 @@
     "@babel/preset-env": "^7.14.8",
     "@types/express": "^4.17.13",
     "@types/node": "^16.4.0",
+    "@types/serve-favicon": "^2.5.3",
     "babel-loader": "^8.2.2",
     "clean-webpack-plugin": "^4.0.0-alpha.0",
     "copy-webpack-plugin": "^9.0.1",
