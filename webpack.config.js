@@ -26,6 +26,8 @@ const CopyPlugin = require("copy-webpack-plugin");
 const PurgeCSSPlugin = require("purgecss-webpack-plugin");
 //====================Plugins====================//
 
+const isProduction = false;
+
 const main = {
   // target: "node",
   entry: {
@@ -43,8 +45,8 @@ const main = {
   output: {
     publicPath: `/`,
     path: path.resolve(__dirname, `./${outputFolder}/${assetsFolderName}`),
-    filename: `[name].[chunkhash].js`, // Chunkhash for file versioning/long-term caching - Version 1
-    // filename: `${jsDirectory}/[name].[chunkhash].js`, // Chunkhash for file versioning/long-term caching - Version 2
+    filename: `[name]${isProduction ? ".[chunkhash]" : ""}.js`, // Chunkhash for file versioning/long-term caching - Version 1
+    // filename: `${jsDirectory}/[name]${isProduction ? ".[chunkhash]" : ""}.js`, // Chunkhash for file versioning/long-term caching - Version 2
   },
 
   resolve: {
@@ -87,7 +89,7 @@ const main = {
         test: /\.(png|jpg|jpeg|gif|bmp)$/,
         loader: "file-loader",
         options: {
-          name: `[name].[hash].[ext]`,
+          name: `[name]${isProduction ? ".[hash]" : ""}.[ext]`,
           regExp: /\/([a-z0-9]+)\/[a-z0-9]+\.png$/i,
           // outputPath: `${imagesDirectory}`, // Version 2
           // publicPath: `../${imagesDirectory}`, // Path that is prepended to CSS files in dist (e.g. url(../${imagesDirectory}/[name].[ext]])) - Version 2
@@ -99,7 +101,7 @@ const main = {
         test: /\.(svg|eot|ttf|woff|woff2)$/,
         loader: "file-loader",
         options: {
-          name: `[name].[hash].[ext]`,
+          name: `[name]${isProduction ? ".[hash]" : ""}.[ext]`,
           regExp: /\/([a-z0-9]+)\/[a-z0-9]+\.png$/i,
           // outputPath: `${fontsDirectory}`, // Version 2
           // publicPath: `../${fontsDirectory}`, // Path that is prepended to CSS files in dist (e.g. url(../${imagesDirectory}/[name].[ext]])) - Version 2
@@ -122,8 +124,8 @@ const main = {
     }),
 
     new MiniCssExtractPlugin({
-      filename: `[name].[chunkhash].css`, // Chunkhash for file versioning/long-term caching - Version 1
-      // filename: `${cssDirectory}/[name].[chunkhash].css`, // Chunkhash for file versioning/long-term caching - Version 2
+      filename: `[name]${isProduction ? ".[chunkhash]" : ""}.css`, // Chunkhash for file versioning/long-term caching - Version 1
+      // filename: `${cssDirectory}/[name]${isProduction ? ".[chunkhash]" : ""}.css`, // Chunkhash for file versioning/long-term caching - Version 2
     }),
 
     // new CopyPlugin({ // Version 2 - comment out favicon in HtmlWebpackPlugin, then add favicon statically in HTML pages (<link rel="icon" type="image/png" href="/favicon.png">)
