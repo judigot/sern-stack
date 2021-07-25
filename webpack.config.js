@@ -30,7 +30,7 @@ const isProduction = false;
 
 const chunkName = "main";
 
-const main = {
+const production = {
   // target: "node",
   entry: {
     [chunkName]: [
@@ -143,4 +143,89 @@ const main = {
     // }),
   ],
 };
-module.exports = [main];
+
+const development = {
+  // target: "node",
+  entry: {
+    [chunkName]: [
+      `jquery/dist/jquery.js`,
+      `bootstrap/dist/js/bootstrap.min.js`,
+
+      `./${entryFolder}/${assetsFolderName}/${jsDirectory}/main.js`, // Version 1
+      `./${entryFolder}/${assetsFolderName}/${sassDirectory}/main.scss`, // Version 1
+      // `./${entryFolder}/${jsDirectory}/main.js`, // Version 2
+      // `./${entryFolder}/${sassDirectory}/main.scss`, // Version 2
+    ],
+  },
+
+  output: {
+    publicPath: `/`,
+    path: path.resolve(__dirname, `./${entryFolder}/${assetsFolderName}`),
+    filename: `[name]${isProduction ? ".[chunkhash]" : ""}.js`, // Chunkhash for file versioning/long-term caching - Version 1
+    // filename: `${jsDirectory}/[name]${isProduction ? ".[chunkhash]" : ""}.js`, // Chunkhash for file versioning/long-term caching - Version 2
+  },
+
+  resolve: {
+    extensions: [".tsx", ".ts", ".js"],
+    alias: {
+      app: path.resolve(__dirname, `${entryFolder}/${appFolder}/`),
+      models: path.resolve(__dirname, `${entryFolder}/${modelsFolder}/`),
+    },
+  },
+
+  module: {
+    rules: [
+      // TypeScript
+      {
+        test: /\.tsx?$/,
+        use: "ts-loader",
+        exclude: /node_modules/,
+      },
+
+      // SCSS
+      {
+        test: /\.(css|sass|scss)$/,
+        use: [MiniCssExtractPlugin.loader, "css-loader", "sass-loader"], // It will take effect from right to left
+      },
+
+      // Images
+      {
+        test: /\.(png|jpg|jpeg|gif|bmp)$/,
+        loader: "file-loader",
+        options: {
+          name: `[name]${isProduction ? ".[hash]" : ""}.[ext]`,
+          regExp: /\/([a-z0-9]+)\/[a-z0-9]+\.png$/i,
+          // outputPath: `${imagesDirectory}`, // Version 2
+          // publicPath: `../${imagesDirectory}`, // Path that is prepended to CSS files in dist (e.g. url(../${imagesDirectory}/[name].[ext]])) - Version 2
+        },
+      },
+
+      // Fonts
+      {
+        test: /\.(svg|eot|ttf|woff|woff2)$/,
+        loader: "file-loader",
+        options: {
+          name: `[name]${isProduction ? ".[hash]" : ""}.[ext]`,
+          regExp: /\/([a-z0-9]+)\/[a-z0-9]+\.png$/i,
+          // outputPath: `${fontsDirectory}`, // Version 2
+          // publicPath: `../${fontsDirectory}`, // Path that is prepended to CSS files in dist (e.g. url(../${imagesDirectory}/[name].[ext]])) - Version 2
+        },
+      },
+    ],
+  },
+  plugins: [
+    new MiniCssExtractPlugin({
+      filename: `[name]${isProduction ? ".[chunkhash]" : ""}.css`, // Chunkhash for file versioning/long-term caching - Version 1
+      // filename: `${cssDirectory}/[name]${isProduction ? ".[chunkhash]" : ""}.css`, // Chunkhash for file versioning/long-term caching - Version 2
+    }),
+  ],
+};
+
+// module.exports = (env) => {
+//   return env.buildType;
+// };
+
+module.exports = (env) => {
+  console.log(`Build type: ${env.buildType}`);
+  return env.buildType === "production" ? production : development;
+};

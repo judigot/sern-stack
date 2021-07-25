@@ -6,7 +6,8 @@
   "scripts": {
     "Start-dist": "clear && nodemon dist/index.js",
     "Start-src": "clear && nodemon src/index.ts",
-    "Build & Run - Production": "clear && rm -r dist && tsc && webpack --mode production && npm run Start-dist"
+    "Build & Run - Production": "clear && rm -r dist && tsc && npx webpack --env buildType=production --mode production && npm run Start-dist",
+    "Build & Run - Development": "clear && npx webpack --env buildType=development --mode production && npm run Start-src"
   },
   "scripts-backup": {
     "start-dist": "clear && nodemon dist/index.js",

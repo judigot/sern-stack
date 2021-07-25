@@ -30,7 +30,7 @@ db.connect();
 
 // Set up route
 app.get("/", (req: Request, res: Response) => {
-  res.render("index.ejs", { data: "EJS" });
+  res.render("index.ejs", { isProduction: process.env.IS_PRODUCTION });
 });
 
 //================================================================================//
