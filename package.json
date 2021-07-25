@@ -52,7 +52,8 @@
     "express": "^4.17.1",
     "jquery": "^3.6.0",
     "jsdom": "^16.6.0",
+    "mysql2": "^2.2.5",
     "nodemon": "^2.0.12",
-    "serve-favicon": "^2.5.0"
+    "sequelize": "^6.6.5"
   }
 }
