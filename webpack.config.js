@@ -27,6 +27,7 @@ const PurgeCSSPlugin = require("purgecss-webpack-plugin");
 //====================Plugins====================//
 
 const main = {
+  // target: "node",
   entry: {
     app: [
       `jquery/dist/jquery.js`,

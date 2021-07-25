@@ -19,13 +19,18 @@ app.set("view engine", "ejs");
 //================================================================================//
 
 import Database from "./app/Classes/Database";
-var DB = new Database();
+const db = new Database();
 
-console.log(DB.helloWorld());
+/*********
+ * MYSQL *
+ *********/
+//================================================================================//
+db.connect();
+//================================================================================//
 
 // Set up route
 app.get("/", (req: Request, res: Response) => {
-  res.render("index.ejs", { name: "EJS" });
+  res.render("index.ejs", { data: "EJS" });
 });
 
 //================================================================================//

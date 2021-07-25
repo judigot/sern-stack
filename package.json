@@ -5,6 +5,7 @@
   "main": "index.js",
   "scripts": {
     "Start - dist": "clear && nodemon dist/index.js",
+    "Start - src": "clear && nodemon src/index.ts",
     "Clean & Build - Production": "clear && rm -r dist && tsc && webpack --mode production"
   },
   "scripts-backup": {
@@ -46,6 +47,7 @@
     "webpack-dev-server": "^3.11.2"
   },
   "dependencies": {
+    "@types/validator": "^13.6.3",
     "bootstrap": "^5.0.2",
     "ejs": "^3.1.6",
     "ejs-loader": "^0.5.0",
