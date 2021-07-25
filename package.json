@@ -4,9 +4,9 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "Start - dist": "clear && nodemon dist/index.js",
-    "Start - src": "clear && nodemon src/index.ts",
-    "Clean & Build - Production": "clear && rm -r dist && tsc && webpack --mode production"
+    "Start-dist": "clear && nodemon dist/index.js",
+    "Start-src": "clear && nodemon src/index.ts",
+    "Build & Run - Production": "clear && rm -r dist && tsc && webpack --mode production && npm run Start-dist"
   },
   "scripts-backup": {
     "start-dist": "clear && nodemon dist/index.js",

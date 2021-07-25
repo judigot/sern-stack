@@ -28,10 +28,12 @@ const PurgeCSSPlugin = require("purgecss-webpack-plugin");
 
 const isProduction = false;
 
+const chunkName = "main";
+
 const main = {
   // target: "node",
   entry: {
-    app: [
+    [chunkName]: [
       `jquery/dist/jquery.js`,
       `bootstrap/dist/js/bootstrap.min.js`,
 
@@ -120,7 +122,7 @@ const main = {
         __dirname,
         `${outputFolder}/${viewsDirectory}/index.${templatingEngineExtension}`
       ), // Destination
-      chunks: ["app"], // Specify specific bundles in string (e.g. `app`, `main`, `index`)
+      chunks: [chunkName], // Specify specific bundles in string (e.g. `app`, `main`, `index`)
     }),
 
     new MiniCssExtractPlugin({
