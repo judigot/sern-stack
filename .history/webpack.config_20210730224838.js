@@ -42,6 +42,11 @@ const production = {
       // `./${entryFolder}/${jsDirectory}/main.js`, // Version 2
       // `./${entryFolder}/${sassDirectory}/main.scss`, // Version 2
     ],
+
+    index: [
+      `./${entryFolder}/index.js`,
+      
+    ]
   },
 
   output: {

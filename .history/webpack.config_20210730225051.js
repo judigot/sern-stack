@@ -36,12 +36,14 @@ const production = {
     [chunkName]: [
       `jquery/dist/jquery.js`,
       `bootstrap/dist/js/bootstrap.min.js`,
-
+      `./${entryFolder}/index.js`
       `./${entryFolder}/${assetsFolderName}/${jsDirectory}/main.js`, // Version 1
       `./${entryFolder}/${assetsFolderName}/${sassDirectory}/main.scss`, // Version 1
       // `./${entryFolder}/${jsDirectory}/main.js`, // Version 2
       // `./${entryFolder}/${sassDirectory}/main.scss`, // Version 2
     ],
+
+    index: [`./${entryFolder}/index.js`],
   },
 
   output: {

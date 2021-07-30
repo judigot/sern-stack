@@ -4,9 +4,6 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "Seed": "clear && cd src && npx sequelize-cli db:seed:all",
-    "Migrate": "clear && cd src && npx sequelize-cli db:migrate",
-    "Undo Migrate": "clear && cd src && npx sequelize-cli db:migrate:undo:all",
     "Start-dist": "clear && nodemon dist/index.js",
     "Start-src": "clear && nodemon src/index.js",
     "Build & Run - Production": "clear && rm -r dist && tsc &&npx webpack --env buildType=production --mode production && npm run Start-dist",

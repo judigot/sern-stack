@@ -1,16 +1,14 @@
 "use strict";
-// import Database from "../app/Classes/Database";
+import Database from "../app/Classes/Database";
 // import Utility from "./app/Utilities/Utility";
 // const Utility = require ("../app/Utilities/Utility");
 // const utility = new Utility();
 
 // const p = utility.hashPassword();
 
-// const DB = new Database();
+const DB = new Database();
 
-// console.log(DB.helloWorld());
-
-const uuid = require('uuid');
+DB.helloWorld();
 
 module.exports = {
   up: async (queryInterface, Sequelize) => {
@@ -31,7 +29,7 @@ module.exports = {
           firstName: "Jude Francis",
           lastName: "Igot",
           email: "judigot@gmail.com",
-          password: uuid(),
+          password: p,
           createdAt: new Date(),
           updatedAt: new Date(),
         },
