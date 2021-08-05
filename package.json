@@ -8,7 +8,7 @@
     "Migrate": "clear && cd src && npx sequelize-cli db:migrate",
     "Undo Migrate": "clear && cd src && npx sequelize-cli db:migrate:undo:all",
     "Start-dist": "clear && nodemon dist/index.js",
-    "Start-src": "clear && nodemon src/index.js",
+    "Start-src": "clear && nodemon src/index.ts",
     "Build & Run - Production": "clear && rm -r dist && tsc &&npx webpack --env buildType=production --mode production && npm run Start-dist",
     "Build & Run - Development": "clear && npx webpack --env buildType=development --mode production && npm run Start-src"
   },
@@ -60,6 +60,7 @@
     "jsdom": "^16.6.0",
     "mysql2": "^2.2.5",
     "nodemon": "^2.0.12",
-    "sequelize": "^6.6.5"
+    "sequelize": "^6.6.5",
+    "sequelize-typescript": "^2.1.0"
   }
 }
