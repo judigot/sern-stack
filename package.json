@@ -60,6 +60,7 @@
     "jquery": "^3.6.0",
     "jsdom": "^16.6.0",
     "mysql2": "^2.2.5",
+    "mysql2-promise": "^0.1.4",
     "nodemon": "^2.0.12",
     "sequelize": "^6.6.5",
     "sequelize-typescript": "^2.1.0"

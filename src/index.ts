@@ -16,6 +16,8 @@ const viewsFolder: string = `views`;
 app.set("views", path.resolve(__dirname, viewsFolder));
 app.set("view engine", "ejs");
 
+app.use(express.json());
+
 //================================================================================//
 
 import Database from "./app/Classes/Database";
@@ -25,45 +27,61 @@ const db = new Database();
  * MYSQL *
  *********/
 //================================================================================//
-db.connect();
+db.create("users", [
+  {
+    firstName: "Judy1",
+    lastName: "Igot",
+    email: "judigot@gmail.com",
+    password: "$2b$10$hi41dPYJv0a6NcnvrUFVqevSI5Ehxzp29yNvAkD.GXfuz98Mlt0wq",
+    createdAt: new Date(),
+    updatedAt: new Date(),
+  },
+  {
+    firstName: "Judy1",
+    lastName: "Igot",
+    email: "judigot@gmail.com",
+    password: "$2b$10$hi41dPYJv0a6NcnvrUFVqevSI5Ehxzp29yNvAkD.GXfuz98Mlt0wq",
+    createdAt: new Date(),
+    updatedAt: new Date(),
+  },
+])
+  .then((result: any) => {
+    // Success
+    const insertId = result.insertId;
+    const affectedRows = result.affectedRows;
+    const serverStatus = result.serverStatus;
+  })
+  .catch((error: any) => {
+    // Fail
+    const code = error.code;
+    const errno = error.errno;
+    const sqlState = error.sqlState;
+    const sqlMessage = error.sqlMessage;
+  })
+  .finally(() => {
+    // Run this code wether successful or failed
+  });
+
 //================================================================================//
 
 // Set up route
 app.get("/", (req: Request, res: Response) => {
   res.render("index.ejs", { isProduction: process.env.IS_PRODUCTION });
 });
-import Models from "./models/user";
 
-app.get("/users", async (req, res) => {
-  // const mysql = require("mysql2");
+app.get("/users/:id/:type", (req, res) => {
+  res.send(req.params);
+});
 
-  // const connection = mysql.createConnection({
-  //   host: "localhost",
-  //   user: "root",
-  //   database: "bigbang",
-  // });
-
-  // connection.query("SELECT * FROM `users`", function (err, results, fields) {
-  //   res.send(results);
-  // });
-
-  // const Models = require("./models");
-  
-
-  // Insert Data
-  Models.User.create({
-    firstName: "Judy",
-    lastName: "Igot",
-    email: "judigot@gmail.com",
-    password: "$2b$10$hi41dPYJv0a6NcnvrUFVqevSI5Ehxzp29yNvAkD.GXfuz98Mlt0wq",
-    createdAt: new Date(),
-    updatedAt: new Date(),
-  });
-
+// Set up route
+app.post("/users", (req: Request, res: Response) => {
+  console.log(1);
   try {
-    const users = await Models.User.findAll();
-    return res.json(users);
+    const data = req.body;
+    db.create("users", data);
+    console.log(`Hello, World!`);
   } catch (error) {}
+  console.log(2);
 });
 
 //================================================================================//
