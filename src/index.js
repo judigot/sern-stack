@@ -25,29 +25,59 @@ const db = new Database();
  * MYSQL *
  *********/
 //================================================================================//
+console.log(1);
 db.connect();
+console.log(2);
 
-// get the client
-const mysql = require("mysql2");
-
-// create the connection to database
-const connection = mysql.createConnection({
-  host: "localhost",
-  user: "root",
-  database: "bigbang",
-});
-
-// simple query
-connection.query("SELECT * FROM `users`", function (err, results, fields) {
-  console.log(results[0]); // results contains rows returned by server
-  // console.log(fields); // fields contains extra meta data about results, if available
-});
+// const users = async () => {
+//   await User.findAll();
+// };
+// users.every((data) => {
+//   console.log("All users:", JSON.stringify(data, null, 2));
+// });
+// console.log(users.every((user) => user instanceof User)); // true
 
 //================================================================================//
 
 // Set up route
 app.get("/", (req, res) => {
   res.render("index.ejs", { isProduction: process.env.IS_PRODUCTION });
+});
+
+// Set up route
+app.get("/users", async (req, res) => {
+  // const mysql = require("mysql2");
+
+  // const connection = mysql.createConnection({
+  //   host: "localhost",
+  //   user: "root",
+  //   database: "bigbang",
+  // });
+
+  // connection.query("SELECT * FROM `users`", function (err, results, fields) {
+  //   res.send(results);
+  // });
+
+  const Models = require("./models");
+
+  // Insert Data
+  Models.User.create({
+    firstName: "Judy",
+    lastName: "Igot",
+    email: "judigot@gmail.com",
+    password: "$2b$10$hi41dPYJv0a6NcnvrUFVqevSI5Ehxzp29yNvAkD.GXfuz98Mlt0wq",
+    createdAt: new Date(),
+    updatedAt: new Date(),
+  });
+
+  try {
+    const users = await Models.User.findAll();
+    return res.json(users);
+  } catch (error) {}
+});
+
+app.get("/users/:id/:type", (req, res) => {
+  res.send(req.params);
 });
 
 //================================================================================//

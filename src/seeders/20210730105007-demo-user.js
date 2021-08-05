@@ -19,7 +19,8 @@ module.exports = {
           firstName: "Jude Francis",
           lastName: "Igot",
           email: "judigot@gmail.com",
-          password: "secret",
+          password:
+            "$2b$10$hi41dPYJv0a6NcnvrUFVqevSI5Ehxzp29yNvAkD.GXfuz98Mlt0wq",
           createdAt: new Date(),
           updatedAt: new Date(),
         },

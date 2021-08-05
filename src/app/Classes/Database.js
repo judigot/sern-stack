@@ -1,3 +1,4 @@
+require("dotenv").config();
 const Sequelize = require("sequelize");
 
 class Database {
@@ -13,13 +14,7 @@ class Database {
 
   read(sql) {}
 
-  update(
-    tableName,
-    targetColumn,
-    newValue,
-    referenceColumn,
-    referenceValue
-  ) {}
+  update(tableName, targetColumn, newValue, referenceColumn, referenceValue) {}
 
   delete(tableName, referenceColumn, referenceValue) {}
 
@@ -36,9 +31,16 @@ class Database {
   getCredentials() {}
 
   async connect() {
-    const sequelize = new Sequelize("appjudigot", "root", "", {
-      host: "localhost",
-      dialect: `mysql`,
+    const dialect = process.env.DB_CONNECTION;
+    const host = process.env.DB_HOST;
+    const port = process.env.DB_PORT;
+    const database = process.env.DB_DATABASE;
+    const username = process.env.DB_USERNAME;
+    const password = process.env.DB_PASSWORD;
+
+    const sequelize = new Sequelize(database, username, password, {
+      host: host,
+      dialect: dialect,
     });
     try {
       await sequelize.authenticate();
@@ -46,7 +48,7 @@ class Database {
       return true;
     } catch (error) {
       console.error("Unable to connect to the database:", error);
-      return true;
+      return false;
     }
   }
 
