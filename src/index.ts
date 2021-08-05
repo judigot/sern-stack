@@ -27,24 +27,22 @@ const db = new Database();
  * MYSQL *
  *********/
 //================================================================================//
-db.create("users", [
+const data1 = [
   {
-    firstName: "Judy1",
-    lastName: "Igot",
-    email: "judigot@gmail.com",
-    password: "$2b$10$hi41dPYJv0a6NcnvrUFVqevSI5Ehxzp29yNvAkD.GXfuz98Mlt0wq",
-    createdAt: new Date(),
-    updatedAt: new Date(),
+    firstName: "first name",
+    lastName: "last name",
   },
   {
-    firstName: "Judy1",
-    lastName: "Igot",
-    email: "judigot@gmail.com",
-    password: "$2b$10$hi41dPYJv0a6NcnvrUFVqevSI5Ehxzp29yNvAkD.GXfuz98Mlt0wq",
-    createdAt: new Date(),
-    updatedAt: new Date(),
+    firstName: "first name",
+    lastName: "last name",
   },
-])
+];
+const data2 = {
+  firstName: "first name",
+  lastName: "last name",
+};
+
+db.create("users", data1)
   .then((result: any) => {
     // Success
     const insertId = result.insertId;

@@ -66,6 +66,44 @@ class Database {
         });
       });
     }
+
+    /**************
+     * SAMPLE USE *
+     **************/
+    /*
+      const data1 = [
+        {
+          firstName: "first name",
+          lastName: "last name",
+        },
+        {
+          firstName: "first name",
+          lastName: "last name",
+        },
+      ];
+      const data2 = {
+        firstName: "first name",
+        lastName: "last name",
+      };
+
+      db.create("users", data1)
+        .then((result: any) => {
+          // Success
+          const insertId = result.insertId;
+          const affectedRows = result.affectedRows;
+          const serverStatus = result.serverStatus;
+        })
+        .catch((error: any) => {
+          // Fail
+          const code = error.code;
+          const errno = error.errno;
+          const sqlState = error.sqlState;
+          const sqlMessage = error.sqlMessage;
+        })
+        .finally(() => {
+          // Run this code wether successful or failed
+        });
+    */
   }
 
   public read(sql: any) {}
