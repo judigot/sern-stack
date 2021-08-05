@@ -1,0 +1,18 @@
+const bcrypt = require("bcrypt");
+
+class AuthenticationController {
+  hash(password) {
+    const saltRounds = 10;
+
+    try {
+      bcrypt.hash(password, saltRounds, (err, hash) => {
+        return hash;
+      });
+    } catch (error) {
+      console.error("Unable to generate hash:", error);
+      return true;
+    }
+  }
+}
+
+module.exports = AuthenticationController;
