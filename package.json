@@ -8,7 +8,8 @@
     "Migrate": "clear && cd src && npx sequelize-cli db:migrate",
     "Undo Migrate": "clear && cd src && npx sequelize-cli db:migrate:undo:all",
     "Start-dist": "clear && nodemon dist/index.js",
-    "Start-src": "clear && nodemon src/index.ts",
+    "Start-src-ts": "clear && nodemon src/index.ts",
+    "Start-src-js": "clear && nodemon src-js/index.js",
     "Build & Run - Production": "clear && rm -r dist && tsc &&npx webpack --env buildType=production --mode production && npm run Start-dist",
     "Build & Run - Development": "clear && npx webpack --env buildType=development --mode production && npm run Start-src"
   },
