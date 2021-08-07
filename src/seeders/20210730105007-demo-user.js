@@ -12,6 +12,7 @@ module.exports = {
      * }], {});
      */
 
+    // Insert into `users` table
     await queryInterface.bulkInsert(
       "Users",
       [
@@ -21,6 +22,20 @@ module.exports = {
           email: "judigot@gmail.com",
           password:
             "$2b$10$hi41dPYJv0a6NcnvrUFVqevSI5Ehxzp29yNvAkD.GXfuz98Mlt0wq",
+          createdAt: new Date(),
+          updatedAt: new Date(),
+        },
+      ],
+      {}
+    );
+
+    // Insert into `posts` table
+    await queryInterface.bulkInsert(
+      "Posts",
+      [
+        {
+          postName: "Sample Post",
+          postOwner: 1,
           createdAt: new Date(),
           updatedAt: new Date(),
         },

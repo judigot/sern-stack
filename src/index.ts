@@ -23,6 +23,19 @@ app.use(express.json());
 import Database from "./app/Classes/Database";
 const db = new Database();
 
+import AuthenticationController from "./app/Http/Controllers/AuthenticationController";
+
+const AuthController = new AuthenticationController();
+
+// AuthController.hashPassword("123").then((hash: string) => {
+//   hashPassword = hash;
+// });
+
+// let hashPassword = async (hashPassword: string) => {
+//   return await hashPassword;
+// };
+
+
 /*********
  * MYSQL *
  *********/
@@ -31,10 +44,9 @@ const data1 = [
   {
     firstName: "first name",
     lastName: "last name",
-  },
-  {
-    firstName: "first name",
-    lastName: "last name",
+    email: "judigot@gmail.com",
+    password: "",
+    // email: "judigot@gmail.com",
   },
 ];
 const data2 = {

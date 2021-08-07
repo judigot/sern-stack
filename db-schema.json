@@ -1,0 +1,14 @@
+{
+  "database": "bigbang",
+  "tables": [
+    {
+      "user": {
+        "id": ["int", "auto_increment"],
+        "first_name": ["string", "255"],
+        "last_name": ""
+      }
+    },
+    {},
+    {}
+  ]
+}

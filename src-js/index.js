@@ -21,6 +21,14 @@ app.set("view engine", "ejs");
 const Database = require("./app/Classes/Database");
 const db = new Database();
 
+const AuthenticationController = require("./app/Http/Controllers/AuthenticationController");
+
+const AuthController = new AuthenticationController();
+
+AuthController.hashPassword("123").then((hash) => {
+  console.log(hash);
+});
+
 /*********
  * MYSQL *
  *********/
