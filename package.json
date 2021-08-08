@@ -10,10 +10,16 @@
     "Build & Run - Production": "clear && rm -r dist && tsc && npx webpack --env buildType=production --mode production && npm run Start-dist",
     "Build & Run - Development": "clear && npx webpack --env buildType=development --mode production && npm run Start-src-ts",
     "Seed": "clear && cd src && npx sequelize-cli db:seed:all",
+    "Undo-Seed": "clear && cd src && npx sequelize-cli db:seed:undo:all",
+    "Refresh-Seed": "clear && cd src && npm run Undo-Seed && npm run Seed",
     "Migrate": "clear && cd src && npx sequelize-cli db:migrate",
     "Undo-Migrate": "clear && cd src && npx sequelize-cli db:migrate:undo:all",
     "Clean-Slate": "clear && npm run Undo-Migrate && npm run Migrate",
-    "Clean Slate with Seeded Data": "clear && npm run Clean-Slate && npm run Seed"
+    "Clean Slate with Data": "clear && npm run Clean-Slate && npm run Seed"
+  },
+  "quokka": {
+    "babel": true,
+    "node": "C:/judigot/Programming/Environment/nodejs"
   },
   "scripts-backup": {
     "start-dist": "clear && nodemon dist/index.js",

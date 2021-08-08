@@ -13,7 +13,7 @@ class Database {
     return this.message;
   }
 
-  public async create(tableName: any, data: any) {
+  public static async create(tableName: any, data: any) {
     const isMultipleRows = Array.isArray(data);
     const columnNames: string[] = Object.keys(isMultipleRows ? data[0] : data);
     const values: any[] = [];
@@ -107,7 +107,7 @@ class Database {
     */
   }
 
-  public async read(sql: string, values?: any) {
+  public static async read(sql: string, values?: any) {
     try {
       const connection = await this.connect();
       const [rows] = await connection.execute(sql, values);
@@ -118,7 +118,20 @@ class Database {
     }
   }
 
-  public async update(
+  public static async testerFunction() {
+    try {
+      if (false) {
+        throw new Error("Error 1");
+      } else if (false) {
+        throw new Error("Error 2");
+      }
+      return "Success";
+    } catch (error) {
+      return error;
+    }
+  }
+
+  public static async update(
     tableName: any,
     targetColumns?: any,
     where?: any,
@@ -129,61 +142,96 @@ class Database {
     let insideArray: any[] = [];
     let values: any[] = [];
 
-    let sql = `UPDATE \`${tableName}\``;
+    let targetColumnsStatement: string = "";
+    let whereStatement: string = "";
+    let insideStatement: string = "";
+
+    const isSingleWhereCondition =
+      (where && Object.keys(where).length === 1) ||
+      (inside && Object.keys(inside).length === 1);
+
+    // console.log(
+    //   isSingleWhereCondition
+    //     ? `isSingleWhereCondition = true`
+    //     : "isSingleWhereCondition = false"
+    // );
+
+    const isWhereConditionArray =
+      (where && typeof where[Object.keys(where)[0]] === "object") ||
+      (inside && typeof inside[Object.keys(inside)[0]] === "object");
+
+    // console.log(
+    //   isWhereConditionArray
+    //     ? `isWhereConditionArray = true`
+    //     : "isWhereConditionArray = false"
+    // );
+
+    const insideCandidate = isSingleWhereCondition && isWhereConditionArray;
+
+    console.log(insideCandidate ? "Inside candidate" : "Not inside candidate");
 
     if (targetColumns) {
       for (let key in targetColumns) {
         targetColumnsArray.push(`\`${key}\` = ?`);
         values.push(targetColumns[key]);
       }
-      sql += ` SET ${targetColumnsArray.join(", ")}`;
+
+      targetColumnsStatement = ` SET ${targetColumnsArray.join(", ")}`;
     }
 
-    if (where) {
-      console.log("There is a where.");
-      for (let key in where) {
-        let tempArray: any[] = [];
-        const value = where[key];
+    console.log(insideCandidate);
 
-        if (typeof value === "object") {
-          const value = where[Object.keys(where)[0]];
-          whereArray = this.handleInside(value);
-          sql += ` WHERE \`${Object.keys(where)[0]}\` IN (${whereArray.join(
-            ", "
-          )})`;
-          values = values.concat(value);
-        } else {
-          whereArray.push(`\`${key}\` = ?`);
-          values.push(where[key]);
-        }
-      }
+    // Check if there is a where condition
+    if ((where && inside) || (where && !insideCandidate)) {
+      console.log("atay");
 
-      console.log(where[Object.keys(where)[0]]);
+      // if ((where || insideCandidate) && !insideCandidate && !inside) {
+      const whereConditionsCount = Object.keys(where).length;
       console.log(
-        !(typeof where[Object.keys(where)[0]] === "object") ? "true" : "false"
+        `There is a where. Total where statements = ${whereConditionsCount}`
       );
 
-      // Run if only one condition
-      if (
-        Object.keys(where).length == 1 &&
-        !(typeof where[Object.keys(where)[0]] === "object")
-      ) {
-        sql += ` WHERE ${whereArray}`;
+      // If there are multiple where conditions
+      if (whereConditionsCount > 1) {
+        // console.log(`${whereConditionsCount} where statements`);
+        [where].forEach((value: any, i: any) => {
+          for (const key in value) {
+            if (Object.prototype.hasOwnProperty.call(value, key)) {
+              whereArray.push(`\`${key}\` = ?`);
+              values.push(value[key]);
+            }
+          }
+        });
+        whereStatement = ` WHERE ${whereArray.join(" OR ")}`;
+      } else {
+        console.log(`${whereConditionsCount} where statement`);
+
+        for (let key in where) {
+          let tempArray: any[] = [];
+          const value = where[key];
+          whereArray.push(`\`${key}\` = ?`);
+          values.push(where[key]);
+          // }
+        }
+        whereStatement = ` WHERE ${whereArray}`;
       }
     }
 
-    if (inside) {
-      console.log("There is an inside.");
-      const value = inside[Object.keys(inside)[0]];
+    if (insideCandidate) {
+      // console.log("There is an inside.");
+      const value = inside
+        ? inside[Object.keys(inside)[0]]
+        : where[Object.keys(where)[0]];
       insideArray = this.handleInside(value);
 
-      sql += ` ${!where && inside ? "WHERE" : "OR"} \`${
-        Object.keys(inside)[0]
+      insideStatement = ` ${where && inside ? "OR" : "WHERE"} \`${
+        Object.keys(inside || where)[0]
       }\` IN (${insideArray.join(", ")})`;
+
       values = values.concat(value);
     }
 
-    sql += `;`;
+    const sql = `UPDATE \`${tableName}\`${targetColumnsStatement}${whereStatement}${insideStatement};`;
 
     console.log(sql);
     console.log(values);
@@ -208,12 +256,11 @@ class Database {
     // DB.update("users", { lastName: "55555" }, { firstName: "Jude Francis" }, { id: [2, 3, 4] });
   }
 
-  public handleInside(array: any) {
+  public static handleInside(array: any) {
     const insideArray: any[] = [];
     for (let key in array) {
       insideArray.push("?");
     }
-
     return insideArray;
   }
 
@@ -231,7 +278,7 @@ class Database {
 
   public getCredentials() {}
 
-  public connect() {
+  public static connect() {
     return DB.createConnection({
       host: process.env.DB_HOST,
       user: process.env.DB_USERNAME,
