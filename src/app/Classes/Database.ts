@@ -264,7 +264,31 @@ class Database {
     return insideArray;
   }
 
-  public delete(tableName: any, referenceColumn: any, referenceValue: any) {}
+  public static async delete(
+    tableName: any,
+    referenceColumn: any,
+    values: any
+  ) {
+    const reference = Array.isArray(values)
+      ? this.handleInside(values)
+      : values;
+
+    const sql = `DELETE FROM \`${tableName}\` WHERE \`${referenceColumn}\` IN (${reference.join(
+      ", "
+    )});`;
+
+    console.log(this.replaceValues(sql, values));
+    console.log(values);
+
+    try {
+      const connection = await this.connect();
+      const [rows] = await connection.execute(sql, values);
+      await connection.end();
+      return rows;
+    } catch (error) {
+      return error;
+    }
+  }
 
   public execute(sql: any) {}
 
@@ -293,6 +317,13 @@ class Database {
   public dump() {}
 
   public unionBuilder(iterator: any, tableDetails: any) {}
+
+  public static replaceValues(string: string, replacements: any) {
+    let i = 0;
+    return string.replace(/\?/g, () => {
+      return replacements[i++];
+    });
+  }
 }
 
 export default Database;
