@@ -2,7 +2,6 @@ require("dotenv").config();
 
 import DB from "mysql2/promise";
 import DB2 from "mysql2";
-import { table } from "console";
 
 class Database {
   private message: any = "Hello, World!";

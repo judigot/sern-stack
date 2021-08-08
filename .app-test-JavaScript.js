@@ -1,6 +1,6 @@
 // import { Model } from "sequelize-typescript";
-import DB from "./src/app/Classes/Database";
-import Models from "./src/models";
+
+const Models = require("./src-js/models");
 
 Models.User.create({
   firstName: "Judy",
