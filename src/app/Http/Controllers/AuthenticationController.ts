@@ -1,7 +1,7 @@
 import bcrypt from "bcrypt";
 
 class AuthenticationController {
-  async hashPassword(password: string) {
+  public static async hashPassword(password: string) {
     const saltRounds = 10;
     return await bcrypt.hash(password, saltRounds);
     /**************
@@ -18,7 +18,7 @@ class AuthenticationController {
     */
   }
 
-  async verifyPassword(password: string, hash: string) {
+  public static async verifyPassword(password: string, hash: string) {
     return await bcrypt.compare(password, hash);
     /**************
      * SAMPLE USE *
