@@ -1,4 +1,5 @@
-require("dotenv").config();
+import dotenv from "dotenv";
+dotenv.config();
 
 import DB from "mysql2/promise";
 import DB2 from "mysql2";

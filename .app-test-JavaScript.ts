@@ -12,3 +12,5 @@ Auth.hashPassword("123").then((hash) => {
     updatedAt: new Date(),
   }).then(console.log);
 });
+
+// DB.delete("users", "id", [1]);
