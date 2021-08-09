@@ -17,10 +17,6 @@
     "Clean-Slate": "clear && npm run Undo-Migrate && npm run Migrate",
     "Clean Slate with Data": "clear && npm run Clean-Slate && npm run Seed"
   },
-  "quokka": {
-    "babel": true,
-    "node": "C:/judigot/Programming/Environment/nodejs"
-  },
   "scripts-backup": {
     "start-dist": "clear && nodemon dist/index.js",
     "start-src": "clear && nodemon src/index.js",
