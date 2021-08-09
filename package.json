@@ -73,6 +73,7 @@
     "mysql2-promise": "^0.1.4",
     "nodemon": "^2.0.12",
     "sequelize": "^6.6.5",
-    "sequelize-typescript": "^2.1.0"
+    "sequelize-typescript": "^2.1.0",
+    "webpack-obfuscator": "^3.4.1"
   }
 }
