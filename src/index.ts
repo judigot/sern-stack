@@ -1,4 +1,4 @@
-// Require .env file
+// Import .env file
 import dotenv from "dotenv";
 dotenv.config();
 
