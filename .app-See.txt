@@ -1,0 +1,13 @@
+Useful NPM Packages:
+https://leanylabs.com/blog/npm-packages-for-nodejs/
+
+Database transactions ACID
+
+XSRF/CSRF
+
+socket.io
+mkdirp
+jest
+eslint
+cross-env
+axios for ajax (replacement for jquery's ajax)
