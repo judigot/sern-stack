@@ -71,6 +71,7 @@
     "nodemon": "^2.0.12",
     "sequelize": "^6.6.5",
     "sequelize-typescript": "^2.1.0",
+    "ts-node": "^10.2.0",
     "webpack-obfuscator": "^3.4.1"
   }
 }

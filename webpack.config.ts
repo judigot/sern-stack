@@ -238,7 +238,7 @@ const development = {
 //   return env.buildType;
 // };
 
-module.exports = (env) => {
+export default (env: any) => {
   console.log(`Build type: ${env.buildType}`);
   return env.buildType === "production" ? production : development;
 };
