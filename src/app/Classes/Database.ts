@@ -5,6 +5,9 @@ import DB from "mysql2/promise";
 import DB2 from "mysql2";
 
 class Database {
+  // Static means that it can be accessed my the class' functions
+  // Static functions means that it can be accessed without instantiating the class; Commonly used in utility functions
+
   private static message: any = "Hello, Database!";
 
   host: any = process.env.DB_HOST;
@@ -12,28 +15,42 @@ class Database {
   username: any = process.env.DB_USERNAME;
   password: any = process.env.DB_PASSWORD;
 
-  connection: any;
+  private static connection: any;
+  private static testVariable: any = "Original value";
 
   constructor() {
-    const asyncFunction = async () => {
-      try {
-        this.connection = DB.createConnection({
-          host: this.host,
-          user: this.username,
-          database: this.database,
-        });
-      } catch (error) {
-        return error;
-      }
-    };
+    Database.testVariable = "Changed value";
 
-    return this;
+    try {
+      Database.connection = DB.createConnection({
+        host: this.host,
+        user: this.username,
+        database: this.database,
+      });
+      if (true) {
+        throw new Error("Can't connect to the database :(");
+      }
+    } catch (error) {
+      return error;
+    }
   }
 
-  public static testerFunction() {}
+  private static privateVariable = "This is a private variable.";
+
+  public static get getter() {
+    return this.privateVariable;
+  }
 
   public static helloWorld() {
-    return this.message;
+    return this.testVariable;
+  }
+
+  public static connect() {
+    return this.connection;
+  }
+
+  public disconnect(connection: any) {
+    connection = null;
   }
 
   public static async create(tableName: any, data: any) {
@@ -264,14 +281,6 @@ class Database {
     // DB.update("users", { lastName: "55555" }, { firstName: "Jude Francis" }, { id: [2, 3, 4] });
   }
 
-  private static handleInside(array: any) {
-    const insideArray: any[] = [];
-    for (let key in array) {
-      insideArray.push("?");
-    }
-    return insideArray;
-  }
-
   public static async delete(
     tableName: any,
     referenceColumn: any,
@@ -308,19 +317,15 @@ class Database {
     incrementString: any
   ) {}
 
+  private static handleInside(array: any) {
+    const insideArray: any[] = [];
+    for (let key in array) {
+      insideArray.push("?");
+    }
+    return insideArray;
+  }
+
   public getCredentials() {}
-
-  public static connect() {
-    return DB.createConnection({
-      host: process.env.DB_HOST,
-      user: process.env.DB_USERNAME,
-      database: process.env.DB_DATABASE,
-    });
-  }
-
-  public disconnect(connection: any) {
-    connection = null;
-  }
 
   private static dump() {}
 

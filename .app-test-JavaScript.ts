@@ -13,7 +13,7 @@ import Auth from "./src/app/Http/Controllers/AuthenticationController";
 //   }).then(console.log);
 // });
 
-// const db = new DB();
+const db = new DB();
 
 // console.log(db.);
 
@@ -21,8 +21,12 @@ import Auth from "./src/app/Http/Controllers/AuthenticationController";
 
 // console.log(new DB());
 
-DB.read("select * from users", [1]).then(console.log);
+// DB.read("select * from users where id = ?", [1]).then(console.log);
 
 // console.log(DB.helloWorld());
 
 // DB.delete("users", "id", [1]);
+
+// console.log(DB.helloWorld());
+
+console.log(DB.helloWorld());
