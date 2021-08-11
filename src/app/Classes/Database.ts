@@ -183,7 +183,6 @@ class Database {
 
     // Check if there is a where condition
     if ((where && inside) || (where && !insideCandidate)) {
-      console.log("atay");
 
       // if ((where || insideCandidate) && !insideCandidate && !inside) {
       const whereConditionsCount = Object.keys(where).length;
