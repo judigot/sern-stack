@@ -27,9 +27,6 @@ class Database {
         user: this.username,
         database: this.database,
       });
-      if (true) {
-        throw new Error("Can't connect to the database :(");
-      }
     } catch (error) {
       return error;
     }
