@@ -4,10 +4,11 @@
   "description": "",
   "main": "index.js",
   "scripts": {
+    "Test": "clear && [ ! -d dist ] && echo 'true'",
     "Start-dist": "clear && nodemon dist/index.js",
     "Start-src-ts": "clear && nodemon src/index.ts",
     "Start-src-js": "clear && nodemon src-js/index.js",
-    "Build & Run - Production": "clear && rm -r dist && tsc && npx webpack --env buildType=production --mode production && npm run Start-dist",
+    "Build & Run - Production": "clear && ([ ! -d dist ] || rm -r dist) && tsc && npx webpack --env buildType=production --mode production && npm run Start-dist",
     "Build & Run - Development": "clear && npx webpack --env buildType=development --mode development && npm run Start-src-ts",
     "Seed": "clear && cd src && npx sequelize-cli db:seed:all",
     "Undo-Seed": "clear && cd src && npx sequelize-cli db:seed:undo:all",
