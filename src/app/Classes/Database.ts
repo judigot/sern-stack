@@ -15,12 +15,6 @@ class Database {
   connection: any;
 
   constructor() {
-    // this.connection = DB.createConnection({
-    //   host: this.host,
-    //   user: this.username,
-    //   database: this.database,
-    // });
-
     const asyncFunction = async () => {
       try {
         this.connection = DB.createConnection({
@@ -34,7 +28,6 @@ class Database {
     };
 
     return this;
-    // return this.host;
   }
 
   public static testerFunction() {}
