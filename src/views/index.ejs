@@ -5,7 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <meta http-equiv="X-UA-Compatible" content="ie=edge" />
 
-    <% if (isProduction = "true") { %>
+    <% if (isDevelopment === "true") { %>
     <script defer="defer" src="/main.js"></script>
     <link href="/main.css" rel="stylesheet" />
     <% } %>
@@ -15,7 +15,7 @@
 
   <body>
     <main>
-      <h1>Production = <%= isProduction %></h1>
+      <h1>Production = <%= isDevelopment %></h1>
       <h1>Hello, world!</h1>
       <h1 id="fontImport">Font import</h1>
     </main>
