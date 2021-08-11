@@ -5,11 +5,41 @@ import DB from "mysql2/promise";
 import DB2 from "mysql2";
 
 class Database {
-  private message: any = "Hello, World!";
+  private static message: any = "Hello, Database!";
 
-  constructor() {}
+  host: any = process.env.DB_HOST;
+  database: any = process.env.DB_DATABASE;
+  username: any = process.env.DB_USERNAME;
+  password: any = process.env.DB_PASSWORD;
 
-  public helloWorld() {
+  connection: any;
+
+  constructor() {
+    // this.connection = DB.createConnection({
+    //   host: this.host,
+    //   user: this.username,
+    //   database: this.database,
+    // });
+
+    const asyncFunction = async () => {
+      try {
+        this.connection = DB.createConnection({
+          host: this.host,
+          user: this.username,
+          database: this.database,
+        });
+      } catch (error) {
+        return error;
+      }
+    };
+
+    return this;
+    // return this.host;
+  }
+
+  public static testerFunction() {}
+
+  public static helloWorld() {
     return this.message;
   }
 
@@ -275,7 +305,7 @@ class Database {
     }
   }
 
-  public execute(sql: any) {}
+  public static execute(sql: any) {}
 
   public duplicate(
     tableName: any,
