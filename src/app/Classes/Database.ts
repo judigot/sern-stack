@@ -170,7 +170,6 @@ class Database {
 
     // Check if there is a where condition
     if ((where && inside) || (where && !insideCandidate)) {
-
       // if ((where || insideCandidate) && !insideCandidate && !inside) {
       const whereConditionsCount = Object.keys(where).length;
       console.log(
@@ -300,9 +299,9 @@ class Database {
     connection = null;
   }
 
-  public dump() {}
+  private static dump() {}
 
-  public unionBuilder(iterator: any, tableDetails: any) {}
+  public static unionBuilder(iterator: any, tableDetails: any) {}
 
   private static replaceValues(string: string, replacements: any) {
     let i = 0;

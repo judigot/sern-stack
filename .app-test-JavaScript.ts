@@ -14,5 +14,4 @@ import Auth from "./src/app/Http/Controllers/AuthenticationController";
 // });
 
 
-
 // DB.delete("users", "id", [1]);
