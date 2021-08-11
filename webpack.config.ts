@@ -1,6 +1,6 @@
-const path = require("path");
-const glob = require("glob");
-const webpack = require("webpack");
+import path from "path";
+import glob from "glob";
+import webpack from "webpack";
 
 const appFolder = "app";
 const modelsFolder = "models";
@@ -20,10 +20,10 @@ const assetsFolderName = "public";
 
 //====================Plugins====================//
 const MiniCssExtractPlugin = require("mini-css-extract-plugin");
-const { CleanWebpackPlugin } = require("clean-webpack-plugin");
-const HtmlWebpackPlugin = require("html-webpack-plugin");
+import { CleanWebpackPlugin } from "clean-webpack-plugin";
+import HtmlWebpackPlugin from "html-webpack-plugin";
 const CopyPlugin = require("copy-webpack-plugin");
-const PurgeCSSPlugin = require("purgecss-webpack-plugin");
+import PurgeCSSPlugin from "purgecss-webpack-plugin";
 //====================Plugins====================//
 
 const isProduction = false;
