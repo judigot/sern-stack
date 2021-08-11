@@ -118,19 +118,6 @@ class Database {
     }
   }
 
-  public static async testerFunction() {
-    try {
-      if (false) {
-        throw new Error("Error 1");
-      } else if (false) {
-        throw new Error("Error 2");
-      }
-      return "Success";
-    } catch (error) {
-      return error;
-    }
-  }
-
   public static async update(
     tableName: any,
     targetColumns?: any,
@@ -255,7 +242,7 @@ class Database {
     // DB.update("users", { lastName: "55555" }, { firstName: "Jude Francis" }, { id: [2, 3, 4] });
   }
 
-  public static handleInside(array: any) {
+  private static handleInside(array: any) {
     const insideArray: any[] = [];
     for (let key in array) {
       insideArray.push("?");
@@ -317,7 +304,7 @@ class Database {
 
   public unionBuilder(iterator: any, tableDetails: any) {}
 
-  public static replaceValues(string: string, replacements: any) {
+  private static replaceValues(string: string, replacements: any) {
     let i = 0;
     return string.replace(/\?/g, () => {
       return replacements[i++];
