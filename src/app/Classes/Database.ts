@@ -10,26 +10,23 @@ class Database {
 
   private static message: any = "Hello, Database!";
 
-  host: any = process.env.DB_HOST;
-  database: any = process.env.DB_DATABASE;
-  username: any = process.env.DB_USERNAME;
-  password: any = process.env.DB_PASSWORD;
+  private static host: any = process.env.DB_HOST;
+  private static database: any = process.env.DB_DATABASE;
+  private static username: any = process.env.DB_USERNAME;
+  private static password: any = process.env.DB_PASSWORD;
 
-  private static connection: any;
+  private static connection: any = DB.createConnection({
+    host: Database.host,
+    user: Database.username,
+    database: Database.database,
+    password: Database.password,
+  });
+
   private static testVariable: any = "Original value";
 
   constructor() {
     Database.testVariable = "Changed value";
-
-    try {
-      Database.connection = DB.createConnection({
-        host: this.host,
-        user: this.username,
-        database: this.database,
-      });
-    } catch (error) {
-      return error;
-    }
+    return this;
   }
 
   private static privateVariable = "This is a private variable.";
@@ -46,8 +43,8 @@ class Database {
     return this.connection;
   }
 
-  public disconnect(connection: any) {
-    connection = null;
+  public static disconnect() {
+    this.connection = null;
   }
 
   public static async create(tableName: any, data: any) {
