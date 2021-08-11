@@ -234,10 +234,6 @@ const development = {
   ],
 };
 
-// module.exports = (env) => {
-//   return env.buildType;
-// };
-
 export default (env: any) => {
   console.log(`Build type: ${env.buildType}`);
   return env.buildType === "production" ? production : development;
