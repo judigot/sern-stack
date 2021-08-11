@@ -12,21 +12,3 @@ import Auth from "./src/app/Http/Controllers/AuthenticationController";
 //     updatedAt: new Date(),
 //   }).then(console.log);
 // });
-
-const db = new DB();
-
-// console.log(db.);
-
-// DB.testerFunction();
-
-// console.log(new DB());
-
-// DB.read("select * from users where id = ?", [1]).then(console.log);
-
-// console.log(DB.helloWorld());
-
-// DB.delete("users", "id", [1]);
-
-// console.log(DB.helloWorld());
-
-console.log(DB.helloWorld());

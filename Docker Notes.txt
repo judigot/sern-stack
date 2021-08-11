@@ -1,6 +1,19 @@
 Docker Commands:
 
-Run docker app:
+Steps:
+	1. Build
+	2. Run
+
+Build container:
+* -t to give a docker image a name
+* . means the current directory; reference the current directory
+
+	docker build -t app .
+	_____________________
+
+	docker build --no-cache -t app .
+
+Run docker app/container:
 	docker run -p 3000:3000 app
 
 Download image in Docker Hub:
@@ -8,15 +21,6 @@ Download image in Docker Hub:
 
 Run docker image:
     docker run hello-world
-
-Build container:
-* -t to give a docker image a name
-* . means the current directory; reference the current directory
-
-	docker build -t app .
-_________________________
-
-	docker build --no-cache -t app .
 
 Show all running containers
 	docker ps
