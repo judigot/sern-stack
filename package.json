@@ -59,6 +59,7 @@
     "webpack-dev-server": "^3.11.2"
   },
   "dependencies": {
+    "@popperjs/core": "^2.9.3",
     "@types/validator": "^13.6.3",
     "babel-register": "^6.26.0",
     "bcrypt": "^5.0.1",
