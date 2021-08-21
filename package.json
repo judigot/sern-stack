@@ -4,6 +4,7 @@
   "description": "",
   "main": "index.js",
   "scripts": {
+    "start": "nodemon src/index.ts",
     "Test": "clear && [ ! -d dist ] && echo 'true'",
     "Start-dist": "clear && nodemon dist/index.js",
     "Start-src-ts": "clear && nodemon src/index.ts",
