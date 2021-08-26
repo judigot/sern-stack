@@ -2,17 +2,23 @@
 # *use alpine for smaller file size
 FROM node:alpine
 
-# Set project directory
-WORKDIR /app
+# Create app directory
+WORKDIR /usr/src/app
 
-# Copy project files to "app" directory
-COPY . /app
+# Install app dependencies
+# A wildcard is used to ensure both package.json AND package-lock.json are copied
+# where available (npm@5+)
+COPY package*.json ./
 
-# Install dependencies inside package.json
 RUN npm install
+# If you are building your code for production
+# RUN npm ci --only=production
+
+# Bundle app source
+COPY . .
 
 # Production host
 EXPOSE 3000
 
 # Start app
-CMD node dist/index.js
+CMD ["node", "src/index.ts"]
