@@ -187,9 +187,9 @@ class Database {
     //     : "isWhereConditionArray = false"
     // );
 
-    const insideCandidate = isSingleWhereCondition && isWhereConditionArray;
+    const isShorthand = isSingleWhereCondition && isWhereConditionArray;
 
-    console.log(insideCandidate ? "Inside candidate" : "Not inside candidate");
+    console.log(isShorthand ? "Shorthand" : "Not shorthand");
 
     if (targetColumns) {
       for (let key in targetColumns) {
@@ -200,11 +200,11 @@ class Database {
       targetColumnsStatement = ` SET ${targetColumnsArray.join(", ")}`;
     }
 
-    console.log(insideCandidate);
+    console.log(isShorthand);
 
     // Check if there is a where condition
-    if ((where && inside) || (where && !insideCandidate)) {
-      // if ((where || insideCandidate) && !insideCandidate && !inside) {
+    if ((where && inside) || (where && !isShorthand)) {
+      // if ((where || isShorthand) && !isShorthand && !inside) {
       const whereConditionsCount = Object.keys(where).length;
       console.log(
         `There is a where. Total where statements = ${whereConditionsCount}`
@@ -236,7 +236,7 @@ class Database {
       }
     }
 
-    if (insideCandidate) {
+    if (isShorthand) {
       // console.log("There is an inside.");
       const value = inside
         ? inside[Object.keys(inside)[0]]
