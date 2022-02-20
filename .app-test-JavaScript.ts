@@ -4,7 +4,7 @@ import Auth from "./src/app/Http/Controllers/AuthenticationController";
 
 // Auth.hashPassword("123").then((hash) => {
 //   DB.create("users", {
-//     firstName: "Judy Santa Maria",
+//     firstName: "Judy Gwapo",
 //     lastName: "Igot",
 //     email: "judigot@gmail.com",
 //     password: hash,
