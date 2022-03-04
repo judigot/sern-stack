@@ -1,15 +1,11 @@
 {
-    "username": "root",
-    "password": "",
-    "host": "localhost",
-    "mysqlPath": "C:/xampp/mysql/bin",
-    "database": [
-        "appjudigot"
-    ],
-    "table": [
-        "user"
-    ],
-    "appSettings": {},
-    "appName": "Big Bang",
-    "appId": "c8aef4725b5cb56b65c8b566ca8740ac"
+  "username": "root",
+  "password": "",
+  "host": "localhost",
+  "mysqlPath": "C:/xampp/mysql/bin",
+  "database": ["appjudigot"],
+  "table": ["user"],
+  "appSettings": {},
+  "appName": "Big Bang",
+  "appId": "c8aef4725b5cb56b65c8b566ca8740ac"
 }
