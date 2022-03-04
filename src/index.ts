@@ -60,7 +60,7 @@ DB.update("users", { lastName: "00000" }).then(() => {
 
 // Set up route
 app.get("/", (req: Request, res: Response) => {
-  res.render("index.ejs", { isDevelopment: process.env.IS_DEVELOPMENT });
+  res.render("index.ejs", { isProduction: process.env.IS_PRODUCTION });
 });
 
 app.get("/users/:id/:type", (req, res) => {

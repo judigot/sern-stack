@@ -4,6 +4,10 @@
 
 import Person from "app/Classes/Person";
 
+import { Component as ParentComponent } from "./components/react";
+
+ParentComponent("root");
+
 var jude = new Person("Jude", "Francis");
 var personName = jude.getFullName();
 

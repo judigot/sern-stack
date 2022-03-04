@@ -35,6 +35,8 @@ const production = {
   entry: {
     [chunkName]: [
       `jquery/dist/jquery.js`,
+      `react`,
+      `react-dom`,
       `bootstrap/dist/js/bootstrap.min.js`,
 
       `./${entryFolder}/${assetsFolderName}/${jsDirectory}/main.js`, // Version 1
@@ -52,7 +54,7 @@ const production = {
   },
 
   resolve: {
-    extensions: [".tsx", ".ts", ".js"],
+    extensions: [".tsx", ".jsx", ".ts", ".js"],
     alias: {
       app: path.resolve(__dirname, `${entryFolder}/${appFolder}/`),
       models: path.resolve(__dirname, `${entryFolder}/${modelsFolder}/`),
@@ -61,23 +63,12 @@ const production = {
 
   module: {
     rules: [
-      // TypeScript
+      // Babel: TypeScript/JavaScript (JSX, TSX, TS, and JS)
       {
-        test: /\.tsx?$/,
-        use: "ts-loader",
-        exclude: /node_modules/,
-      },
-
-      // Babel
-      {
-        test: /\.m?js$/,
+        test: /\.(ts|js)x?$/,
         exclude: /node_modules/,
         use: {
           loader: "babel-loader",
-          options: {
-            presets: [["@babel/preset-env", { targets: "defaults" }]],
-            plugins: ["@babel/plugin-proposal-class-properties"],
-          },
         },
       },
 
@@ -162,6 +153,8 @@ const development = {
   entry: {
     [chunkName]: [
       `jquery/dist/jquery.js`,
+      `react`,
+      `react-dom`,
       `bootstrap/dist/js/bootstrap.min.js`,
 
       `./${entryFolder}/${assetsFolderName}/${jsDirectory}/main.js`, // Version 1
@@ -179,7 +172,7 @@ const development = {
   },
 
   resolve: {
-    extensions: [".tsx", ".ts", ".js"],
+    extensions: [".tsx", ".jsx", ".ts", ".js"],
     alias: {
       app: path.resolve(__dirname, `${entryFolder}/${appFolder}/`),
       models: path.resolve(__dirname, `${entryFolder}/${modelsFolder}/`),
@@ -188,11 +181,26 @@ const development = {
 
   module: {
     rules: [
-      // TypeScript
+      // Babel: TypeScript/JavaScript
+      // *compiles JSX, TSX, TS, JS
       {
-        test: /\.tsx?$/,
-        use: "ts-loader",
+        test: /\.(ts|js)x?$/,
         exclude: /node_modules/,
+        use: {
+          loader: "babel-loader",
+        },
+      },
+
+      // EJS
+      {
+        test: /\.ejs$/,
+        loader: "ejs-loader",
+        options: {
+          variable: "data",
+          esModule: false,
+          interpolate: "\\{\\{(.+?)\\}\\}",
+          evaluate: "\\[\\[(.+?)\\]\\]",
+        },
       },
 
       // SCSS
