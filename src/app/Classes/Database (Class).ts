@@ -15,7 +15,7 @@ class Database {
   private static username: any = process.env.DB_USERNAME;
   private static password: any = process.env.DB_PASSWORD;
 
-  private static connection: any = DB.createConnection({
+  private static pool: any = DB.createConnection({
     host: Database.host,
     user: Database.username,
     database: Database.database,
@@ -40,11 +40,11 @@ class Database {
   }
 
   public static connect() {
-    return this.connection;
+    return this.pool;
   }
 
   public static disconnect() {
-    this.connection = null;
+    this.pool = null;
   }
 
   public static async create(tableName: any, data: any) {
