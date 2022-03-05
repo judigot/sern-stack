@@ -1,7 +1,7 @@
 import dotenv from "dotenv";
 dotenv.config();
 
-import DB from "mysql2";
+import DB from "mysql2/promise";
 
 const connection = {
   host: process.env.DB_HOST,
@@ -15,9 +15,13 @@ const connection = {
 
 class Database {
   private static pool: any = DB.createPool(connection);
+  private static private: string = "Secret";
 
   constructor() {
     return this;
+  }
+  public static getter() {
+    return this.pool;
   }
 
   public static connect() {
@@ -28,105 +32,9 @@ class Database {
     this.pool = null;
   }
 
-  public static async create(tableName: any, data: any) {
-    const isMultipleRows = Array.isArray(data);
-    const columnNames: string[] = Object.keys(isMultipleRows ? data[0] : data);
-    const values: any[] = [];
-
-    // Store values inside an array
-    if (isMultipleRows) {
-      for (let i = 0; i < data.length; i++) {
-        const row: any[] = [];
-        const element = data[i];
-
-        for (let key in element) {
-          row.push(element[key]);
-        }
-        values.push(row);
-      }
-    } else {
-      for (let key in data) {
-        values.push(data[key]);
-      }
-    }
-
-    // Build query
-    const sql = `INSERT INTO \`${tableName}\` (\`${columnNames.join(
-      "`, `"
-    )}\`) VALUES ${isMultipleRows ? "?" : "(?)"};`;
-
-    // Use either of the 2 options (async/await or promise)
-    const isAsync = true;
-
-    if (isAsync) {
-      // Option 1
-      const connection = await this.connect();
-      const [rows] = await connection.query(sql, [values]);
-      await connection.end();
-      return [rows];
-    } else {
-      // Option 2
-      const connection = DB.createConnection({
-        host: process.env.DB_HOST,
-        user: process.env.DB_USERNAME,
-        database: process.env.DB_DATABASE,
-      });
-
-      return new Promise((resolve, reject) => {
-        connection.query(sql, [values], (error, result) => {
-          if (!error) {
-            resolve(result);
-          } else {
-            reject(error);
-          }
-        });
-      });
-    }
-
-    /**************
-     * SAMPLE USE *
-     **************/
-    /*
-      const data1 = [
-        {
-          firstName: "first name",
-          lastName: "last name",
-        },
-        {
-          firstName: "first name",
-          lastName: "last name",
-        },
-      ];
-      const data2 = {
-        firstName: "first name",
-        lastName: "last name",
-      };
-
-      db.create("users", data1)
-        .then((result: any) => {
-          // Success
-          const insertId = result.insertId;
-          const affectedRows = result.affectedRows;
-          const serverStatus = result.serverStatus;
-        })
-        .catch((error: any) => {
-          // Fail
-          const code = error.code;
-          const errno = error.errno;
-          const sqlState = error.sqlState;
-          const sqlMessage = error.sqlMessage;
-        })
-        .finally(() => {
-          // Run this code wether successful or failed
-        });
-    */
-  }
-
   public static async read(sql: string, values?: any) {
     try {
-      const connection = await this.connect();
-      const [rows] = await connection.execute(sql, values);
-      await connection.end();
+      const [rows, columns] = await this.pool.execute(sql, values);
       return rows;
     } catch (error) {
       return error;
