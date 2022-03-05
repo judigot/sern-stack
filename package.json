@@ -6,8 +6,8 @@
   "scripts": {
     "Start Production": "npm run start-dev",
     "Start Development (F10)": "npm run start-dev",
-    "Build & Run - Prod (Ctrl + F9)": "clear && ([ ! -d dist ] || rm -r dist) && tsc && npx webpack --env buildType=production --mode production && npm start-prod",
-    "Build & Run - Dev (Ctrl + F10)": "clear && npx webpack --env buildType=development --mode development && npm start-dev",
+    "Build & Run - Prod (Ctrl + F9)": "clear && ([ ! -d dist ] || rm -r dist) && tsc && npx webpack --env buildType=production --mode production && npm run start-prod",
+    "Build & Run - Dev (Ctrl + F10)": "clear && npx webpack --env buildType=development --mode development && npm run start-dev",
     "start-prod": "clear && nodemon --watch dist/ -e ts,js,scss,css,ejs,html dist/index.js",
     "start-dev": "clear && nodemon --watch src/ -e ts,js,scss,css,ejs,html src/index.ts",
     "Seed": "clear && cd src && npx sequelize-cli db:seed:all",
