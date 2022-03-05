@@ -20,12 +20,6 @@ class Database {
     return this;
   }
 
-  private static privateVariable = "This is a private variable.";
-
-  public static get getter() {
-    return this.privateVariable;
-  }
-
   public static connect() {
     return this.pool;
   }
