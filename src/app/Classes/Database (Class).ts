@@ -10,11 +10,6 @@ class Database {
 
   private static message: any = "Hello, Database!";
 
-  private static host: any = process.env.DB_HOST;
-  private static database: any = process.env.DB_DATABASE;
-  private static username: any = process.env.DB_USERNAME;
-  private static password: any = process.env.DB_PASSWORD;
-
   private static connection: any = {
     host: process.env.DB_HOST,
     database: process.env.DB_DATABASE,
@@ -25,12 +20,7 @@ class Database {
     queueLimit: 0,
   };
 
-  private static pool: any = DB.createConnection({
-    host: Database.host,
-    user: Database.username,
-    database: Database.database,
-    password: Database.password,
-  });
+  private static pool: any = DB.createConnection(Database.connection);
 
   private static testVariable: any = "Original value";
 
