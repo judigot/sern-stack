@@ -1,20 +1,26 @@
 import dotenv from "dotenv";
 dotenv.config();
 
-import DB from "mysql2";
-
-const connection = {
-  host: process.env.DB_HOST,
-  database: process.env.DB_DATABASE,
-  user: process.env.DB_USERNAME,
-  password: process.env.DB_PASSWORD,
-  waitForConnections: true,
-  connectionLimit: 10,
-  queueLimit: 0,
-};
+import DB from "mysql2/promise";
+import DB2 from "mysql2";
 
 class Database {
-  private static pool: any = DB.createPool(connection);
+  // Static means that it can be accessed my the class' functions
+  // Static functions means that it can be accessed without instantiating the class; Commonly used in utility functions
+
+  private static message: any = "Hello, Database!";
+
+  private static host: any = process.env.DB_HOST;
+  private static database: any = process.env.DB_DATABASE;
+  private static username: any = process.env.DB_USERNAME;
+  private static password: any = process.env.DB_PASSWORD;
+
+  private static connection: any = DB.createConnection({
+    host: Database.host,
+    user: Database.username,
+    database: Database.database,
+    password: Database.password,
+  });
 
   private static testVariable: any = "Original value";
 
@@ -34,11 +40,11 @@ class Database {
   }
 
   public static connect() {
-    return this.pool;
+    return this.connection;
   }
 
   public static disconnect() {
-    this.pool = null;
+    this.connection = null;
   }
 
   public static async create(tableName: any, data: any) {
@@ -79,7 +85,7 @@ class Database {
       return [rows];
     } else {
       // Option 2
-      const connection = DB.createConnection({
+      const connection = DB2.createConnection({
         host: process.env.DB_HOST,
         user: process.env.DB_USERNAME,
         database: process.env.DB_DATABASE,
