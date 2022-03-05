@@ -16,10 +16,7 @@ const connection = {
 class Database {
   private static pool: any = DB.createPool(connection);
 
-  private static testVariable: any = "Original value";
-
   constructor() {
-    Database.testVariable = "Changed value";
     return this;
   }
 
@@ -27,10 +24,6 @@ class Database {
 
   public static get getter() {
     return this.privateVariable;
-  }
-
-  public static helloWorld() {
-    return this.testVariable;
   }
 
   public static connect() {
