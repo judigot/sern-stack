@@ -2,7 +2,6 @@ import dotenv from "dotenv";
 dotenv.config();
 
 import DB from "mysql2/promise";
-import DB2 from "mysql2";
 
 class Database {
   // Static means that it can be accessed my the class' functions
@@ -20,7 +19,7 @@ class Database {
     queueLimit: 0,
   };
 
-  private static pool: any = DB.createConnection(Database.connection);
+  private static pool: any = DB.createPool(Database.connection);
 
   private static testVariable: any = "Original value";
 
@@ -51,55 +50,38 @@ class Database {
     const isMultipleRows = Array.isArray(data);
     const columnNames: string[] = Object.keys(isMultipleRows ? data[0] : data);
     const values: any[] = [];
+    const parameters: any[] = [];
 
-    // Store values inside an array
+    // Store values and parameters inside arrays
     if (isMultipleRows) {
       for (let i = 0; i < data.length; i++) {
-        const row: any[] = [];
+        const parameter: any[] = [];
         const element = data[i];
-
         for (let key in element) {
-          row.push(element[key]);
+          values.push(element[key]);
+          parameter.push("?");
         }
-        values.push(row);
+        parameters.push(`(${parameter.join(", ")})`);
       }
     } else {
+      const parameter: any[] = [];
       for (let key in data) {
         values.push(data[key]);
+        parameter.push("?");
       }
+      parameters.push(`(${parameter.join(", ")})`);
     }
 
     // Build query
     const sql = `INSERT INTO \`${tableName}\` (\`${columnNames.join(
       "`, `"
-    )}\`) VALUES ${isMultipleRows ? "?" : "(?)"};`;
+    )}\`) VALUES ${parameters.join(", ")};`;
 
-    // Use either of the 2 options (async/await or promise)
-    const isAsync = true;
-
-    if (isAsync) {
-      // Option 1
-      const connection = await this.connect();
-      const [rows] = await connection.query(sql, [values]);
-      await connection.end();
-      return [rows];
-    } else {
-      // Option 2
-      const connection = DB2.createConnection({
-        host: process.env.DB_HOST,
-        user: process.env.DB_USERNAME,
-        database: process.env.DB_DATABASE,
-      });
-
-      return new Promise((resolve, reject) => {
-        connection.query(sql, [values], (error, result) => {
-          if (!error) {
-            resolve(result);
-          } else {
-            reject(error);
-          }
-        });
-      });
+    try {
+      const [rows, columns] = await this.pool.execute(sql, values);
+      return rows;
+    } catch (error) {
+      return error;
     }
 
     /**************
@@ -143,9 +125,7 @@ class Database {
 
   public static async read(sql: string, values?: any) {
     try {
-      const connection = await this.connect();
-      const [rows] = await connection.execute(sql, values);
-      // await connection.end();
+      const [rows, columns] = await this.pool.execute(sql, values);
       return rows;
     } catch (error) {
       return error;
@@ -256,9 +236,7 @@ class Database {
     console.log(values);
 
     try {
-      const connection = await this.connect();
-      const [rows] = await connection.execute(sql, values);
-      await connection.end();
+      const [rows, columns] = await this.pool.execute(sql, values);
       return rows;
     } catch (error) {
       return error;
@@ -280,21 +258,15 @@ class Database {
     referenceColumn: any,
     values: any
   ) {
-    const reference = Array.isArray(values)
-      ? this.handleInside(values)
-      : values;
+    if (!Array.isArray(values)) {
+      values = [values];
+    }
+    const reference = this.handleInside(values).join(", ");
 
-    const sql = `DELETE FROM \`${tableName}\` WHERE \`${referenceColumn}\` IN (${reference.join(
-      ", "
-    )});`;
-
-    console.log(this.replaceValues(sql, values));
-    console.log(values);
+    const sql = `DELETE FROM \`${tableName}\` WHERE \`${referenceColumn}\` IN (${reference});`;
 
     try {
-      const connection = await this.connect();
-      const [rows] = await connection.execute(sql, values);
-      await connection.end();
+      const [rows, columns] = await this.pool.execute(sql, values);
       return rows;
     } catch (error) {
       return error;
@@ -328,7 +300,7 @@ class Database {
   private static replaceValues(string: string, replacements: any) {
     let i = 0;
     return string.replace(/\?/g, () => {
-      return replacements[i++];
+      return `'${replacements[i++]}'`;
     });
   }
 }
