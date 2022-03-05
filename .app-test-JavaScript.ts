@@ -33,3 +33,7 @@ import Auth from "./src/app/Http/Controllers/AuthenticationController";
 
 // console.log(new DB());
 // new DB();
+
+DB.read("SELECT * FROM `users`").then((result) => {
+  console.log(result);
+});
