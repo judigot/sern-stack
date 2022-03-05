@@ -24,14 +24,24 @@ import Auth from "./src/app/Http/Controllers/AuthenticationController";
 // new DB();
 
 // Auth.hashPassword("123").then((hash) => {
-//   DB.create("users", {
-//     firstName: "Judy Gwapo",
-//     lastName: "Igot",
-//     email: "judigot@gmail.com",
-//     password: hash,
-//     createdAt: new Date(),
-//     updatedAt: new Date(),
-//   }).then((result) => {
+//   DB.create("users", [
+//     {
+//       firstName: "Judy Gwapo",
+//       lastName: "Igot",
+//       email: "judigot@gmail.com",
+//       password: hash,
+//       createdAt: new Date(),
+//       updatedAt: new Date(),
+//     },
+//     {
+//       firstName: "Judy Gwapo",
+//       lastName: "Igot",
+//       email: "judigot@gmail.com",
+//       password: hash,
+//       createdAt: new Date(),
+//       updatedAt: new Date(),
+//     },
+//   ]).then((result) => {
 //     console.log(result);
 //   });
 // });
@@ -40,15 +50,17 @@ import Auth from "./src/app/Http/Controllers/AuthenticationController";
 //   console.log(result);
 // });
 
-DB.delete("users", "id", [16, 17]).then((result) => {
+// DB.update("users", { lastName: "Reid" }, { id: 1 });
+
+DB.delete("users", "id", [3, 4]).then((result) => {
   console.log(result);
 });
 
-DB.delete("users", "id", 18).then((result) => {
+DB.delete("users", "id", 5).then((result) => {
   console.log(result);
 });
 
-DB.delete("users", "id", "19").then((result) => {
+DB.delete("users", "id", "6").then((result) => {
   console.log(result);
 });
 

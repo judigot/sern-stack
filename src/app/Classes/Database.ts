@@ -77,12 +77,7 @@ class Database {
       "`, `"
     )}\`) VALUES ${parameters.join(", ")};`;
 
-    try {
-      const [rows, columns] = await this.pool.execute(sql, values);
-      return rows;
-    } catch (error) {
-      return error;
-    }
+    return await this.execute(sql, values);
 
     /**************
      * SAMPLE USE *
@@ -124,12 +119,7 @@ class Database {
   }
 
   public static async read(sql: string, values?: any) {
-    try {
-      const [rows, columns] = await this.pool.execute(sql, values);
-      return rows;
-    } catch (error) {
-      return error;
-    }
+    return await this.execute(sql, values);
   }
 
   public static async update(
@@ -217,7 +207,6 @@ class Database {
     }
 
     if (isShorthand) {
-      // console.log("There is an inside.");
       const value = inside
         ? inside[Object.keys(inside)[0]]
         : where[Object.keys(where)[0]];
@@ -229,18 +218,10 @@ class Database {
 
       values = values.concat(value);
     }
-
     const sql = `UPDATE \`${tableName}\`${targetColumnsStatement}${whereStatement}${insideStatement};`;
-
     console.log(sql);
     console.log(values);
-
-    try {
-      const [rows, columns] = await this.pool.execute(sql, values);
-      return rows;
-    } catch (error) {
-      return error;
-    }
+    return await this.execute(sql, values);
 
     /**********
      * TESTER *
@@ -258,13 +239,16 @@ class Database {
     referenceColumn: any,
     values: any
   ) {
+    // If reference value is not an array, convert it to one
     if (!Array.isArray(values)) {
       values = [values];
     }
     const reference = this.handleInside(values).join(", ");
-
     const sql = `DELETE FROM \`${tableName}\` WHERE \`${referenceColumn}\` IN (${reference});`;
+    return await this.execute(sql, values);
+  }
 
+  public static async execute(sql: any, values: any) {
     try {
       const [rows, columns] = await this.pool.execute(sql, values);
       return rows;
@@ -272,8 +256,6 @@ class Database {
       return error;
     }
   }
-
-  public static execute(sql: any) {}
 
   public duplicate(
     tableName: any,
