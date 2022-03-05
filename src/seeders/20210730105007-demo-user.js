@@ -82,7 +82,7 @@ module.exports = {
         {
           firstName: "Jofrey",
           lastName: "Igot",
-          email: "judigot@gmail.com",
+          email: "jofrey@gmail.com",
           password:
             "$2b$10$hi41dPYJv0a6NcnvrUFVqevSI5Ehxzp29yNvAkD.GXfuz98Mlt0wq",
           createdAt: new Date(),
@@ -91,7 +91,7 @@ module.exports = {
         {
           firstName: "Joswel",
           lastName: "Igot",
-          email: "judigot@gmail.com",
+          email: "joswel@gmail.com",
           password:
             "$2b$10$hi41dPYJv0a6NcnvrUFVqevSI5Ehxzp29yNvAkD.GXfuz98Mlt0wq",
           createdAt: new Date(),
@@ -100,7 +100,7 @@ module.exports = {
         {
           firstName: "Julian",
           lastName: "Igot",
-          email: "judigot@gmail.com",
+          email: "julian@gmail.com",
           password:
             "$2b$10$hi41dPYJv0a6NcnvrUFVqevSI5Ehxzp29yNvAkD.GXfuz98Mlt0wq",
           createdAt: new Date(),
