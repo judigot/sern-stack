@@ -145,7 +145,7 @@ class Database {
     try {
       const connection = await this.connect();
       const [rows] = await connection.execute(sql, values);
-      await connection.end();
+      // await connection.end();
       return rows;
     } catch (error) {
       return error;
