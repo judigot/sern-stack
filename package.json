@@ -4,7 +4,7 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "Start Production": "npm run start-dev",
+    "Start Production": "npm run start-prod",
     "Start Development (F10)": "npm run start-dev",
     "Build & Run - Prod (Ctrl + F9)": "clear && ([ ! -d dist ] || rm -r dist) && tsc && npx webpack --env buildType=production --mode production && npm run start-prod",
     "Build & Run - Dev (Ctrl + F10)": "clear && npx webpack --env buildType=development --mode development && npm run start-dev",
