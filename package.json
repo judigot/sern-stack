@@ -4,10 +4,10 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "Start Production (F9)": "clear && nodemon --watch dist/ -e ts,js,scss,css,ejs,html dist/index.js\n",
-    "Start Development (F10)": "clear && nodemon --watch src/ -e ts,js,scss,css,ejs,html src/index.ts\n",
-    "Build & Run - Prod (Ctrl + F9)": "clear && ([ ! -d dist ] || rm -r dist) && tsc && npx webpack --env buildType=production --mode production && nodemon --watch dist/ -e ts,js,scss,css,ejs,html dist/index.js\n",
-    "Build & Run - Dev (Ctrl + F10)": "clear && npx webpack --env buildType=development --mode development && nodemon --watch src/ -e ts,js,scss,css,ejs,html src/index.ts\n",
+    "Start Production (F9)": "clear && nodemon --exec ts-node -r tsconfig-paths/register dist/index.js\n",
+    "Start Development (F10)": "clear && nodemon --exec ts-node -r tsconfig-paths/register src/index.ts\n",
+    "Build & Run - Prod (Ctrl + F9)": "clear && ([ ! -d dist ] || rm -r dist) && tsc && npx webpack --env buildType=production --mode production && nodemon --exec ts-node -r tsconfig-paths/register dist/index.js\n",
+    "Build & Run - Dev (Ctrl + F10)": "clear && npx webpack --env buildType=development --mode development && nodemon --exec ts-node -r tsconfig-paths/register src/index.ts\n",
     "Seed": "clear && cd src && npx sequelize-cli db:seed:all",
     "Undo-Seed": "clear && cd src && npx sequelize-cli db:seed:undo:all",
     "Refresh-Seed": "clear && cd src && npm run Undo-Seed && npm run Seed",
@@ -44,6 +44,8 @@
     "purgecss-webpack-plugin": "^4.0.3",
     "sass-loader": "^12.1.0",
     "ts-loader": "^9.2.7",
+    "ts-node": "^10.7.0",
+    "tsconfig-paths": "^3.13.0",
     "typescript": "^4.3.5",
     "webpack": "^5.43.0",
     "webpack-cli": "^4.7.2",
@@ -65,7 +67,6 @@
     "react-dom": "^17.0.2",
     "sequelize": "^6.6.5",
     "sequelize-typescript": "^2.1.0",
-    "ts-node": "^10.2.0",
     "webpack-obfuscator": "^3.4.1"
   }
 }
