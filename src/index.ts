@@ -20,8 +20,9 @@ app.set("view engine", "ejs");
 app.use(express.json());
 
 //================================================================================//
+import userRoutes from "./routes/User";
 
-import DB from "./app/Classes/Database";
+app.use("/user", userRoutes);
 
 //================================================================================//
 // DB.update("users", { lastName: "00000" }).then(() => {
@@ -61,17 +62,6 @@ import DB from "./app/Classes/Database";
 // Set up route
 app.get("/", (req: Request, res: Response) => {
   res.render("index.ejs", { isProduction: process.env.IS_PRODUCTION });
-});
-
-app.get("/users/:id/:type", (req, res) => {
-  res.send(req.params);
-});
-
-// Set up route
-app.get("/users", (req: Request, res: Response) => {
-  DB.read("SELECT * from `users`;").then((result: any) => {
-    res.send(result);
-  });
 });
 
 //================================================================================//
