@@ -1,6 +1,6 @@
 // User Routes
 import express, { Request, Response, Router } from "express";
-import DB from "app/Classes/Database";
+import DB from "Classes/Database";
 
 const router: Router = express.Router();
 

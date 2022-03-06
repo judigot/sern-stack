@@ -58,6 +58,8 @@ const production = {
     extensions: [".tsx", ".jsx", ".ts", ".js"],
     alias: {
       app: path.resolve(__dirname, `${entryFolder}/${appFolder}/`),
+      Classes: path.resolve(__dirname, `${entryFolder}/${appFolder}/Classes/`),
+      components: path.resolve(__dirname, `${entryFolder}/components/`),
       models: path.resolve(__dirname, `${entryFolder}/${modelsFolder}/`),
     },
   },
@@ -176,6 +178,8 @@ const development = {
     extensions: [".tsx", ".jsx", ".ts", ".js"],
     alias: {
       app: path.resolve(__dirname, `${entryFolder}/${appFolder}/`),
+      Classes: path.resolve(__dirname, `${entryFolder}/${appFolder}/Classes/`),
+      components: path.resolve(__dirname, `${entryFolder}/components/`),
       models: path.resolve(__dirname, `${entryFolder}/${modelsFolder}/`),
     },
   },

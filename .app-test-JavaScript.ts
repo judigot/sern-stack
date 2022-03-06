@@ -52,17 +52,17 @@ import Auth from "./src/app/Http/Controllers/AuthenticationController";
 
 // DB.update("users", { lastName: "Reid" }, { id: 1 });
 
-DB.delete("users", "id", [3, 4]).then((result) => {
-  console.log(result);
-});
+// DB.delete("users", "id", [3, 4]).then((result) => {
+//   console.log(result);
+// });
 
-DB.delete("users", "id", 5).then((result) => {
-  console.log(result);
-});
+// DB.delete("users", "id", 5).then((result) => {
+//   console.log(result);
+// });
 
-DB.delete("users", "id", "6").then((result) => {
-  console.log(result);
-});
+// DB.delete("users", "id", "6").then((result) => {
+//   console.log(result);
+// });
 
 // DB.update(
 //   "users",
@@ -72,3 +72,8 @@ DB.delete("users", "id", "6").then((result) => {
 //   },
 //   { id: 1 }
 // );
+
+import tsconfig from "./tsconfig.json";
+
+console.log(String(tsconfig));
+

@@ -2,9 +2,9 @@
  * DON'T MIX NODE.JS AND WEB JAVASCRIPT (WEBPACK CAN'T BUNDLE SEQUELIZE) *
  *************************************************************************/
 
-import Person from "app/Classes/Person";
+import Person from "Classes/Person";
 
-import { Component as ParentComponent } from "./components/react";
+import { Component as ParentComponent } from "components/react";
 
 ParentComponent("root");
 
