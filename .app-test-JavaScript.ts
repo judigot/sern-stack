@@ -72,8 +72,3 @@ import Auth from "./src/app/Http/Controllers/AuthenticationController";
 //   },
 //   { id: 1 }
 // );
-
-import tsconfig from "./tsconfig.json";
-
-console.log(String(tsconfig));
-

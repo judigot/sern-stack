@@ -1,5 +1,6 @@
 import path from "path";
 import dotenv from "dotenv";
+import tsconfig from "./tsconfig.json";
 
 dotenv.config();
 
@@ -20,6 +21,19 @@ const viewsDirectory = "views";
 const templatingEngineExtension = "ejs";
 
 const assetsFolderName = "public";
+
+// Extract paths from tsconfig.json and convert to aliases
+const paths: any = tsconfig.compilerOptions.paths;
+let aliases: any = {};
+for (let i = 0; i < Object.keys(paths).length; i++) {
+  const key = Object.keys(paths)[i];
+
+  // Remove / and * from the string
+  const alias = key.replace(/\/\*/g, "");
+  const pathToFolder = paths[key][0].replace(/\*/g, "");
+
+  aliases[alias] = path.resolve(__dirname, `${entryFolder}/${pathToFolder}/`);
+}
 
 //====================Plugins====================//
 const MiniCssExtractPlugin = require("mini-css-extract-plugin");
@@ -56,12 +70,7 @@ const production = {
 
   resolve: {
     extensions: [".tsx", ".jsx", ".ts", ".js"],
-    alias: {
-      app: path.resolve(__dirname, `${entryFolder}/${appFolder}/`),
-      Classes: path.resolve(__dirname, `${entryFolder}/${appFolder}/Classes/`),
-      components: path.resolve(__dirname, `${entryFolder}/components/`),
-      models: path.resolve(__dirname, `${entryFolder}/${modelsFolder}/`),
-    },
+    alias: aliases, // Aliases are extracted from tsconfig.json's paths
   },
 
   module: {
@@ -176,12 +185,7 @@ const development = {
 
   resolve: {
     extensions: [".tsx", ".jsx", ".ts", ".js"],
-    alias: {
-      app: path.resolve(__dirname, `${entryFolder}/${appFolder}/`),
-      Classes: path.resolve(__dirname, `${entryFolder}/${appFolder}/Classes/`),
-      components: path.resolve(__dirname, `${entryFolder}/components/`),
-      models: path.resolve(__dirname, `${entryFolder}/${modelsFolder}/`),
-    },
+    alias: aliases, // Aliases are extracted from tsconfig.json's paths
   },
 
   module: {
