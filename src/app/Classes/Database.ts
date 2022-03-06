@@ -24,8 +24,6 @@ class Database {
   private static testVariable: any = "Original value";
 
   constructor() {
-    console.log("ddddddddddd");
-
     Database.testVariable = "Changed value";
     return this;
   }

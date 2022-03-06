@@ -90,7 +90,9 @@ export const ParentComponent = (props: Props) => {
     }
   };
 
-  const [parentState, setParentState] = useState("Initial parent state"); // <any> will allow any data type on state change
+  const [parentState, setParentState] = useState<string>(
+    "Initial parent state"
+  ); // <any> will allow any data type on state change
   // const changeParentState = (value: string) => {
   //   setParentState(value);
   // };

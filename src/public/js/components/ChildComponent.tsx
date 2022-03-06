@@ -4,7 +4,7 @@ interface Person {
   id?: number;
   firstName?: string;
   lastName?: string; // ? means optional
-  parentFunction?: any;
+  parentFunction?: (event: React.MouseEvent<HTMLButtonElement>) => void;
   changeParentState?: any;
 }
 
