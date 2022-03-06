@@ -7,9 +7,9 @@ class Database {
   // Static means that it can be accessed my the class' functions
   // Static functions means that it can be accessed without instantiating the class; Commonly used in utility functions
 
-  private static message: any = "Hello, Database!";
+  private static message: string = "Hello, Database!";
 
-  private static connection: any = {
+  private static connection: object = {
     host: process.env.DB_HOST,
     database: process.env.DB_DATABASE,
     user: process.env.DB_USERNAME,
@@ -24,6 +24,8 @@ class Database {
   private static testVariable: any = "Original value";
 
   constructor() {
+    console.log("ddddddddddd");
+
     Database.testVariable = "Changed value";
     return this;
   }
