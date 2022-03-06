@@ -46,9 +46,9 @@ import Auth from "./src/app/Http/Controllers/AuthenticationController";
 //   });
 // });
 
-// DB.read("SELECT * FROM `users`").then((result) => {
-//   console.log(result);
-// });
+DB.read("SELECT * FROM `users`").then((result) => {
+  console.log(result);
+});
 
 // DB.update("users", { lastName: "Reid" }, { id: 1 });
 
