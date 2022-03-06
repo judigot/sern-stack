@@ -1,11 +1,11 @@
-GET http://localhost:3000/users
+GET http://localhost:3000/user
 
 ###
-GET http://localhost:3000/users/idParam/typeParam
+GET http://localhost:3000/user/idParam/typeParam
 
 ###
 
-POST http://localhost:3000/users HTTP/1.1
+POST http://localhost:3000/user HTTP/1.1
 content-type: application/json
 
 {
