@@ -1,6 +1,9 @@
 import path from "path";
-import glob from "glob";
-import webpack from "webpack";
+import dotenv from "dotenv";
+
+dotenv.config();
+
+const isProduction = process.env.IS_PRODUCTION === "true" ? true : false;
 
 const appFolder = "app";
 const modelsFolder = "models";
@@ -25,8 +28,6 @@ import HtmlWebpackPlugin from "html-webpack-plugin";
 const CopyPlugin = require("copy-webpack-plugin");
 import PurgeCSSPlugin from "purgecss-webpack-plugin";
 //====================Plugins====================//
-
-const isProduction = false;
 
 const chunkName = "main";
 
