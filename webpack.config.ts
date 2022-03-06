@@ -6,9 +6,6 @@ dotenv.config();
 
 const isProduction = process.env.IS_PRODUCTION === "true" ? true : false;
 
-const appFolder = "app";
-const modelsFolder = "models";
-
 const entryFolder = "src";
 const outputFolder = "dist";
 
