@@ -34,7 +34,6 @@ for (let i = 0; i < Object.keys(paths).length; i++) {
 
 //====================Plugins====================//
 const MiniCssExtractPlugin = require("mini-css-extract-plugin");
-import { CleanWebpackPlugin } from "clean-webpack-plugin";
 import HtmlWebpackPlugin from "html-webpack-plugin";
 const CopyPlugin = require("copy-webpack-plugin");
 import PurgeCSSPlugin from "purgecss-webpack-plugin";
