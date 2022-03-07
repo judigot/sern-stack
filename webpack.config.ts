@@ -50,11 +50,11 @@ const production = {
       `react-dom`,
       `bootstrap/dist/js/bootstrap.min.js`,
 
-      `./${entryFolder}/${assetsFolderName}/${sassDirectory}/main.scss`, // Version 1
       // `./${entryFolder}/${jsDirectory}/main.js`, // Version 2
       // `./${entryFolder}/${sassDirectory}/main.scss`, // Version 2
     ],
     main: [
+      `./${entryFolder}/${assetsFolderName}/${sassDirectory}/main.scss`, // Version 1
       `./${entryFolder}/${assetsFolderName}/${jsDirectory}/main.js`, // Version 1
     ],
     login: [
@@ -172,6 +172,7 @@ const production = {
     //   },
     // }),
   ],
+  watch: true,
 };
 
 const development = {
@@ -183,11 +184,11 @@ const development = {
       `react-dom`,
       `bootstrap/dist/js/bootstrap.min.js`,
 
-      `./${entryFolder}/${assetsFolderName}/${sassDirectory}/main.scss`, // Version 1
       // `./${entryFolder}/${jsDirectory}/main.js`, // Version 2
       // `./${entryFolder}/${sassDirectory}/main.scss`, // Version 2
     ],
     main: [
+      `./${entryFolder}/${assetsFolderName}/${sassDirectory}/main.scss`, // Version 1
       `./${entryFolder}/${assetsFolderName}/${jsDirectory}/main.js`, // Version 1
     ],
     login: [
@@ -267,6 +268,7 @@ const development = {
       // filename: `${cssDirectory}/[name]${isProduction ? ".[chunkhash]" : ""}.css`, // Chunkhash for file versioning/long-term caching - Version 2
     }),
   ],
+  watch: true,
 };
 
 export default (env: any) => {

@@ -7,7 +7,7 @@
     "Start Production (F9)": "clear && nodemon --exec ts-node -r tsconfig-paths/register dist/index.js\n",
     "Start Development (F10)": "clear && nodemon --exec ts-node -r tsconfig-paths/register src/index.ts\n",
     "Build & Run - Prod (Ctrl + F9)": "clear && ([ ! -d dist ] || rm -r dist) && tsc && npx webpack --env buildType=production --mode production && nodemon --exec ts-node -r tsconfig-paths/register dist/index.js\n",
-    "Build & Run - Dev (Ctrl + F10)": "clear && npx webpack --env buildType=development --mode development && nodemon --exec ts-node -r tsconfig-paths/register src/index.ts\n",
+    "Build & Run - Dev (Ctrl + F10)": "clear && npx webpack --env buildType=development --mode development & nodemon --exec ts-node -r tsconfig-paths/register src/index.ts\n",
     "Seed": "clear && cd src && npx sequelize-cli db:seed:all",
     "Undo-Seed": "clear && cd src && npx sequelize-cli db:seed:undo:all",
     "Refresh-Seed": "clear && cd src && npm run Undo-Seed && npm run Seed",
