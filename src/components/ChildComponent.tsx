@@ -6,7 +6,18 @@ interface Person {
   lastName?: string; // ? means optional
   parentFunction?: (event: React.MouseEvent<HTMLButtonElement>) => void;
   changeParentState?: any;
+  readonly type?: string; // Value cannot be changed once declared
 }
+
+const student: Person = {
+  id: 13105179,
+  firstName: "Jude Francis",
+  lastName: "Igot",
+  type: "human",
+};
+
+student.id = 1; // Can be changed
+// student["type"] = "alien"; // Readonly. Can't be changed
 
 export const ChildComponent = (props: Person) => {
   useEffect(() => {

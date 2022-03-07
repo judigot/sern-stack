@@ -39,7 +39,7 @@ const CopyPlugin = require("copy-webpack-plugin");
 import PurgeCSSPlugin from "purgecss-webpack-plugin";
 //====================Plugins====================//
 
-const chunkName = "main";
+const chunkName = "vendor";
 
 const production = {
   target: "node",
@@ -50,10 +50,15 @@ const production = {
       `react-dom`,
       `bootstrap/dist/js/bootstrap.min.js`,
 
-      `./${entryFolder}/${assetsFolderName}/${jsDirectory}/main.js`, // Version 1
       `./${entryFolder}/${assetsFolderName}/${sassDirectory}/main.scss`, // Version 1
       // `./${entryFolder}/${jsDirectory}/main.js`, // Version 2
       // `./${entryFolder}/${sassDirectory}/main.scss`, // Version 2
+    ],
+    main: [
+      `./${entryFolder}/${assetsFolderName}/${jsDirectory}/main.js`, // Version 1
+    ],
+    login: [
+      `./${entryFolder}/${assetsFolderName}/${jsDirectory}/login.js`, // Version 1
     ],
   },
 
@@ -134,7 +139,20 @@ const production = {
         __dirname,
         `${outputFolder}/${viewsDirectory}/index.${templatingEngineExtension}`
       ), // Destination
-      chunks: [chunkName], // Specify specific bundles in string (e.g. `app`, `main`, `index`)
+      chunks: [chunkName, "main"], // Specify specific bundles in string (e.g. `app`, `main`, `index`)
+    }),
+
+    new HtmlWebpackPlugin({
+      favicon: `${entryFolder}/${assetsFolderName}/${imagesDirectory}/favicon.png`, // Version 1
+      template: path.resolve(
+        __dirname,
+        `${entryFolder}/${viewsDirectory}/login.${templatingEngineExtension}`
+      ), // Destination
+      filename: path.resolve(
+        __dirname,
+        `${outputFolder}/${viewsDirectory}/login.${templatingEngineExtension}`
+      ), // Destination
+      chunks: [chunkName, "login"], // Specify specific bundles in string (e.g. `app`, `main`, `index`)
     }),
 
     new MiniCssExtractPlugin({
@@ -157,7 +175,7 @@ const production = {
 };
 
 const development = {
-  // target: "node",
+  target: "node",
   entry: {
     [chunkName]: [
       `jquery/dist/jquery.js`,
@@ -165,10 +183,15 @@ const development = {
       `react-dom`,
       `bootstrap/dist/js/bootstrap.min.js`,
 
-      `./${entryFolder}/${assetsFolderName}/${jsDirectory}/main.js`, // Version 1
       `./${entryFolder}/${assetsFolderName}/${sassDirectory}/main.scss`, // Version 1
       // `./${entryFolder}/${jsDirectory}/main.js`, // Version 2
       // `./${entryFolder}/${sassDirectory}/main.scss`, // Version 2
+    ],
+    main: [
+      `./${entryFolder}/${assetsFolderName}/${jsDirectory}/main.js`, // Version 1
+    ],
+    login: [
+      `./${entryFolder}/${assetsFolderName}/${jsDirectory}/login.js`, // Version 1
     ],
   },
 
@@ -186,8 +209,7 @@ const development = {
 
   module: {
     rules: [
-      // Babel: TypeScript/JavaScript
-      // *compiles JSX, TSX, TS, JS
+      // Babel: TypeScript/JavaScript (JSX, TSX, TS, and JS)
       {
         test: /\.(ts|js)x?$/,
         exclude: /node_modules/,
@@ -248,6 +270,9 @@ const development = {
 };
 
 export default (env: any) => {
-  console.log(`Build type: ${env.buildType}`);
+  const buildType = !env.buildType ? "production" : env.buildType;
+
+  console.log(`Build type: ${buildType}`);
+
   return env.buildType === "production" ? production : development;
 };

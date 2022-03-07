@@ -20,8 +20,10 @@ app.set("view engine", "ejs");
 app.use(express.json());
 
 //================================================================================//
-import userRoutes from "./routes/User";
+import publicRoutes from "./routes/web";
+app.use("/", publicRoutes);
 
+import userRoutes from "./routes/user";
 app.use("/user", userRoutes);
 
 //================================================================================//
@@ -58,11 +60,6 @@ app.use("/user", userRoutes);
 // });
 
 //================================================================================//
-
-// Set up route
-app.get("/", (req: Request, res: Response) => {
-  res.render("index.ejs", { isProduction: process.env.IS_PRODUCTION });
-});
 
 //================================================================================//
 
