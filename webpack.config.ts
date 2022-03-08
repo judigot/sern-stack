@@ -172,7 +172,6 @@ const production = {
     //   },
     // }),
   ],
-  watch: true,
 };
 
 const development = {
