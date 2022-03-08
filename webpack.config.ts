@@ -160,11 +160,12 @@ const production = {
       // filename: `${cssDirectory}/[name]${isProduction ? ".[chunkhash]" : ""}.css`, // Chunkhash for file versioning/long-term caching - Version 2
     }),
 
-    // new CopyPlugin({ // Version 2 - comment out favicon in HtmlWebpackPlugin, then add favicon statically in HTML pages (<link rel="icon" type="image/png" href="/favicon.png">)
+    // new CopyPlugin({
+    //   // Version 2 - comment out favicon in HtmlWebpackPlugin, then add favicon statically in HTML pages (<link rel="icon" type="image/png" href="/favicon.png">)
     //   patterns: [
     //     {
-    //       from: `${entryFolder}/${assetsFolderName}/${imagesDirectory}`,
-    //       to: `./`,
+    //       from: path.resolve(__dirname, `${entryFolder}/${viewsDirectory}`),
+    //       to: path.resolve(__dirname, `${outputFolder}/${viewsDirectory}/`),
     //     },
     //   ],
     //   options: {
