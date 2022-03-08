@@ -268,6 +268,17 @@ const development = {
     }),
   ],
   watch: true,
+  // devServer: {
+  //   port: 8080,
+  //   hot: true,
+  //   contentBase: path.resolve(__dirname, "dist"),
+  //   proxy: {
+  //     "/": {
+  //       target: "http://localhost:5000/",
+  //     },
+  //   },
+  // },
+  // mode: "development",
 };
 
 export default (env: any) => {
