@@ -1,3 +1,4 @@
+import webpack from "webpack";
 import path from "path";
 import dotenv from "dotenv";
 import tsconfig from "./tsconfig.json";
@@ -88,13 +89,7 @@ const production = {
       // EJS
       {
         test: /\.ejs$/,
-        loader: "ejs-loader",
-        options: {
-          variable: "data",
-          esModule: false,
-          interpolate: "\\{\\{(.+?)\\}\\}",
-          evaluate: "\\[\\[(.+?)\\]\\]",
-        },
+        loader: "raw-loader",
       },
 
       // SCSS
@@ -129,6 +124,10 @@ const production = {
     ],
   },
   plugins: [
+    new webpack.ProvidePlugin({
+      _: "lodash",
+    }),
+
     new HtmlWebpackPlugin({
       favicon: `${entryFolder}/${assetsFolderName}/${imagesDirectory}/favicon.png`, // Version 1
       template: path.resolve(
@@ -160,18 +159,25 @@ const production = {
       // filename: `${cssDirectory}/[name]${isProduction ? ".[chunkhash]" : ""}.css`, // Chunkhash for file versioning/long-term caching - Version 2
     }),
 
-    // new CopyPlugin({
-    //   // Version 2 - comment out favicon in HtmlWebpackPlugin, then add favicon statically in HTML pages (<link rel="icon" type="image/png" href="/favicon.png">)
-    //   patterns: [
-    //     {
-    //       from: path.resolve(__dirname, `${entryFolder}/${viewsDirectory}`),
-    //       to: path.resolve(__dirname, `${outputFolder}/${viewsDirectory}/`),
-    //     },
-    //   ],
-    //   options: {
-    //     concurrency: 100,
-    //   },
-    // }),
+    new CopyPlugin({
+      // Version 2 - comment out favicon in HtmlWebpackPlugin, then add favicon statically in HTML pages (<link rel="icon" type="image/png" href="/favicon.png">)
+      patterns: [
+        // Copy partials folder
+        {
+          from: path.resolve(
+            __dirname,
+            `${entryFolder}/${viewsDirectory}/partials`
+          ),
+          to: path.resolve(
+            __dirname,
+            `${outputFolder}/${viewsDirectory}/partials`
+          ),
+        },
+      ],
+      options: {
+        concurrency: 100,
+      },
+    }),
   ],
 };
 

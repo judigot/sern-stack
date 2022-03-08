@@ -5,11 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <meta http-equiv="X-UA-Compatible" content="ie=edge" />
 
-    <% if (isProduction === "false") { %>
-    <link href="/main.css" rel="stylesheet" />
-    <script defer="defer" src="/vendor.js"></script>
-    <script defer="defer" src="/main.js"></script>
-    <% } %>
+    <%- include("partials/static-assets", {"isProduction": isProduction}) %>
 
     <title>Document</title>
   </head>
