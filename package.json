@@ -6,7 +6,7 @@
   "scripts": {
     "Start Production (F9)": "clear && nodemon --exec ts-node -r tsconfig-paths/register dist/index.js\n",
     "Start Development (F10)": "clear && nodemon --exec ts-node -r tsconfig-paths/register src/index.ts\n",
-    "Build & Run - Prod (Ctrl + F9)": "clear && ([ ! -d dist ] || rm -r dist) && tsc && npx webpack --env buildType=production --mode production && nodemon --exec ts-node -r tsconfig-paths/register dist/index.js\n",
+    "Build & Run - Prod (Ctrl + F9)": "clear && ([ ! -d dist ] || rm -r dist) && tsc --project tsconfig.json && tsc-alias -p tsconfig.json && npx webpack --env buildType=production --mode production && nodemon --exec ts-node -r tsconfig-paths/register dist/index.js\n",
     "Build & Run - Dev (Ctrl + F10)": "clear && npx webpack --env buildType=development --mode development & nodemon --exec ts-node -r tsconfig-paths/register src/index.ts\n",
     "Seed": "clear && cd src && npx sequelize-cli db:seed:all",
     "Undo-Seed": "clear && cd src && npx sequelize-cli db:seed:undo:all",
@@ -46,6 +46,7 @@
     "sass-loader": "^12.1.0",
     "ts-loader": "^9.2.7",
     "ts-node": "^10.7.0",
+    "tsc-alias": "^1.6.4",
     "tsconfig-paths": "^3.13.0",
     "tsconfig-paths-webpack-plugin": "^3.5.2",
     "typescript": "^4.6.2",
