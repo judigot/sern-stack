@@ -75,7 +75,7 @@ const production = {
 
   resolve: {
     extensions: [".tsx", ".jsx", ".ts", ".js"],
-    alias: aliases, // Aliases are extracted from tsconfig.json's paths
+    alias: aliases, // Path aliases are extracted from tsconfig.json
   },
 
   module: {
@@ -108,7 +108,6 @@ const production = {
         parser: {
           dataUrlCondition: {
             maxSize: 30 * 1024, // 30kB
-            // maxSize: 100 * 1024 , // 100kB
           },
         },
       },
@@ -116,7 +115,6 @@ const production = {
       // Fonts
       {
         test: /\.(svg|eot|ttf|woff|woff2)$/,
-        // loader: "file-loader",
         type: "asset",
       },
     ],
@@ -236,18 +234,6 @@ const development = {
         exclude: /node_modules/,
         use: {
           loader: "babel-loader",
-        },
-      },
-
-      // EJS
-      {
-        test: /\.ejs$/,
-        loader: "ejs-loader",
-        options: {
-          variable: "data",
-          esModule: false,
-          interpolate: "\\{\\{(.+?)\\}\\}",
-          evaluate: "\\[\\[(.+?)\\]\\]",
         },
       },
 
