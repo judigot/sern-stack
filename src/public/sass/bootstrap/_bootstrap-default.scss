@@ -6,24 +6,24 @@
 /*******************
  * DEFAULT IMPORTS *
  *******************/
-@import "bootstrap/scss/functions";
+@use "bootstrap/scss/functions";
 
-@import "bootstrap/scss/variables";
-@import "bootstrap/scss/mixins";
+@use "bootstrap/scss/variables";
+@use "bootstrap/scss/mixins";
 
-@import "bootstrap/scss/root";
-@import "bootstrap/scss/reboot";
-@import "bootstrap/scss/type";
-@import "bootstrap/scss/images";
-@import "bootstrap/scss/containers";
-@import "bootstrap/scss/grid";
+@use "bootstrap/scss/root";
+@use "bootstrap/scss/reboot";
+@use "bootstrap/scss/type";
+@use "bootstrap/scss/images";
+@use "bootstrap/scss/containers";
+@use "bootstrap/scss/grid";
 
-@import "bootstrap/scss/close";
-@import "bootstrap/scss/transitions";
+@use "bootstrap/scss/close";
+@use "bootstrap/scss/transitions";
 
 /*******************
  * DEFAULT IMPORTS *
  *******************/
 
 // Uncomment to detect misbehaviors in Bootstrap
-// @import "bootstrap/scss/bootstrap";
+// @use "bootstrap/scss/bootstrap";
