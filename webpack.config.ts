@@ -2,6 +2,9 @@ import webpack from "webpack";
 import path from "path";
 import dotenv from "dotenv";
 import tsconfig from "./tsconfig.json";
+// import Routes from "./src/routes/RoutesMaster";
+
+// console.log(Routes);
 
 dotenv.config();
 
@@ -21,19 +24,20 @@ const templatingEngineExtension = "ejs";
 const assetsFolderName = "public";
 
 // Extract paths from tsconfig.json and convert to aliases
-const paths: any = tsconfig.compilerOptions.paths;
-let aliases: any = {};
-for (let i = 0; i < Object.keys(paths).length; i++) {
-  const key = Object.keys(paths)[i];
+// const paths: any = tsconfig.compilerOptions.paths;
+// let aliases: any = {};
+// for (let i = 0; i < Object.keys(paths).length; i++) {
+//   const key = Object.keys(paths)[i];
 
-  // Remove / and * from the string
-  const alias = key.replace(/\/\*/g, "");
-  const pathToFolder = paths[key][0].replace(/\*/g, "");
+//   // Remove / and * from the string
+//   const alias = key.replace(/\/\*/g, "");
+//   const pathToFolder = paths[key][0].replace(/\*/g, "");
 
-  aliases[alias] = path.resolve(__dirname, `${entryFolder}/${pathToFolder}/`);
-}
+//   aliases[alias] = path.resolve(__dirname, `${entryFolder}/${pathToFolder}/`);
+// }
 
 //====================Plugins====================//
+const TsconfigPathsPlugin = require("tsconfig-paths-webpack-plugin"); // Don't remove! This extracts paths from tsconfig.json and convert to aliases
 const MiniCssExtractPlugin = require("mini-css-extract-plugin");
 import HtmlWebpackPlugin from "html-webpack-plugin";
 const CopyPlugin = require("copy-webpack-plugin");
@@ -75,7 +79,8 @@ const production = {
 
   resolve: {
     extensions: [".tsx", ".jsx", ".ts", ".js"],
-    alias: aliases, // Path aliases are extracted from tsconfig.json
+    // alias: aliases, // Path aliases are extracted from tsconfig.json
+    plugins: [new TsconfigPathsPlugin({})],
   },
 
   module: {
@@ -223,7 +228,8 @@ const development = {
 
   resolve: {
     extensions: [".tsx", ".jsx", ".ts", ".js"],
-    alias: aliases, // Aliases are extracted from tsconfig.json's paths
+    // alias: aliases, // Aliases are extracted from tsconfig.json's paths
+    plugins: [new TsconfigPathsPlugin({})],
   },
 
   module: {
