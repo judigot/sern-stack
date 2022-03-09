@@ -1,4 +1,4 @@
-@use "bootstrap/master-bootstrap"; // Always import bootstrap inside SCSS files to load components that you only use
+@import "bootstrap/master-bootstrap"; // Always import bootstrap inside SCSS files to load components that you only use
 
 $primary: black;
 

@@ -68,9 +68,6 @@ const production = {
     path: path.resolve(__dirname, `./${outputFolder}/${assetsFolderName}`),
     filename: `[name]${isProduction ? ".[chunkhash]" : ""}.js`, // Chunkhash for file versioning/long-term caching - Version 1
     // filename: `${jsDirectory}/[name]${isProduction ? ".[chunkhash]" : ""}.js`, // Chunkhash for file versioning/long-term caching - Version 2
-
-    // assetModuleFilename: "images/[hash][ext][query]",
-    assetModuleFilename: "[hash][ext][query]",
   },
 
   resolve: {
@@ -104,20 +101,25 @@ const production = {
       // Images
       {
         test: /\.(png|jpg|jpeg|gif|bmp)$/,
-        type: "asset", // Automatically chooses between exporting a data URI and emitting a separate file
-        parser: {
-          dataUrlCondition: {
-            maxSize: 30 * 1024, // 30kB
-            // maxSize: 100 * 1024 , // 100kB
-          },
+        loader: "file-loader",
+        options: {
+          name: `[name]${isProduction ? ".[hash]" : ""}.[ext]`,
+          regExp: /\/([a-z0-9]+)\/[a-z0-9]+\.png$/i,
+          // outputPath: `${imagesDirectory}`, // Version 2
+          // publicPath: `../${imagesDirectory}`, // Path that is prepended to CSS files in dist (e.g. url(../${imagesDirectory}/[name].[ext]])) - Version 2
         },
       },
 
       // Fonts
       {
         test: /\.(svg|eot|ttf|woff|woff2)$/,
-        // loader: "file-loader",
-        type: "asset",
+        loader: "file-loader",
+        options: {
+          name: `[name]${isProduction ? ".[hash]" : ""}.[ext]`,
+          regExp: /\/([a-z0-9]+)\/[a-z0-9]+\.png$/i,
+          // outputPath: `${fontsDirectory}`, // Version 2
+          // publicPath: `../${fontsDirectory}`, // Path that is prepended to CSS files in dist (e.g. url(../${imagesDirectory}/[name].[ext]])) - Version 2
+        },
       },
     ],
   },
@@ -150,19 +152,6 @@ const production = {
         `${outputFolder}/${viewsDirectory}/login.${templatingEngineExtension}`
       ), // Destination
       chunks: [chunkName, "login"], // Specify specific bundles in string (e.g. `app`, `main`, `index`)
-    }),
-
-    new HtmlWebpackPlugin({
-      favicon: `${entryFolder}/${assetsFolderName}/${imagesDirectory}/favicon.png`, // Version 1
-      template: path.resolve(
-        __dirname,
-        `${entryFolder}/${viewsDirectory}/user/home.${templatingEngineExtension}`
-      ), // Destination
-      filename: path.resolve(
-        __dirname,
-        `${outputFolder}/${viewsDirectory}/user/home.${templatingEngineExtension}`
-      ), // Destination
-      chunks: [chunkName, "main"], // Specify specific bundles in string (e.g. `app`, `main`, `index`)
     }),
 
     new MiniCssExtractPlugin({
@@ -218,9 +207,6 @@ const development = {
     path: path.resolve(__dirname, `./${entryFolder}/${assetsFolderName}`),
     filename: `[name]${isProduction ? ".[chunkhash]" : ""}.js`, // Chunkhash for file versioning/long-term caching - Version 1
     // filename: `${jsDirectory}/[name]${isProduction ? ".[chunkhash]" : ""}.js`, // Chunkhash for file versioning/long-term caching - Version 2
-
-    // assetModuleFilename: "images/[hash][ext][query]",
-    assetModuleFilename: "[hash][ext][query]",
   },
 
   resolve: {
@@ -260,19 +246,25 @@ const development = {
       // Images
       {
         test: /\.(png|jpg|jpeg|gif|bmp)$/,
-        type: "asset", // Automatically chooses between exporting a data URI and emitting a separate file
-        parser: {
-          dataUrlCondition: {
-            maxSize: 30 * 1024, // 30kB
-            // maxSize: 100 * 1024 , // 100kB
-          },
+        loader: "file-loader",
+        options: {
+          name: `[name]${isProduction ? ".[hash]" : ""}.[ext]`,
+          regExp: /\/([a-z0-9]+)\/[a-z0-9]+\.png$/i,
+          // outputPath: `${imagesDirectory}`, // Version 2
+          // publicPath: `../${imagesDirectory}`, // Path that is prepended to CSS files in dist (e.g. url(../${imagesDirectory}/[name].[ext]])) - Version 2
         },
       },
 
       // Fonts
       {
         test: /\.(svg|eot|ttf|woff|woff2)$/,
-        type: "asset",
+        loader: "file-loader",
+        options: {
+          name: `[name]${isProduction ? ".[hash]" : ""}.[ext]`,
+          regExp: /\/([a-z0-9]+)\/[a-z0-9]+\.png$/i,
+          // outputPath: `${fontsDirectory}`, // Version 2
+          // publicPath: `../${fontsDirectory}`, // Path that is prepended to CSS files in dist (e.g. url(../${imagesDirectory}/[name].[ext]])) - Version 2
+        },
       },
     ],
   },

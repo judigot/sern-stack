@@ -6,7 +6,7 @@ dotenv.config();
 const PORT = process.env.PORT || 3000;
 
 // Load environment
-import express, { Application, Request, Response, NextFunction } from "express";
+import express, { Application } from "express";
 import path from "path";
 
 // Variables
@@ -20,11 +20,12 @@ app.set("view engine", "ejs");
 app.use(express.json());
 
 //================================================================================//
-import publicRoutes from "./routes/web";
-app.use("/", publicRoutes);
+import routes from "./routes/web";
 
-import userRoutes from "./routes/user";
-app.use("/user", userRoutes);
+app.use("/", routes);
+
+// import userRoutes from "./routes/user";
+// app.use("/user", userRoutes);
 
 //================================================================================//
 // DB.update("users", { lastName: "00000" }).then(() => {
