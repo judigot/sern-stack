@@ -13,7 +13,7 @@ export default <any>{
     view: "index.ejs",
     chunks: ["vendor", "login"],
     get: (req: Request, res: Response) => {
-      res.render("user/home.ejs", {
+      res.render("login.ejs", {
         isProduction: process.env.IS_PRODUCTION,
       });
     },
