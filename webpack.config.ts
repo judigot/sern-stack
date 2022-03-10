@@ -80,7 +80,7 @@ const production = {
   resolve: {
     extensions: [".tsx", ".jsx", ".ts", ".js"],
     // alias: aliases, // Path aliases are extracted from tsconfig.json
-    plugins: [new TsconfigPathsPlugin({})],
+    plugins: [new TsconfigPathsPlugin({})], // Don't remove! This extracts paths from tsconfig.json and convert to aliases
   },
 
   module: {
@@ -229,7 +229,7 @@ const development = {
   resolve: {
     extensions: [".tsx", ".jsx", ".ts", ".js"],
     // alias: aliases, // Aliases are extracted from tsconfig.json's paths
-    plugins: [new TsconfigPathsPlugin({})],
+    plugins: [new TsconfigPathsPlugin({})], // Don't remove! This extracts paths from tsconfig.json and convert to aliases
   },
 
   module: {
