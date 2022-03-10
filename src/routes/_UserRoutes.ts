@@ -11,6 +11,10 @@ export default <any>{
         res.send(result);
       });
     },
+    post: (req: Request, res: Response) => {
+      const postData = req.body;
+      res.send(postData);
+    },
   },
   "/user/home": {
     view: "home.ejs",
