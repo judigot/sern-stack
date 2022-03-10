@@ -62,7 +62,7 @@
     "ejs": "^3.1.6",
     "ejs-compiled-loader": "^3.1.0",
     "ejs-loader": "^0.5.0",
-    "express": "^4.17.1",
+    "express": "^4.17.3",
     "handlebars": "^4.7.7",
     "html-loader": "^3.1.0",
     "jquery": "^3.6.0",
@@ -77,7 +77,6 @@
     "react-dom": "^17.0.2",
     "sequelize": "^6.6.5",
     "sequelize-typescript": "^2.1.0",
-    "template-ejs-loader": "^0.8.1",
-    "webpack-obfuscator": "^3.4.1"
+    "template-ejs-loader": "^0.8.1"
   }
 }
