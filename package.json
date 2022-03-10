@@ -76,7 +76,6 @@
     "react": "^17.0.2",
     "react-dom": "^17.0.2",
     "sequelize": "^6.6.5",
-    "sequelize-typescript": "^2.1.0",
-    "template-ejs-loader": "^0.8.1"
+    "sequelize-typescript": "^2.1.0"
   }
 }
