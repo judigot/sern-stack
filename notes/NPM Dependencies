@@ -2,3 +2,7 @@ npm install -g nodemon
 npm install -g typescript
 npm install -g ts-node
 npm install -g tsc-alias
+
+
+Install dependencies in package-lock.json
+    npm ci
