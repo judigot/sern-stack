@@ -14,13 +14,13 @@ function useRoutes(routes: any) {
       router.get(url, (req, res) => {
         routes[url].get(req, res);
       });
-      console.log(`GET route used in "${url}"`);
+      // console.log(`GET route used in "${url}"`);
     }
     if ("post" in routeDetails) {
       router.post(url, (req, res) => {
         routes[url].post(req, res);
       });
-      console.log(`POST route used in route "${url}"`);
+      // console.log(`POST route used in route "${url}"`);
     }
     if ("put" in routeDetails) {
     }

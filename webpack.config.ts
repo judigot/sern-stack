@@ -1,9 +1,8 @@
 import webpack from "webpack";
 import path from "path";
 import dotenv from "dotenv";
-import tsconfig from "./tsconfig.json";
-// import Routes from "./src/routes/RoutesMaster";
 
+// import Routes from "./src/routes/RoutesMaster";
 // console.log(Routes);
 
 dotenv.config();
@@ -24,6 +23,7 @@ const templatingEngineExtension = "ejs";
 const assetsFolderName = "public";
 
 // Extract paths from tsconfig.json and convert to aliases
+// import tsconfig from "./tsconfig.json";
 // const paths: any = tsconfig.compilerOptions.paths;
 // let aliases: any = {};
 // for (let i = 0; i < Object.keys(paths).length; i++) {
@@ -288,10 +288,12 @@ const development = {
   // mode: "development",
 };
 
-export default (env: any) => {
+export const buildType: any = (env: any) => {
   const buildType = !env.buildType ? "production" : env.buildType;
 
   console.log(`Build type: ${buildType}`);
 
   return env.buildType === "production" ? production : development;
 };
+
+export default buildType;
