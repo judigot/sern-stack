@@ -1,7 +1,7 @@
 import { Request, Response, NextFunction } from "express";
 
 export default <any>{
-  "/index": {
+  "/": {
     view: "index",
     chunks: ["vendor", "main"],
     get: (req: Request, res: Response) => {

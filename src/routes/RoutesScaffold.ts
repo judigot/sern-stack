@@ -1,54 +1,76 @@
 import fs from "fs";
 import path from "path";
 
-import * as MasterRoutes from "./partials/index";
+import * as MasterRoutes from "./config";
 
-// console.log(MasterRoutes.default);
+const fileNames: any = [];
+
+fs.readdirSync(path.resolve(__dirname, `./partials/`)).filter((value) => {
+  if (value !== "index.ts") {
+    // Remove file extension
+    const file = value.substring(0, value.length - 3);
+    fileNames.push(`_${file}Routes`);
+  }
+});
+
+const createScaffolding = (fileName: string, scaffold: any) => {
+  // Write
+  const file = fs.createWriteStream(
+    path.resolve(__dirname, `./${fileName}.ts`)
+  );
+  file.on("error\n\n", function (err: any) {
+    console.log("There's an error in writing the file.");
+  });
+  scaffold.forEach((url: any, index: any, array: any) => {
+    file.write(url);
+  });
+  file.end();
+};
 
 const routes: any = [];
-Object.keys(MasterRoutes.default).forEach((url, index1, array) => {
+
+Object.keys(MasterRoutes.default).forEach((key, index) => {
   const route: any = {};
-  Object.keys(MasterRoutes.default[index1]).forEach((url, index, array) => {
+  Object.keys(MasterRoutes.default[index]).forEach((url) => {
     route[url] = [
       '  "' + url + '": {\n',
+
+      // Route paths
       "    get: (req: Request, res: Response) => {\n",
       "      // Code\n",
-      "   },\n",
-      "    post: (req: Request, res: Response) => {\n",
-      "      // Code\n",
       "    },\n",
-      "    },\n",
+      // "    post: (req: Request, res: Response) => {\n",
+      // "      // Code\n",
+      // "    },\n",
+      // Route paths
+
+      "  },\n",
     ];
   });
   routes.push(route);
 });
 
-const publicScaffold = routes[0];
-const userScaffold = routes[1];
+// Loop through routes
+Object.keys(routes).forEach((key, index) => {
+  const route = routes[index];
 
-// "' + url + '"
-// " + request + "
-const scaffold = ["const Routes = [\n"];
+  const scaffold = [
+    'import { Request, Response, NextFunction } from "express";\n\n',
+    "const Routes = {\n",
+  ];
 
-Object.keys(routes).forEach((url, index, array) => {
-  const parentRoute = routes[url];
-  scaffold.push("{");
-  Object.keys(parentRoute).forEach((url, index, array) => {
-    parentRoute[url].forEach((element: any) => {
-      scaffold.push(element);
+  // Loop through route paths
+  Object.keys(route).forEach((path) => {
+    route[path].forEach((routePath: any) => {
+      scaffold.push(routePath);
     });
   });
-  scaffold.push("},");
-});
 
-scaffold.push("];\nexport default Routes;\n");
+  scaffold.push("};\n\n");
 
-const file = fs.createWriteStream(path.resolve(__dirname, "./XXX.ts"));
+  scaffold.push("export default Routes;\n\n");
 
-file.on("error\n\n", function (err) {
-  console.log("There's an error in writing the file.");
+  scaffold.push("// Division - don't remove!\n");
+
+  createScaffolding(fileNames[index], scaffold);
 });
-scaffold.forEach((url, index, array) => {
-  file.write(url);
-});
-file.end();

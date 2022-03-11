@@ -2,8 +2,8 @@ import webpack from "webpack";
 import path from "path";
 import dotenv from "dotenv";
 
-// import Routes from "./src/routes/RoutesMaster";
-// console.log(Routes);
+import Routes from "./src/routes/RoutesMaster";
+console.log(Routes);
 
 dotenv.config();
 

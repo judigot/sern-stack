@@ -1,0 +1,3 @@
+Set routes configuration here
+Scaffold routes (outputs: _PublicRoutes.ts)
+Configure route paths inside _PublicRoutes.ts

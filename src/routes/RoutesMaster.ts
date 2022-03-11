@@ -1,5 +1,5 @@
-import publicRoutes from "./partials/_PublicRoutes";
-import userRoutes from "./partials/_UserRoutes";
+import publicRoutes from "./_PublicMain";
+import userRoutes from "./_UserMain";
 
 const routes: any = [];
 

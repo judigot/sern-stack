@@ -1,6 +1,9 @@
-import DB from "./src/app/Classes/Database";
+// import DB from "./src/app/Classes/Database";
 
-import Auth from "./src/app/Http/Controllers/AuthenticationController";
+// import Auth from "./src/app/Http/Controllers/AuthenticationController";
+
+import DB from "./src/routes/RoutesMaster";
+console.log(DB);
 
 // const Models = require("./src-js/models");
 
