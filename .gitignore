@@ -2,6 +2,7 @@ node_modules/
 dist/
 .env
 .history
+
 src/public/*
 !src/public/fonts
 !src/public/images
