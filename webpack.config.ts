@@ -60,10 +60,10 @@ const production = {
     ],
     main: [
       `./${entryFolder}/${assetsFolderName}/${sassDirectory}/main.scss`, // Version 1
-      `./${entryFolder}/${assetsFolderName}/${jsDirectory}/main.js`, // Version 1
+      `./${entryFolder}/${assetsFolderName}/${jsDirectory}/main.tsx`, // Version 1
     ],
     login: [
-      `./${entryFolder}/${assetsFolderName}/${jsDirectory}/login.js`, // Version 1
+      `./${entryFolder}/${assetsFolderName}/${jsDirectory}/login.tsx`, // Version 1
     ],
   },
 
@@ -209,10 +209,10 @@ const development = {
     ],
     main: [
       `./${entryFolder}/${assetsFolderName}/${sassDirectory}/main.scss`, // Version 1
-      `./${entryFolder}/${assetsFolderName}/${jsDirectory}/main.js`, // Version 1
+      `./${entryFolder}/${assetsFolderName}/${jsDirectory}/main.tsx`, // Version 1
     ],
     login: [
-      `./${entryFolder}/${assetsFolderName}/${jsDirectory}/login.js`, // Version 1
+      `./${entryFolder}/${assetsFolderName}/${jsDirectory}/login.tsx`, // Version 1
     ],
   },
 
