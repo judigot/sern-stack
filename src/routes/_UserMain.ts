@@ -1,15 +1,14 @@
-import publicRoutes from "./_UserRoutes";
+import publicRoutes from "./partials/_UserRoutes";
 
 // import { Request, Response, NextFunction } from "express";
 // import DB from "Classes/Database";
 
 // console.log(publicRoutes);
 
-
 Object.keys(publicRoutes).forEach((url, index, array) => {
   const value = publicRoutes[url];
 
-  console.log(value.view);
+  // console.log(value.view);
 
   // let { get: get, post: post, ...newValues } = routes[url];
   // views[url] = newValues;

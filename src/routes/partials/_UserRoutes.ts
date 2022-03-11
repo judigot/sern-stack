@@ -16,6 +16,6 @@ Object.keys(routes).forEach((url, index, array) => {
   views[url] = newValues;
 });
 
-console.log(views);
+// console.log(views);
 
 export default routes;
