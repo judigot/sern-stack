@@ -8,3 +8,5 @@ src/public/*
 !src/public/images
 !src/public/js
 !src/public/sass
+
+tempCodeRunnerFile.ts
