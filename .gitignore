@@ -2,3 +2,8 @@ node_modules/
 dist/
 .env
 .history
+src/public/
+!src/public/fonts
+!src/public/images
+!src/public/js
+!src/public/sass
