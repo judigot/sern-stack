@@ -124,6 +124,7 @@ const production = {
         parser: {
           dataUrlCondition: {
             maxSize: 30 * 1024, // 30kB
+            // maxSize: 100 * 1024 , // 100kB
           },
         },
       },
