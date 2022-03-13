@@ -239,7 +239,7 @@ const development = {
 
   resolve: {
     extensions: [".tsx", ".jsx", ".ts", ".js"],
-    // alias: aliases, // Aliases are extracted from tsconfig.json's paths
+    // alias: aliases, // Path aliases are extracted from tsconfig.json
     plugins: [new TsconfigPathsPlugin({})], // Don't remove! This extracts paths from tsconfig.json and convert to aliases
   },
 
