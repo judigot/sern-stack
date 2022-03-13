@@ -3,7 +3,6 @@ import path from "path";
 import dotenv from "dotenv";
 
 import Routes from "./src/routes/RoutesMaster";
-console.log(Routes);
 
 dotenv.config();
 
@@ -43,6 +42,18 @@ import HtmlWebpackPlugin from "html-webpack-plugin";
 const CopyPlugin = require("copy-webpack-plugin");
 import PurgeCSSPlugin from "purgecss-webpack-plugin";
 //====================Plugins====================//
+
+const htmlViews: any = [];
+Object.keys(Routes).forEach((key, index) => {
+  const route = Routes[key];
+  console.log(route);
+  // Loop through route paths
+  // Object.keys(route).forEach((path) => {
+  //   route[path].forEach((routePath: any) => {
+  //     htmlViews.push(routePath);
+  //   });
+  // });
+});
 
 const chunkName = "vendor";
 
