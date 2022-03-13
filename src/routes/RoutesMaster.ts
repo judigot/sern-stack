@@ -5,6 +5,6 @@ const routes: any = [];
 
 routes["public"] = publicRoutes;
 routes["user"] = userRoutes;
-routes["globalChunks"] = ["global", "main"];
+routes["globalChunks"] = ["vendor"];
 
 export default routes;

@@ -2,19 +2,7 @@ import webpack from "webpack";
 import path from "path";
 import dotenv from "dotenv";
 
-import Routes from "./src/routes/RoutesMaster";
-
-const htmlViews: any = [];
-Object.keys(Routes).forEach((key, index) => {
-  const route = Routes[key];
-  // console.log(route);
-  // Loop through route paths
-  // Object.keys(route).forEach((path) => {
-  //   route[path].forEach((routePath: any) => {
-  //     htmlViews.push(routePath);
-  //   });
-  // });
-});
+import RoutesMaster from "./src/routes/RoutesMaster";
 
 dotenv.config();
 
@@ -150,66 +138,59 @@ const build: any = {
   // mode: "development",
 };
 
-const plugins = [
-  new webpack.ProvidePlugin({
-    _: "lodash",
-  }),
-  new HtmlWebpackPlugin({
-    favicon: `${entryFolder}/${assetsFolderName}/${imagesDirectory}/favicon.png`, // Version 1
-    template: path.resolve(
-      __dirname,
-      `${entryFolder}/${viewsDirectory}/index.${templatingEngineExtension}`
-    ), // Destination
-    filename: path.resolve(
-      __dirname,
-      `${outputFolder}/${viewsDirectory}/index.${templatingEngineExtension}`
-    ), // Destination
-    chunks: [chunkName, "main"], // Specify specific bundles in string (e.g. `app`, `main`, `index`)
-  }),
-  new HtmlWebpackPlugin({
-    favicon: `${entryFolder}/${assetsFolderName}/${imagesDirectory}/favicon.png`, // Version 1
-    template: path.resolve(
-      __dirname,
-      `${entryFolder}/${viewsDirectory}/login.${templatingEngineExtension}`
-    ), // Destination
-    filename: path.resolve(
-      __dirname,
-      `${outputFolder}/${viewsDirectory}/login.${templatingEngineExtension}`
-    ), // Destination
-    chunks: [chunkName, "login"], // Specify specific bundles in string (e.g. `app`, `main`, `index`)
-  }),
-  new HtmlWebpackPlugin({
-    favicon: `${entryFolder}/${assetsFolderName}/${imagesDirectory}/favicon.png`, // Version 1
-    template: path.resolve(
-      __dirname,
-      `${entryFolder}/${viewsDirectory}/user/home.${templatingEngineExtension}`
-    ), // Destination
-    filename: path.resolve(
-      __dirname,
-      `${outputFolder}/${viewsDirectory}/user/home.${templatingEngineExtension}`
-    ), // Destination
-    chunks: [chunkName, "main"], // Specify specific bundles in string (e.g. `app`, `main`, `index`)
-  }),
-  new CopyPlugin({
-    // Version 2 - comment out favicon in HtmlWebpackPlugin, then add favicon statically in HTML pages (<link rel="icon" type="image/png" href="/favicon.png">)
-    patterns: [
-      // Copy partials folder
-      {
-        from: path.resolve(
-          __dirname,
-          `${entryFolder}/${viewsDirectory}/partials`
-        ),
-        to: path.resolve(
-          __dirname,
-          `${outputFolder}/${viewsDirectory}/partials`
-        ),
+const loadPlugins = () => {
+  const plugins = [
+    new webpack.ProvidePlugin({
+      _: "lodash",
+    }),
+    new CopyPlugin({
+      // Version 2 - comment out favicon in HtmlWebpackPlugin, then add favicon statically in HTML pages (<link rel="icon" type="image/png" href="/favicon.png">)
+      patterns: [
+        // Copy partials folder
+        {
+          from: path.resolve(
+            __dirname,
+            `${entryFolder}/${viewsDirectory}/partials`
+          ),
+          to: path.resolve(
+            __dirname,
+            `${outputFolder}/${viewsDirectory}/partials`
+          ),
+        },
+      ],
+      options: {
+        concurrency: 100,
       },
-    ],
-    options: {
-      concurrency: 100,
-    },
-  }),
-];
+    }),
+  ];
+  // Add HtmlWebpackPlugin to plugins (dependent on RoutesMaster)
+  const { globalChunks: globalChunks, ...Routes } = RoutesMaster;
+  Object.keys(Routes).forEach((key) => {
+    const route = Routes[key]; // public, user, global
+    // Loop through route paths
+    Object.keys(route).forEach((key) => {
+      const viewLocation = route[key].view; // e.g.: index.ejs, login.ejs
+      const chunks = route[key].chunks; // e.g.: ["vendor", "main"]
+      const mergedChunks = [...RoutesMaster.globalChunks, ...chunks];
+
+      plugins.push(
+        new HtmlWebpackPlugin({
+          favicon: `${entryFolder}/${assetsFolderName}/${imagesDirectory}/favicon.png`, // Version 1
+          template: path.resolve(
+            __dirname,
+            `${entryFolder}/${viewsDirectory}/${viewLocation}.${templatingEngineExtension}`
+          ), // Destination
+          filename: path.resolve(
+            __dirname,
+            `${outputFolder}/${viewsDirectory}/${viewLocation}.${templatingEngineExtension}`
+          ), // Destination
+          chunks: mergedChunks, // Specify specific bundles in string (e.g. `app`, `main`, `index`)
+        })
+      );
+    });
+  });
+  return plugins;
+};
 
 export const buildType: any = (env: any) => {
   const buildType = !env.buildType ? "production" : env.buildType;
@@ -223,7 +204,7 @@ export const buildType: any = (env: any) => {
       `./${outputFolder}/${assetsFolderName}`
     );
     build.module.rules.push({ test: /\.ejs$/, loader: "raw-loader" });
-    build.plugins = [...build.plugins, ...plugins];
+    build.plugins = [...build.plugins, ...loadPlugins()];
   }
 
   return build;

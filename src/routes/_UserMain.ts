@@ -17,8 +17,8 @@ Object.keys(publicRoutes).forEach((url, index, array) => {
 
 const routes: any = {
   "/user": {
-    view: "home.ejs",
-    chunks: [],
+    view: "user/home",
+    chunks: ["main"],
     get: (req: Request, res: Response) => {
       DB.read("SELECT * from `users`;").then((result: any) => {
         res.send(result);
@@ -30,8 +30,8 @@ const routes: any = {
     },
   },
   "/user/home": {
-    view: "home.ejs",
-    chunks: [],
+    view: "user/home",
+    chunks: ["main"],
     get: (req: Request, res: Response) => {
       res.render("user/home.ejs", {
         isProduction: process.env.IS_PRODUCTION,
