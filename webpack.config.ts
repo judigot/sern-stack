@@ -302,7 +302,6 @@ const finalBuild = {
 
 export const buildType: any = (env: any) => {
   const buildType = !env.buildType ? "production" : env.buildType;
-
   console.log(`Build type: ${buildType}`);
 
   return env.buildType === "production" ? production : finalBuild;
