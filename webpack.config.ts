@@ -4,6 +4,18 @@ import dotenv from "dotenv";
 
 import Routes from "./src/routes/RoutesMaster";
 
+const htmlViews: any = [];
+Object.keys(Routes).forEach((key, index) => {
+  const route = Routes[key];
+  // console.log(route);
+  // Loop through route paths
+  // Object.keys(route).forEach((path) => {
+  //   route[path].forEach((routePath: any) => {
+  //     htmlViews.push(routePath);
+  //   });
+  // });
+});
+
 dotenv.config();
 
 const isProduction = process.env.IS_PRODUCTION === "true" ? true : false;
@@ -212,18 +224,6 @@ export const buildType: any = (env: any) => {
     );
     build.module.rules.push({ test: /\.ejs$/, loader: "raw-loader" });
     build.plugins = [...build.plugins, ...plugins];
-
-    const htmlViews: any = [];
-    Object.keys(Routes).forEach((key, index) => {
-      const route = Routes[key];
-      // console.log(route);
-      // Loop through route paths
-      // Object.keys(route).forEach((path) => {
-      //   route[path].forEach((routePath: any) => {
-      //     htmlViews.push(routePath);
-      //   });
-      // });
-    });
   }
 
   return build;
