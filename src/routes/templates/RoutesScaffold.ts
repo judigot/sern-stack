@@ -1,7 +1,7 @@
 import fs from "fs";
 import path from "path";
 
-import * as MasterRoutes from "./config";
+import * as MasterRoutes from "../config";
 
 const fileNames: any = [];
 

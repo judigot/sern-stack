@@ -6,8 +6,8 @@ dotenv.config();
 const PORT = process.env.PORT || 3000;
 
 // Load environment
-import express, { Application } from "express";
 import path from "path";
+import express, { Application } from "express";
 
 // Variables
 const app: Application = express();
@@ -17,6 +17,7 @@ const viewsFolder: string = `views`;
 app.set("views", path.resolve(__dirname, viewsFolder));
 app.set("view engine", "ejs");
 
+// Parses incoming requests with JSON
 app.use(express.json());
 
 // Serve static files (CSS, JS, images, fonts, etc.)
@@ -26,9 +27,6 @@ app.use(express.static(path.resolve(__dirname, "public")));
 import routes from "./routes/web";
 
 app.use("/", routes);
-
-// import userRoutes from "./routes/user";
-// app.use("/user", userRoutes);
 
 //================================================================================//
 // Initialize port
