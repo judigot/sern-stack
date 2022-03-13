@@ -43,18 +43,6 @@ const CopyPlugin = require("copy-webpack-plugin");
 import PurgeCSSPlugin from "purgecss-webpack-plugin";
 //====================Plugins====================//
 
-const htmlViews: any = [];
-Object.keys(Routes).forEach((key, index) => {
-  const route = Routes[key];
-  // console.log(route);
-  // Loop through route paths
-  // Object.keys(route).forEach((path) => {
-  //   route[path].forEach((routePath: any) => {
-  //     htmlViews.push(routePath);
-  //   });
-  // });
-});
-
 const chunkName = "vendor";
 
 const build: any = {
@@ -217,13 +205,25 @@ export const buildType: any = (env: any) => {
   console.log(`Build type: ${buildType}`);
 
   if (buildType === "production") {
+    delete build["watch"];
     build.output.path = path.resolve(
       __dirname,
       `./${outputFolder}/${assetsFolderName}`
     );
     build.module.rules.push({ test: /\.ejs$/, loader: "raw-loader" });
     build.plugins = [...build.plugins, ...plugins];
-    delete build["watch"];
+
+    const htmlViews: any = [];
+    Object.keys(Routes).forEach((key, index) => {
+      const route = Routes[key];
+      // console.log(route);
+      // Loop through route paths
+      // Object.keys(route).forEach((path) => {
+      //   route[path].forEach((routePath: any) => {
+      //     htmlViews.push(routePath);
+      //   });
+      // });
+    });
   }
 
   return build;
