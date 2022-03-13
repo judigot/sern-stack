@@ -207,7 +207,7 @@ const production = {
   ],
 };
 
-const development = {
+const finalBuild = {
   target: "node",
   entry: {
     [chunkName]: [
@@ -305,7 +305,7 @@ export const buildType: any = (env: any) => {
 
   console.log(`Build type: ${buildType}`);
 
-  return env.buildType === "production" ? production : development;
+  return env.buildType === "production" ? production : finalBuild;
 };
 
 export default buildType;
