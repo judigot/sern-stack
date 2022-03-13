@@ -46,7 +46,7 @@ import PurgeCSSPlugin from "purgecss-webpack-plugin";
 const htmlViews: any = [];
 Object.keys(Routes).forEach((key, index) => {
   const route = Routes[key];
-  console.log(route);
+  // console.log(route);
   // Loop through route paths
   // Object.keys(route).forEach((path) => {
   //   route[path].forEach((routePath: any) => {
@@ -57,157 +57,7 @@ Object.keys(Routes).forEach((key, index) => {
 
 const chunkName = "vendor";
 
-const production = {
-  target: "node",
-  entry: {
-    [chunkName]: [
-      `jquery/dist/jquery.js`,
-      `react`,
-      `react-dom`,
-      `bootstrap/dist/js/bootstrap.min.js`,
-
-      // `./${entryFolder}/${jsDirectory}/main.js`, // Version 2
-      // `./${entryFolder}/${sassDirectory}/main.scss`, // Version 2
-    ],
-    main: [
-      `./${entryFolder}/${assetsFolderName}/${sassDirectory}/main.scss`, // Version 1
-      `./${entryFolder}/${assetsFolderName}/${jsDirectory}/main.tsx`, // Version 1
-    ],
-    login: [
-      `./${entryFolder}/${assetsFolderName}/${jsDirectory}/login.tsx`, // Version 1
-    ],
-  },
-
-  output: {
-    publicPath: `/`,
-    path: path.resolve(__dirname, `./${outputFolder}/${assetsFolderName}`),
-    filename: `[name]${isProduction ? ".[chunkhash]" : ""}.js`, // Chunkhash for file versioning/long-term caching - Version 1
-    // filename: `${jsDirectory}/[name]${isProduction ? ".[chunkhash]" : ""}.js`, // Chunkhash for file versioning/long-term caching - Version 2
-
-    // assetModuleFilename: "images/[hash][ext][query]",
-    assetModuleFilename: "[hash][ext][query]",
-  },
-
-  resolve: {
-    extensions: [".tsx", ".jsx", ".ts", ".js"],
-    // alias: aliases, // Path aliases are extracted from tsconfig.json
-    plugins: [new TsconfigPathsPlugin({})], // Don't remove! This extracts paths from tsconfig.json and convert to aliases
-  },
-
-  module: {
-    rules: [
-      // Babel: TypeScript/JavaScript (JSX, TSX, TS, and JS)
-      {
-        test: /\.(ts|js)x?$/,
-        exclude: /node_modules/,
-        use: {
-          loader: "babel-loader",
-        },
-      },
-
-      // EJS
-      {
-        test: /\.ejs$/,
-        loader: "raw-loader",
-      },
-
-      // SCSS
-      {
-        test: /\.(css|sass|scss)$/,
-        use: [MiniCssExtractPlugin.loader, "css-loader", "sass-loader"], // It will take effect from right to left
-      },
-
-      // Images
-      {
-        test: /\.(png|jpg|jpeg|gif|bmp)$/,
-        type: "asset", // Automatically chooses between exporting a data URI and emitting a separate file
-        parser: {
-          dataUrlCondition: {
-            maxSize: 30 * 1024, // 30kB
-            // maxSize: 100 * 1024 , // 100kB
-          },
-        },
-      },
-
-      // Fonts
-      {
-        test: /\.(svg|eot|ttf|woff|woff2)$/,
-        type: "asset",
-      },
-    ],
-  },
-  plugins: [
-    new webpack.ProvidePlugin({
-      _: "lodash",
-    }),
-
-    new HtmlWebpackPlugin({
-      favicon: `${entryFolder}/${assetsFolderName}/${imagesDirectory}/favicon.png`, // Version 1
-      template: path.resolve(
-        __dirname,
-        `${entryFolder}/${viewsDirectory}/index.${templatingEngineExtension}`
-      ), // Destination
-      filename: path.resolve(
-        __dirname,
-        `${outputFolder}/${viewsDirectory}/index.${templatingEngineExtension}`
-      ), // Destination
-      chunks: [chunkName, "main"], // Specify specific bundles in string (e.g. `app`, `main`, `index`)
-    }),
-
-    new HtmlWebpackPlugin({
-      favicon: `${entryFolder}/${assetsFolderName}/${imagesDirectory}/favicon.png`, // Version 1
-      template: path.resolve(
-        __dirname,
-        `${entryFolder}/${viewsDirectory}/login.${templatingEngineExtension}`
-      ), // Destination
-      filename: path.resolve(
-        __dirname,
-        `${outputFolder}/${viewsDirectory}/login.${templatingEngineExtension}`
-      ), // Destination
-      chunks: [chunkName, "login"], // Specify specific bundles in string (e.g. `app`, `main`, `index`)
-    }),
-
-    new HtmlWebpackPlugin({
-      favicon: `${entryFolder}/${assetsFolderName}/${imagesDirectory}/favicon.png`, // Version 1
-      template: path.resolve(
-        __dirname,
-        `${entryFolder}/${viewsDirectory}/user/home.${templatingEngineExtension}`
-      ), // Destination
-      filename: path.resolve(
-        __dirname,
-        `${outputFolder}/${viewsDirectory}/user/home.${templatingEngineExtension}`
-      ), // Destination
-      chunks: [chunkName, "main"], // Specify specific bundles in string (e.g. `app`, `main`, `index`)
-    }),
-
-    new MiniCssExtractPlugin({
-      filename: `[name]${isProduction ? ".[chunkhash]" : ""}.css`, // Chunkhash for file versioning/long-term caching - Version 1
-      // filename: `${cssDirectory}/[name]${isProduction ? ".[chunkhash]" : ""}.css`, // Chunkhash for file versioning/long-term caching - Version 2
-    }),
-
-    new CopyPlugin({
-      // Version 2 - comment out favicon in HtmlWebpackPlugin, then add favicon statically in HTML pages (<link rel="icon" type="image/png" href="/favicon.png">)
-      patterns: [
-        // Copy partials folder
-        {
-          from: path.resolve(
-            __dirname,
-            `${entryFolder}/${viewsDirectory}/partials`
-          ),
-          to: path.resolve(
-            __dirname,
-            `${outputFolder}/${viewsDirectory}/partials`
-          ),
-        },
-      ],
-      options: {
-        concurrency: 100,
-      },
-    }),
-  ],
-};
-
-const finalBuild = {
+const build: any = {
   target: "node",
   entry: {
     [chunkName]: [
@@ -300,11 +150,83 @@ const finalBuild = {
   // mode: "development",
 };
 
+const plugins = [
+  new webpack.ProvidePlugin({
+    _: "lodash",
+  }),
+  new HtmlWebpackPlugin({
+    favicon: `${entryFolder}/${assetsFolderName}/${imagesDirectory}/favicon.png`, // Version 1
+    template: path.resolve(
+      __dirname,
+      `${entryFolder}/${viewsDirectory}/index.${templatingEngineExtension}`
+    ), // Destination
+    filename: path.resolve(
+      __dirname,
+      `${outputFolder}/${viewsDirectory}/index.${templatingEngineExtension}`
+    ), // Destination
+    chunks: [chunkName, "main"], // Specify specific bundles in string (e.g. `app`, `main`, `index`)
+  }),
+  new HtmlWebpackPlugin({
+    favicon: `${entryFolder}/${assetsFolderName}/${imagesDirectory}/favicon.png`, // Version 1
+    template: path.resolve(
+      __dirname,
+      `${entryFolder}/${viewsDirectory}/login.${templatingEngineExtension}`
+    ), // Destination
+    filename: path.resolve(
+      __dirname,
+      `${outputFolder}/${viewsDirectory}/login.${templatingEngineExtension}`
+    ), // Destination
+    chunks: [chunkName, "login"], // Specify specific bundles in string (e.g. `app`, `main`, `index`)
+  }),
+  new HtmlWebpackPlugin({
+    favicon: `${entryFolder}/${assetsFolderName}/${imagesDirectory}/favicon.png`, // Version 1
+    template: path.resolve(
+      __dirname,
+      `${entryFolder}/${viewsDirectory}/user/home.${templatingEngineExtension}`
+    ), // Destination
+    filename: path.resolve(
+      __dirname,
+      `${outputFolder}/${viewsDirectory}/user/home.${templatingEngineExtension}`
+    ), // Destination
+    chunks: [chunkName, "main"], // Specify specific bundles in string (e.g. `app`, `main`, `index`)
+  }),
+  new CopyPlugin({
+    // Version 2 - comment out favicon in HtmlWebpackPlugin, then add favicon statically in HTML pages (<link rel="icon" type="image/png" href="/favicon.png">)
+    patterns: [
+      // Copy partials folder
+      {
+        from: path.resolve(
+          __dirname,
+          `${entryFolder}/${viewsDirectory}/partials`
+        ),
+        to: path.resolve(
+          __dirname,
+          `${outputFolder}/${viewsDirectory}/partials`
+        ),
+      },
+    ],
+    options: {
+      concurrency: 100,
+    },
+  }),
+];
+
 export const buildType: any = (env: any) => {
   const buildType = !env.buildType ? "production" : env.buildType;
+
   console.log(`Build type: ${buildType}`);
 
-  return env.buildType === "production" ? production : finalBuild;
+  if (buildType === "production") {
+    build.output.path = path.resolve(
+      __dirname,
+      `./${outputFolder}/${assetsFolderName}`
+    );
+    build.module.rules.push({ test: /\.ejs$/, loader: "raw-loader" });
+    build.plugins = [...build.plugins, ...plugins];
+    delete build["watch"];
+  }
+
+  return build;
 };
 
 export default buildType;
