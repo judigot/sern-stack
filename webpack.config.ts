@@ -41,6 +41,7 @@ const MiniCssExtractPlugin = require("mini-css-extract-plugin");
 import HtmlWebpackPlugin from "html-webpack-plugin";
 const CopyPlugin = require("copy-webpack-plugin");
 import PurgeCSSPlugin from "purgecss-webpack-plugin";
+import { CleanWebpackPlugin } from "clean-webpack-plugin";
 //====================Plugins====================//
 
 const chunkName = "vendor";
@@ -118,6 +119,8 @@ const build: any = {
     ],
   },
   plugins: [
+    new CleanWebpackPlugin(),
+
     new MiniCssExtractPlugin({
       filename: `[name]${isProduction ? ".[chunkhash]" : ""}.css`, // Chunkhash for file versioning/long-term caching - Version 1
       // filename: `${cssDirectory}/[name]${isProduction ? ".[chunkhash]" : ""}.css`, // Chunkhash for file versioning/long-term caching - Version 2
