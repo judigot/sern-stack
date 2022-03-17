@@ -23,6 +23,9 @@ app.use(express.json());
 // Serve static files (CSS, JS, images, fonts, etc.)
 app.use(express.static(path.resolve(__dirname, "public")));
 
+// Parse POST and PUT requests
+app.use(express.urlencoded({ extended: true }));
+
 //================================================================================//
 import routes from "./routes/web";
 

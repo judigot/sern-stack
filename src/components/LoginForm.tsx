@@ -1,6 +1,8 @@
 import React from "react";
 import { FormEventHandler, useRef, useState } from "react";
 
+import axios from "axios";
+
 interface Props {}
 
 interface Form {
@@ -17,8 +19,41 @@ export const LoginForm = (props: Props) => {
 
   const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
-    alert(username);
-    alert(password);
+
+    // Ajax:
+    // $.ajax({
+    //   url: "/login",
+    //   type: "POST",
+    //   dataType: "json",
+    //   data: {
+    //     username: username,
+    //     password: password,
+    //   },
+    // })
+    //   .done(function (data) {
+    //     console.log(data);
+    //   })
+    //   .fail(function (data) {});
+
+    axios
+      .post("/login", {
+        username: username,
+        password: password,
+      })
+      .then((res) => {
+        const data = res.data;
+        if (res.status == 200 && res.statusText === "OK") {
+          // Success
+          alert(data.response);
+        }
+      })
+      .catch((error) => {
+        // Fail
+        console.log(error);
+      })
+      .finally(() => {
+        // Finally
+      });
 
     // const target = e.target as typeof e.target & {
     //   username: { value: string };

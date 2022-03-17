@@ -17,5 +17,12 @@ export default <any>{
         isProduction: process.env.IS_PRODUCTION,
       });
     },
+    post: (req: Request, res: Response) => {
+      const username: string = req.body.username;
+      const password: string = req.body.password;
+      res.send({
+        response: `Username is ${username}. Password is ${password}.`,
+      });
+    },
   },
 };
