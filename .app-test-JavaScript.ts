@@ -1,11 +1,14 @@
-// import DB from "./src/app/Classes/Database";
+import DB from "./src/app/Classes/Database";
 
-// import Auth from "./src/app/Http/Controllers/AuthenticationController";
+import Auth from "./src/app/Http/Controllers/AuthenticationController";
 
-import DB from "./src/routes/RoutesMaster";
-console.log(DB);
+// import DB from "./src/routes/RoutesMaster";
+// console.log(DB);
 
-// const Models = require("./src-js/models");
+import Models from "./src/models";
+
+console.log(Models.User);
+
 
 // Models.User.create({
 //   firstName: "Judy",
@@ -27,9 +30,19 @@ console.log(DB);
 // new DB();
 
 // Auth.hashPassword("123").then((hash) => {
+//   DB.create("users", {
+//     firstName: "Gorio",
+//     lastName: "Igot",
+//     email: "judigot@gmail.com",
+//     password: hash,
+//     createdAt: new Date(),
+//     updatedAt: new Date(),
+//   }).then((result) => {
+//     console.log(result);
+//   });
 //   DB.create("users", [
 //     {
-//       firstName: "Judy Gwapo",
+//       firstName: "Gorio",
 //       lastName: "Igot",
 //       email: "judigot@gmail.com",
 //       password: hash,
@@ -82,9 +95,11 @@ console.log(DB);
 //   });
 // });
 
-DB.read("SELECT * FROM `users`").then((result) => {
-  console.log(result);
-});
+// DB.read("SELECT `firstName` FROM `users` WHERE `id` = ?;", [1]).then(
+//   (result) => {
+//     // console.log(result);
+//   }
+// );
 
 // DB.update("users", { lastName: "Reid" }, { id: 1 });
 
@@ -108,3 +123,18 @@ DB.read("SELECT * FROM `users`").then((result) => {
 //   },
 //   { id: 1 }
 // );
+
+// function update(
+//     {
+//         table: "users",
+//         columns: {
+//             age: "4",
+//             firstName: "Jude",
+//         }
+// where: {
+//   id: [123];
+// }
+//     }
+// ) {}
+
+// DB.update("users", { lastName: "11111" }, { id: 1 });

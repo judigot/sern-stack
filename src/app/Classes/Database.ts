@@ -21,7 +21,7 @@ class Database {
 
   private static pool: any = DB.createPool(Database.connection);
 
-  private static testVariable: any = "Original value";
+  private static testVariable: string = "Original value";
 
   constructor() {
     Database.testVariable = "Changed value";
@@ -46,16 +46,16 @@ class Database {
     this.pool = null;
   }
 
-  public static async create(tableName: any, data: any) {
+  public static async create(tableName: string, data: any) {
     const isMultipleRows = Array.isArray(data);
     const columnNames: string[] = Object.keys(isMultipleRows ? data[0] : data);
-    const values: any[] = [];
-    const parameters: any[] = [];
+    const values: string[] = [];
+    const parameters: string[] = [];
 
     // Store values and parameters inside arrays
     if (isMultipleRows) {
       for (let i = 0; i < data.length; i++) {
-        const parameter: any[] = [];
+        const parameter: string[] = [];
         const element = data[i];
         for (let key in element) {
           values.push(element[key]);
@@ -64,7 +64,7 @@ class Database {
         parameters.push(`(${parameter.join(", ")})`);
       }
     } else {
-      const parameter: any[] = [];
+      const parameter: string[] = [];
       for (let key in data) {
         values.push(data[key]);
         parameter.push("?");
@@ -73,7 +73,7 @@ class Database {
     }
 
     // Build query
-    const sql = `INSERT INTO \`${tableName}\` (\`${columnNames.join(
+    const sql: string = `INSERT INTO \`${tableName}\` (\`${columnNames.join(
       "`, `"
     )}\`) VALUES ${parameters.join(", ")};`;
 
@@ -118,12 +118,12 @@ class Database {
     */
   }
 
-  public static async read(sql: string, values?: any) {
+  public static async read<T>(sql: string, values?: T[]) {
     return await this.execute(sql, values);
   }
 
   public static async update(
-    tableName: any,
+    tableName: string,
     targetColumns?: any,
     where?: any,
     inside?: any
@@ -159,7 +159,7 @@ class Database {
 
     const isShorthand = isSingleWhereCondition && isWhereConditionArray;
 
-    console.log(isShorthand ? "Shorthand" : "Not shorthand");
+    // console.log(isShorthand ? "Shorthand" : "Not shorthand");
 
     if (targetColumns) {
       for (let key in targetColumns) {
@@ -170,15 +170,15 @@ class Database {
       targetColumnsStatement = ` SET ${targetColumnsArray.join(", ")}`;
     }
 
-    console.log(isShorthand);
+    // console.log(isShorthand);
 
     // Check if there is a where condition
     if ((where && inside) || (where && !isShorthand)) {
       // if ((where || isShorthand) && !isShorthand && !inside) {
       const whereConditionsCount = Object.keys(where).length;
-      console.log(
-        `There is a where. Total where statements = ${whereConditionsCount}`
-      );
+      // console.log(
+      //   `There is a where. Total where statements = ${whereConditionsCount}`
+      // );
 
       // If there are multiple where conditions
       if (whereConditionsCount > 1) {
@@ -193,7 +193,7 @@ class Database {
         });
         whereStatement = ` WHERE ${whereArray.join(" OR ")}`;
       } else {
-        console.log(`${whereConditionsCount} where statement`);
+        // console.log(`${whereConditionsCount} where statement`);
 
         for (let key in where) {
           let tempArray: any[] = [];
@@ -219,8 +219,8 @@ class Database {
       values = values.concat(value);
     }
     const sql = `UPDATE \`${tableName}\`${targetColumnsStatement}${whereStatement}${insideStatement};`;
-    console.log(sql);
-    console.log(values);
+    // console.log(sql);
+    // console.log(values);
     return await this.execute(sql, values);
 
     /**********

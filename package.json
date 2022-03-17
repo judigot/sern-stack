@@ -4,6 +4,7 @@
   "description": "",
   "main": "index.js",
   "scripts": {
+    "test": "jest",
     "Start Production (F9)": "clear && node dist/index.js\n",
     "Start Development (F10)": "clear && nodemon --exec ts-node -r tsconfig-paths/register src/index.ts\n",
     "Build & Run - Prod (Ctrl + F9)": "clear && ([ ! -d dist ] || rm -r dist) && tsc && tsc-alias && npx webpack --env buildType=production --mode production && nodemon --exec ts-node -r tsconfig-paths/register dist/index.js\n",
@@ -21,6 +22,7 @@
   "license": "ISC",
   "devDependencies": {
     "@babel/core": "^7.17.5",
+    "@babel/plugin-transform-runtime": "^7.17.0",
     "@babel/polyfill": "^7.12.1",
     "@babel/preset-env": "^7.16.11",
     "@babel/preset-react": "^7.16.7",
@@ -28,6 +30,7 @@
     "@types/bcrypt": "^5.0.0",
     "@types/ejs": "^3.1.0",
     "@types/express": "^4.17.13",
+    "@types/jest": "^27.4.1",
     "@types/lodash": "^4.14.179",
     "@types/node": "^16.4.0",
     "@types/react": "^17.0.39",
@@ -40,6 +43,7 @@
     "css-loader": "^5.2.6",
     "dotenv": "^10.0.0",
     "html-webpack-plugin": "^5.3.2",
+    "jest": "^27.5.1",
     "mini-css-extract-plugin": "^2.1.0",
     "node-sass": "^7.0.1",
     "purgecss-webpack-plugin": "^4.0.3",
