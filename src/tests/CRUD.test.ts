@@ -1,6 +1,8 @@
-import DB from "../src/app/Classes/Database";
+import DB from "../app/Classes/Database";
 
-import Auth from "../src/app/Http/Controllers/AuthenticationController";
+import Auth from "../app/Http/Controllers/AuthenticationController";
+
+// Re-seed data before running CRUD test
 
 test("CREATE", async () => {
   return Auth.hashPassword("123").then((hash) => {
