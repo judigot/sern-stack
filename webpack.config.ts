@@ -119,8 +119,6 @@ const build: any = {
     ],
   },
   plugins: [
-    new CleanWebpackPlugin(),
-
     new MiniCssExtractPlugin({
       filename: `[name]${isProduction ? ".[chunkhash]" : ""}.css`, // Chunkhash for file versioning/long-term caching - Version 1
       // filename: `${cssDirectory}/[name]${isProduction ? ".[chunkhash]" : ""}.css`, // Chunkhash for file versioning/long-term caching - Version 2
@@ -143,9 +141,12 @@ const build: any = {
 
 const loadPlugins = () => {
   const plugins = [
+    new CleanWebpackPlugin(),
+
     new webpack.ProvidePlugin({
       _: "lodash",
     }),
+
     new CopyPlugin({
       // Version 2 - comment out favicon in HtmlWebpackPlugin, then add favicon statically in HTML pages (<link rel="icon" type="image/png" href="/favicon.png">)
       patterns: [
