@@ -46,7 +46,6 @@ import PurgeCSSPlugin from "purgecss-webpack-plugin";
 const chunkName = "vendor";
 
 const build: any = {
-  target: "node",
   entry: {
     [chunkName]: [
       `jquery/dist/jquery.js`,
@@ -124,9 +123,9 @@ const build: any = {
       // filename: `${cssDirectory}/[name]${isProduction ? ".[chunkhash]" : ""}.css`, // Chunkhash for file versioning/long-term caching - Version 2
     }),
   ],
-  watch: true,
+  // watch: true,
   // devServer: {
-  //   port: 8080,
+  //   port: 3000,
   //   hot: true,
   //   contentBase: path.resolve(__dirname, "dist"),
   //   proxy: {
@@ -136,6 +135,7 @@ const build: any = {
   //   },
   // },
   // mode: "development",
+  target: "node",
 };
 
 const loadPlugins = () => {
