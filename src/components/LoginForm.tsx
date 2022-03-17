@@ -4,8 +4,8 @@ import { FormEventHandler, useRef, useState } from "react";
 interface Props {}
 
 interface Form {
-  username: string | undefined;
-  password: string | undefined;
+  username?: string;
+  password?: string;
 }
 
 export const LoginForm = (props: Props) => {
