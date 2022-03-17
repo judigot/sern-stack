@@ -127,18 +127,18 @@ const build: any = {
     }),
   ],
   // watch: true,
-  // devServer: {
-  //   port: 3000,
-  //   hot: true,
-  //   contentBase: path.resolve(__dirname, "dist"),
-  //   proxy: {
-  //     "/": {
-  //       target: "http://localhost:5000/",
-  //     },
-  //   },
-  // },
-  // mode: "development",
-  target: "node",
+  devServer: {
+    port: 3000,
+    hot: true,
+    contentBase: path.resolve(__dirname, "dist"),
+    proxy: {
+      "/": {
+        target: "http://localhost:5000/",
+      },
+    },
+  },
+  mode: "development",
+  target: "web",
 };
 
 const loadPlugins = () => {
