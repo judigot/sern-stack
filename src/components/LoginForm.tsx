@@ -20,21 +20,6 @@ export const LoginForm = (props: Props) => {
   const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
 
-    // Ajax:
-    // $.ajax({
-    //   url: "/login",
-    //   type: "POST",
-    //   dataType: "json",
-    //   data: {
-    //     username: username,
-    //     password: password,
-    //   },
-    // })
-    //   .done(function (data) {
-    //     console.log(data);
-    //   })
-    //   .fail(function (data) {});
-
     axios
       .post("/login", {
         username: username,
@@ -54,15 +39,6 @@ export const LoginForm = (props: Props) => {
       .finally(() => {
         // Finally
       });
-
-    // const target = e.target as typeof e.target & {
-    //   username: { value: string };
-    //   password: { value: string };
-    // };
-    // const username: string = target.username.value; // typechecks!
-    // const password = target.password.value; // typechecks!
-    // setUsername(username);
-    // setPassword(password);
   };
 
   const handleChange = (e: React.KeyboardEvent) => {
