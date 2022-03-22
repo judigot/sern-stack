@@ -40,7 +40,6 @@ const TsconfigPathsPlugin = require("tsconfig-paths-webpack-plugin"); // Don't r
 const MiniCssExtractPlugin = require("mini-css-extract-plugin");
 import HtmlWebpackPlugin from "html-webpack-plugin";
 const CopyPlugin = require("copy-webpack-plugin");
-import PurgeCSSPlugin from "purgecss-webpack-plugin";
 import { CleanWebpackPlugin } from "clean-webpack-plugin";
 //====================Plugins====================//
 
