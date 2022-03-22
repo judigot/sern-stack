@@ -195,7 +195,7 @@ const loadPlugins = () => {
   return plugins;
 };
 
-export const buildType: any = (env: any) => {
+export default (env: any) => {
   const buildType = !env.buildType ? "production" : env.buildType;
 
   console.log(`Build type: ${buildType}`);
@@ -212,5 +212,3 @@ export const buildType: any = (env: any) => {
 
   return build;
 };
-
-export default buildType;
