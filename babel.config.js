@@ -1,5 +1,6 @@
 // Extract paths from tsconfig.json and convert to aliases
 const tsconfig = require("./tsconfig.json");
+const rootDir = tsconfig.compilerOptions.rootDir;
 const paths = tsconfig.compilerOptions.paths;
 let aliases = {};
 for (let i = 0; i < Object.keys(paths).length; i++) {
@@ -15,10 +16,12 @@ for (let i = 0; i < Object.keys(paths).length; i++) {
 
 module.exports = {
   presets: [
+    "minify",
     "@babel/preset-env",
     "@babel/preset-react",
     "@babel/preset-typescript",
   ],
+  comments: false,
   env: {
     test: {
       plugins: ["@babel/plugin-transform-runtime"],
@@ -29,7 +32,7 @@ module.exports = {
     [
       "module-resolver",
       {
-        root: ["./src"],
+        root: [rootDir],
         alias: aliases,
       },
     ],
