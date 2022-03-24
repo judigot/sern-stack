@@ -1,3 +1,5 @@
+import "tsconfig-paths/register"; // Parse path aliases
+
 import webpack from "webpack";
 import path from "path";
 import dotenv from "dotenv";

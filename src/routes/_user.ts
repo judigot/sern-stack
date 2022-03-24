@@ -1,6 +1,6 @@
 import { Request, Response, NextFunction } from "express";
 
-import DB from "../app/Classes/Database";
+import DB from "app/Classes/Database";
 
 export default <any>{
   "/": {
