@@ -5,6 +5,7 @@
   "main": "index.js",
   "scripts": {
     "test": "jest",
+    "Babel": "npx babel --extensions \".tsx,.ts,.jsx,.js\" src/* -d dist",
     "Start Production (F9)": "clear && node dist/index.js\n",
     "Start Development (F10)": "clear && nodemon --exec ts-node -r tsconfig-paths/register src/index.ts\n",
     "Build & Run - Prod (Ctrl + F9)": "clear && tsc && tsc-alias && npx webpack --env buildType=production --mode production && node dist/index.js\n",
@@ -22,6 +23,7 @@
   "author": "",
   "license": "ISC",
   "devDependencies": {
+    "@babel/cli": "^7.17.6",
     "@babel/core": "^7.17.5",
     "@babel/plugin-transform-runtime": "^7.17.0",
     "@babel/polyfill": "^7.12.1",
