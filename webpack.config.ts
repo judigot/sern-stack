@@ -18,7 +18,7 @@ const imagesDirectory = "images";
 const fontsDirectory = "fonts";
 const viewsDirectory = "views";
 const templatingEngineExtension = "ejs";
-// 
+
 const assetsFolderName = "public";
 
 //====================Plugins====================//
