@@ -21,20 +21,6 @@ const templatingEngineExtension = "ejs";
 
 const assetsFolderName = "public";
 
-// Extract paths from tsconfig.json and convert to aliases
-// import tsconfig from "./tsconfig.json";
-// const paths: any = tsconfig.compilerOptions.paths;
-// let aliases: any = {};
-// for (let i = 0; i < Object.keys(paths).length; i++) {
-//   const key = Object.keys(paths)[i];
-
-//   // Remove / and * from the string
-//   const alias = key.replace(/\/\*/g, "");
-//   const pathToFolder = paths[key][0].replace(/\*/g, "");
-
-//   aliases[alias] = path.resolve(__dirname, `${entryFolder}/${pathToFolder}/`);
-// }
-
 //====================Plugins====================//
 const TsconfigPathsPlugin = require("tsconfig-paths-webpack-plugin"); // Don't remove! This extracts paths from tsconfig.json and convert to aliases
 const MiniCssExtractPlugin = require("mini-css-extract-plugin");
