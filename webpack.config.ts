@@ -121,7 +121,7 @@ const build: any = {
       },
     },
   },
-  mode: "development",
+  // mode: "development",
   target: "web",
 };
 
@@ -183,7 +183,8 @@ const loadPlugins = () => {
 };
 
 export default (env: any) => {
-  const buildType = !env.buildType ? "production" : env.buildType;
+  const buildType = isProduction ? "production" : "development";
+  // const buildType = !env.buildType ? "production" : env.buildType;
 
   console.log(`Build type: ${buildType}`);
 

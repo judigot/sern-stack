@@ -11,7 +11,6 @@ routes["user"] = addBaseURL("/user", userRoutes);
 routes["globalChunks"] = ["vendor"];
 
 useRoute(routes.public);
-
 useRoute(routes.user);
 
 function useRoute(routes: any) {
@@ -37,13 +36,13 @@ function useRoute(routes: any) {
 }
 
 function addBaseURL(baseURL: string, rawRoutes: object) {
-  const configuredRoutes = Object.fromEntries(
+  const routesWithBaseURL = Object.fromEntries(
     Object.entries(rawRoutes).map(([key, value]) =>
       // Prepend base URL to route
       [`${baseURL}${key}`, value]
     )
   );
-  return configuredRoutes;
+  return routesWithBaseURL;
 }
 
 export default router;
