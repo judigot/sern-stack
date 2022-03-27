@@ -29,7 +29,11 @@ export const LoginForm = (props: Props) => {
         const data = res.data;
         if (res.status == 200 && res.statusText === "OK") {
           // Success
-          alert(data.response);
+          if (data.isPassCorrect) {
+            alert("Login successful!");
+          } else {
+            alert("Login failed!");
+          }
         }
       })
       .catch((error) => {

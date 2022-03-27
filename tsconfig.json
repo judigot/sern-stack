@@ -16,8 +16,11 @@
     "baseUrl": "./src",
     "paths": {
       "app/*": ["app/*"],
-      "styles/*": ["public/scss/*"],
       "Classes/*": ["app/Classes/*"],
+      "Controllers/*": ["app/Http/Controllers/*"],
+      "images/*": ["public/images/*"],
+      "fonts/*": ["public/fonts/*"],
+      "styles/*": ["public/scss/*"],
       "components/*": ["components/*"],
       "models/*": ["models/*"]
     },

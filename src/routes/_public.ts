@@ -1,5 +1,8 @@
 import { Request, Response, NextFunction } from "express";
 
+import DB from "Classes/Database";
+import Auth from "Controllers/AuthenticationController";
+
 export default <any>{
   "/": {
     view: "index",
@@ -20,9 +23,25 @@ export default <any>{
     post: (req: Request, res: Response) => {
       const username: string = req.body.username;
       const password: string = req.body.password;
-      res.send({
-        response: `Username is ${username}. Password is ${password}.`,
-      });
+
+      DB.read("SELECT `password` FROM `users` WHERE `email` = ?", [username])
+        .then((result) => {
+          const hash: string = result[0].password;
+          Auth.verifyPassword(password, hash).then((isPasswordCorrect) => {
+            if (isPasswordCorrect) {
+              // Successful login
+            }
+            res.send({
+              isPassCorrect: isPasswordCorrect,
+            });
+          });
+        })
+        .catch((error) => {
+          console.log(error);
+        })
+        .finally(() => {
+          // Finally
+        });
     },
   },
 };
