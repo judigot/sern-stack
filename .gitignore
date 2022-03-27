@@ -7,6 +7,6 @@ src/public/*
 !src/public/fonts
 !src/public/images
 !src/public/js
-!src/public/sass
+!src/public/scss
 
 tempCodeRunnerFile.ts

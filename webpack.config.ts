@@ -19,7 +19,7 @@ const outputFolder = "dist";
 
 const jsDirectory = "js";
 const cssDirectory = "css";
-const sassDirectory = "sass";
+const scssDirectory = "scss";
 const imagesDirectory = "images";
 const viewsDirectory = "views";
 const templatingEngineExtension = "ejs";
@@ -37,10 +37,10 @@ const build: any = {
       `bootstrap/dist/js/bootstrap.min.js`,
 
       // `./${entryFolder}/${jsDirectory}/main.js`, // Version 2
-      // `./${entryFolder}/${sassDirectory}/main.scss`, // Version 2
+      // `./${entryFolder}/${scssDirectory}/main.scss`, // Version 2
     ],
     main: [
-      `./${entryFolder}/${assetsFolderName}/${sassDirectory}/main.scss`, // Version 1
+      // `./${entryFolder}/${assetsFolderName}/${scssDirectory}/main.scss`, // Version 1
       `./${entryFolder}/${assetsFolderName}/${jsDirectory}/main.tsx`, // Version 1
     ],
     login: [

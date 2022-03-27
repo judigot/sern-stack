@@ -16,6 +16,7 @@
     "baseUrl": "./src",
     "paths": {
       "app/*": ["app/*"],
+      "styles/*": ["public/scss/*"],
       "Classes/*": ["app/Classes/*"],
       "components/*": ["components/*"],
       "models/*": ["models/*"]
