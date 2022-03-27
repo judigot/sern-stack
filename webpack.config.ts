@@ -2,11 +2,10 @@ import "tsconfig-paths/register"; // Parse path aliases
 
 import webpack from "webpack";
 import path from "path";
-import dotenv from "dotenv";
+
+import "dotenv/config";
 
 import { routes as RoutesMaster } from "./src/routes/RoutesMaster";
-
-dotenv.config();
 
 const isProduction = process.env.IS_PRODUCTION === "true" ? true : false;
 
@@ -183,8 +182,7 @@ const loadPlugins = () => {
 };
 
 export default (env: any) => {
-  const buildType = isProduction ? "production" : "development";
-  // const buildType = !env.buildType ? "production" : env.buildType;
+  const buildType = !env.buildType ? "production" : env.buildType;
 
   console.log(`Build type: ${buildType}`);
 

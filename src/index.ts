@@ -1,6 +1,5 @@
 // Import .env file
-import dotenv from "dotenv";
-dotenv.config();
+import "dotenv/config";
 
 // *production environment port may not be 5000, hence the "process.env.PORT"
 const PORT = process.env.PORT || 3000;
