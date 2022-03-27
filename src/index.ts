@@ -34,3 +34,5 @@ app.use("/", routes);
 //================================================================================//
 // Initialize port
 app.listen(PORT);
+
+console.log(`Server started at port ${PORT}`);
