@@ -5,10 +5,10 @@ import "dotenv/config";
 import { routes as RoutesMaster } from "./src/routes/RoutesMaster";
 
 //====================Plugins====================//
-const TsconfigPathsPlugin = require("tsconfig-paths-webpack-plugin"); // Don't remove! This extracts paths from tsconfig.json and convert to aliases
 const MiniCssExtractPlugin = require("mini-css-extract-plugin");
-import HtmlWebpackPlugin from "html-webpack-plugin";
 const CopyPlugin = require("copy-webpack-plugin");
+import TsconfigPathsPlugin from "tsconfig-paths-webpack-plugin"; // Don't remove! This extracts paths from tsconfig.json and convert to aliases
+import HtmlWebpackPlugin from "html-webpack-plugin";
 import { CleanWebpackPlugin } from "clean-webpack-plugin";
 //====================Plugins====================//
 
