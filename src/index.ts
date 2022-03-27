@@ -27,7 +27,7 @@ app.use(express.static(path.resolve(__dirname, "public")));
 app.use(express.urlencoded({ extended: true }));
 
 //================================================================================//
-import routes from "./routes/web";
+import routes from "./routes/RoutesMaster";
 
 app.use("/", routes);
 

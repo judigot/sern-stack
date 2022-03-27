@@ -4,7 +4,7 @@ import webpack from "webpack";
 import path from "path";
 import dotenv from "dotenv";
 
-import RoutesMaster from "./src/routes/RoutesMaster";
+import { routes as RoutesMaster } from "./src/routes/RoutesMaster";
 
 dotenv.config();
 
