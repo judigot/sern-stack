@@ -1,11 +1,16 @@
 import "tsconfig-paths/register"; // Parse path aliases
-
 import webpack from "webpack";
 import path from "path";
-
 import "dotenv/config";
-
 import { routes as RoutesMaster } from "./src/routes/RoutesMaster";
+
+//====================Plugins====================//
+const TsconfigPathsPlugin = require("tsconfig-paths-webpack-plugin"); // Don't remove! This extracts paths from tsconfig.json and convert to aliases
+const MiniCssExtractPlugin = require("mini-css-extract-plugin");
+import HtmlWebpackPlugin from "html-webpack-plugin";
+const CopyPlugin = require("copy-webpack-plugin");
+import { CleanWebpackPlugin } from "clean-webpack-plugin";
+//====================Plugins====================//
 
 const isProduction = process.env.IS_PRODUCTION === "true" ? true : false;
 
@@ -16,19 +21,10 @@ const jsDirectory = "js";
 const cssDirectory = "css";
 const sassDirectory = "sass";
 const imagesDirectory = "images";
-const fontsDirectory = "fonts";
 const viewsDirectory = "views";
 const templatingEngineExtension = "ejs";
 
 const assetsFolderName = "public";
-
-//====================Plugins====================//
-const TsconfigPathsPlugin = require("tsconfig-paths-webpack-plugin"); // Don't remove! This extracts paths from tsconfig.json and convert to aliases
-const MiniCssExtractPlugin = require("mini-css-extract-plugin");
-import HtmlWebpackPlugin from "html-webpack-plugin";
-const CopyPlugin = require("copy-webpack-plugin");
-import { CleanWebpackPlugin } from "clean-webpack-plugin";
-//====================Plugins====================//
 
 const chunkName = "vendor";
 
