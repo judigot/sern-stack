@@ -26,13 +26,19 @@ export const LoginForm = (props: Props) => {
         password: password,
       })
       .then((res) => {
-        const data = res.data;
+        const data: { [key: string]: boolean } = res.data;
         if (res.status == 200 && res.statusText === "OK") {
-          // Success
-          if (data.isPassCorrect) {
+          if (data.userExists && data.passWordValid) {
+            // Successful login
             alert("Login successful!");
-          } else {
-            alert("Login failed!");
+          }
+          if (data.userExists && !data.passWordValid) {
+            // Failed login
+            alert("Wrong password!");
+          }
+          if (!data.userExists) {
+            // User does not exist
+            alert("User does not exist!");
           }
         }
       })
