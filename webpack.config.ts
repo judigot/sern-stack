@@ -12,7 +12,7 @@ import HtmlWebpackPlugin from "html-webpack-plugin";
 import { CleanWebpackPlugin } from "clean-webpack-plugin";
 //====================Plugins====================//
 
-const isProduction = process.env.IS_PRODUCTION === "true" ? true : false;
+const NODE_ENV = process.env.NODE_ENV === "production" ? true : false;
 
 const entryFolder = "src";
 const outputFolder = "dist";
@@ -51,8 +51,8 @@ const build: any = {
   output: {
     publicPath: `/`,
     path: path.resolve(__dirname, `./${entryFolder}/${assetsFolderName}`),
-    filename: `[name]${isProduction ? ".[chunkhash]" : ""}.js`, // Chunkhash for file versioning/long-term caching - Version 1
-    // filename: `${jsDirectory}/[name]${isProduction ? ".[chunkhash]" : ""}.js`, // Chunkhash for file versioning/long-term caching - Version 2
+    filename: `[name]${NODE_ENV ? ".[chunkhash]" : ""}.js`, // Chunkhash for file versioning/long-term caching - Version 1
+    // filename: `${jsDirectory}/[name]${NODE_ENV ? ".[chunkhash]" : ""}.js`, // Chunkhash for file versioning/long-term caching - Version 2
 
     // assetModuleFilename: "images/[hash][ext][query]",
     assetModuleFilename: "[hash][ext][query]",
@@ -101,8 +101,8 @@ const build: any = {
   },
   plugins: [
     new MiniCssExtractPlugin({
-      filename: `[name]${isProduction ? ".[chunkhash]" : ""}.css`, // Chunkhash for file versioning/long-term caching - Version 1
-      // filename: `${cssDirectory}/[name]${isProduction ? ".[chunkhash]" : ""}.css`, // Chunkhash for file versioning/long-term caching - Version 2
+      filename: `[name]${NODE_ENV ? ".[chunkhash]" : ""}.css`, // Chunkhash for file versioning/long-term caching - Version 1
+      // filename: `${cssDirectory}/[name]${NODE_ENV ? ".[chunkhash]" : ""}.css`, // Chunkhash for file versioning/long-term caching - Version 2
     }),
   ],
   // watch: true,

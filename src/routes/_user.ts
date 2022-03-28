@@ -21,7 +21,7 @@ export default <any>{
     chunks: [],
     get: (req: Request, res: Response) => {
       res.render("user/home.ejs", {
-        isProduction: process.env.IS_PRODUCTION,
+        NODE_ENV: process.env.NODE_ENV,
       });
     },
   },

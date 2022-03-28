@@ -8,7 +8,7 @@ export default <any>{
     view: "index",
     chunks: ["main"],
     get: (req: Request, res: Response) => {
-      res.render("index.ejs", { isProduction: process.env.IS_PRODUCTION });
+      res.render("index.ejs", { NODE_ENV: process.env.NODE_ENV });
     },
     post: () => {},
   },
@@ -17,7 +17,7 @@ export default <any>{
     chunks: ["login"],
     get: (req: Request, res: Response) => {
       res.render("login.ejs", {
-        isProduction: process.env.IS_PRODUCTION,
+        NODE_ENV: process.env.NODE_ENV,
       });
     },
     post: (req: Request, res: Response) => {
