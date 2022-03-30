@@ -15,7 +15,8 @@
     "Migrate": "clear && cd src && npx sequelize-cli db:migrate",
     "Undo-Migrate": "clear && cd src && npx sequelize-cli db:migrate:undo:all",
     "Clean-Slate": "clear && npm run Undo-Migrate && npm run Migrate",
-    "Clean Slate with Data": "clear && npm run Clean-Slate && npm run Seed"
+    "Clean Slate with Data": "clear && npm run Clean-Slate && npm run Seed",
+    "Create Database": "clear && ts-node 'Create Database.ts'"
   },
   "keywords": [],
   "author": "",
