@@ -1,8 +1,14 @@
-import DB from "../app/Classes/Database";
+import "tsconfig-paths/register"; // Parse path aliases
 
-import Auth from "../app/Http/Controllers/AuthenticationController";
+import DB from "Classes/Database";
 
-// Re-seed data before running CRUD test
+import Auth from "Controllers/AuthenticationController";
+
+/**Test Requisites
+ * Make sure the database exists
+ * Data must be freshly seeded
+ * Dotenv variables must imported
+ ****/
 
 test("CREATE", async () => {
   return Auth.hashPassword("123").then((hash) => {

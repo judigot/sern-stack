@@ -1,22 +1,9 @@
-import DB from "../app/Classes/Database";
+import "tsconfig-paths/register"; // Parse path aliases
 
-import Auth from "../app/Http/Controllers/AuthenticationController";
+import DB from "Classes/Database";
 
-// Re-seed data before running CRUD test
-
-DB.read("SELECT * from `Users`;").then((result: any) => {
-  console.log(result);
-});
-
-// Auth.hashPassword("123").then((hash) => {
-//   DB.create("users", {
-//     firstName: "Jude",
-//     lastName: "Igot",
-//     email: "judigot@gmail.com",
-//     password: hash,
-//     createdAt: new Date(),
-//     updatedAt: new Date(),
-//   }).then(async (result) => {
-//     console.log(result);
-//   });
-// });
+DB.read("SELECT `firstName` FROM `users` WHERE `id` = ?;", [1]).then(
+  (result) => {
+    console.log(result);
+  }
+);

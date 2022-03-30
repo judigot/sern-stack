@@ -1,3 +1,6 @@
+// Importing dotenv here is optional if you've already imported it in the main server file e.g. index.js
+import "dotenv/config";
+
 import DB from "mysql2/promise";
 
 class Database {
