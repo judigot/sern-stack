@@ -1,13 +1,13 @@
 import { Request, Response, NextFunction } from "express";
 
-import DB from "app/Classes/Database";
+import User from "Models/User";
 
 export default <any>{
   "/": {
     view: "user/home",
     chunks: [],
     get: (req: Request, res: Response) => {
-      DB.read("SELECT * from `users`;").then((result: any) => {
+      User.all().then((result: { [key: string]: string }[]) => {
         res.send(result);
       });
     },

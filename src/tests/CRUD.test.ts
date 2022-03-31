@@ -1,6 +1,6 @@
 import "tsconfig-paths/register"; // Parse path aliases
 
-import DB from "Classes/Database";
+import User from "Models/User";
 
 import Auth from "Controllers/AuthenticationController";
 
@@ -12,7 +12,7 @@ import Auth from "Controllers/AuthenticationController";
 
 test("CREATE", async () => {
   return Auth.hashPassword("123").then((hash) => {
-    DB.create("users", {
+    User.create({
       firstName: "Jude",
       lastName: "Igot",
       email: "judigot@gmail.com",
@@ -27,7 +27,7 @@ test("CREATE", async () => {
 
 test("CREATE: Insert Multiple Rows", async () => {
   return Auth.hashPassword("123").then((hash) => {
-    DB.create("users", [
+    User.create([
       {
         firstName: "Jude",
         lastName: "Igot",
@@ -51,18 +51,21 @@ test("CREATE: Insert Multiple Rows", async () => {
 });
 
 test("READ", async () => {
-  return DB.read("SELECT `firstName` FROM `users` WHERE `id` = ?;", [1]).then(
-    (result) => {
-      expect(result).toStrictEqual([{ firstName: "Jude Francis" }]);
-    }
-  );
+  return User.read(
+    "SELECT `firstName` FROM `" + User.table + "` WHERE `id` = ?;",
+    [1]
+  ).then((result) => {
+    expect(result).toStrictEqual([{ firstName: "Jude Francis" }]);
+  });
 });
 
 test("UPDATE: All rows", async () => {
   const newValue = "00000";
-  return DB.update("users", { lastName: newValue }).then(async (result) => {
-    const totalRows = await DB.read(
-      "SELECT COUNT(*) AS `count` FROM `users` WHERE `lastName` = ?;",
+  return User.update({ lastName: newValue }).then(async (result) => {
+    const totalRows = await User.read(
+      "SELECT COUNT(*) AS `count` FROM `" +
+        User.table +
+        "` WHERE `lastName` = ?;",
       [newValue]
     ).then((result) => {
       return result[0]["count"];
@@ -74,37 +77,37 @@ test("UPDATE: All rows", async () => {
 test("UPDATE: Single row with one condition", async () => {
   const newValue = "11111";
   const referenceValue = 1;
-  return DB.update(
-    "users",
-    { lastName: newValue },
-    { id: referenceValue }
-  ).then(async (result) => {
-    const affectedValue = await DB.read(
-      "SELECT `lastName` FROM `users` WHERE `id` = ?;",
-      [referenceValue]
-    ).then((result) => {
-      return result[0]["lastName"];
-    });
-    const expected = {
-      affectedRows: result["affectedRows"],
-      newValue: affectedValue,
-    };
-    const reference = {
-      affectedRows: 1,
-      newValue: newValue,
-    };
-    expect(expected).toStrictEqual(reference);
-  });
+  return User.update({ lastName: newValue }, { id: referenceValue }).then(
+    async (result) => {
+      const affectedValue = await User.read(
+        "SELECT `lastName` FROM `" + User.table + "` WHERE `id` = ?;",
+        [referenceValue]
+      ).then((result) => {
+        return result[0]["lastName"];
+      });
+      const expected = {
+        affectedRows: result["affectedRows"],
+        newValue: affectedValue,
+      };
+      const reference = {
+        affectedRows: 1,
+        newValue: newValue,
+      };
+      expect(expected).toStrictEqual(reference);
+    }
+  );
 });
 
 test("UPDATE: Multiple rows with one condition (undefined WHERE clause)", async () => {
   const newValue = "22222";
   const referenceValue = [1, 2, 3, 4];
-  return DB.update("users", { lastName: newValue }, undefined, {
+  return User.update({ lastName: newValue }, undefined, {
     id: referenceValue,
   }).then(async (result1) => {
-    const affectedValue = await DB.read(
-      "SELECT `lastName` FROM `users` WHERE `id` IN (" +
+    const affectedValue = await User.read(
+      "SELECT `lastName` FROM `" +
+        User.table +
+        "` WHERE `id` IN (" +
         referenceValue.join(", ") +
         ") GROUP BY `lastName`;",
       referenceValue
@@ -128,15 +131,16 @@ test("UPDATE: Multiple rows with one condition (undefined WHERE clause)", async 
 test("UPDATE: Multiple rows with one condition (IN operator)", async () => {
   const newValue = "33333";
   const referenceValue = [1, 2, 3, 4];
-  return DB.update(
-    "users",
+  return User.update(
     { lastName: newValue },
     {
       id: referenceValue,
     }
   ).then(async (result1) => {
-    const affectedValue = await DB.read(
-      "SELECT `lastName` FROM `users` WHERE `id` IN (" +
+    const affectedValue = await User.read(
+      "SELECT `lastName` FROM `" +
+        User.table +
+        "` WHERE `id` IN (" +
         referenceValue.join(", ") +
         ") GROUP BY `lastName`;",
       referenceValue
@@ -161,11 +165,13 @@ test("UPDATE: Multiple rows with one condition (WHERE and IN combined)", async (
   const newValue = "44444";
   const where = { id: 1 };
   const referenceValue = [2, 3, 4];
-  return DB.update("users", { lastName: newValue }, where, {
+  return User.update({ lastName: newValue }, where, {
     id: referenceValue,
   }).then(async (result1) => {
-    const affectedValue = await DB.read(
-      "SELECT `lastName` FROM `users` WHERE `id` IN (" +
+    const affectedValue = await User.read(
+      "SELECT `lastName` FROM `" +
+        User.table +
+        "` WHERE `id` IN (" +
         referenceValue.join(", ") +
         ") GROUP BY `lastName`;",
       referenceValue
@@ -190,11 +196,13 @@ test("UPDATE: Multiple rows with a different WHERE condition (WHERE and IN combi
   const newValue = "55555";
   const where = { firstName: "Jude Francis" };
   const referenceValue = [2, 3, 4];
-  return DB.update("users", { lastName: newValue }, where, {
+  return User.update({ lastName: newValue }, where, {
     id: referenceValue,
   }).then(async (result1) => {
-    const affectedValue = await DB.read(
-      "SELECT `lastName` FROM `users` WHERE `id` IN (" +
+    const affectedValue = await User.read(
+      "SELECT `lastName` FROM `" +
+        User.table +
+        "` WHERE `id` IN (" +
         referenceValue.join(", ") +
         ") GROUP BY `lastName`;",
       referenceValue
@@ -216,19 +224,19 @@ test("UPDATE: Multiple rows with a different WHERE condition (WHERE and IN combi
 });
 
 test("DELETE: Multiple rows a condition", async () => {
-  return DB.delete("users", "id", [3, 4]).then((result) => {
+  return User.delete("id", [3, 4]).then((result) => {
     expect(result["affectedRows"]).toStrictEqual(2);
   });
 });
 
 test("DELETE: Multiple a single row using a number reference", async () => {
-  return DB.delete("users", "id", 5).then((result) => {
+  return User.delete("id", 5).then((result) => {
     expect(result["affectedRows"]).toStrictEqual(1);
   });
 });
 
 test("DELETE: Multiple a single row using a string reference", async () => {
-  return DB.delete("users", "id", "6").then((result) => {
+  return User.delete("id", "6").then((result) => {
     expect(result["affectedRows"]).toStrictEqual(1);
   });
 });

@@ -7,6 +7,8 @@ class Database {
   // Static means that it can be accessed my the class' functions
   // Static functions means that it can be accessed without instantiating the class; Commonly used in utility functions
 
+  static table: string | undefined = ""; // This value will be overridden by models
+
   private static message: string = "Hello, Database!";
 
   private static connection: object = {
@@ -24,8 +26,9 @@ class Database {
 
   private static testVariable: string = "Original value";
 
-  constructor() {
+  constructor(model?: string) {
     Database.testVariable = "Changed value";
+    Database.table = model;
     return this;
   }
 
@@ -47,7 +50,7 @@ class Database {
     this.pool = null;
   }
 
-  public static async create(tableName: string, data: any) {
+  public static async create(data: any) {
     const isMultipleRows = Array.isArray(data);
     const columnNames: string[] = Object.keys(isMultipleRows ? data[0] : data);
     const values: string[] = [];
@@ -74,7 +77,7 @@ class Database {
     }
 
     // Build query
-    const sql: string = `INSERT INTO \`${tableName}\` (\`${columnNames.join(
+    const sql: string = `INSERT INTO \`${this.table}\` (\`${columnNames.join(
       "`, `"
     )}\`) VALUES ${parameters.join(", ")};`;
 
@@ -123,12 +126,7 @@ class Database {
     return await this.execute(sql, values);
   }
 
-  public static async update(
-    tableName: string,
-    targetColumns?: any,
-    where?: any,
-    inside?: any
-  ) {
+  public static async update(targetColumns?: any, where?: any, inside?: any) {
     let targetColumnsArray: any[] = [];
     let whereArray: any[] = [];
     let insideArray: any[] = [];
@@ -219,7 +217,7 @@ class Database {
 
       values = values.concat(value);
     }
-    const sql = `UPDATE \`${tableName}\`${targetColumnsStatement}${whereStatement}${insideStatement};`;
+    const sql = `UPDATE \`${this.table}\`${targetColumnsStatement}${whereStatement}${insideStatement};`;
     // console.log(sql);
     // console.log(values);
     return await this.execute(sql, values);
@@ -235,17 +233,13 @@ class Database {
     // DB.update("users", { lastName: "55555" }, { firstName: "Jude Francis" }, { id: [2, 3, 4] });
   }
 
-  public static async delete(
-    tableName: any,
-    referenceColumn: any,
-    values: any
-  ) {
+  public static async delete(referenceColumn: any, values: any) {
     // If reference value is not an array, convert it to one
     if (!Array.isArray(values)) {
       values = [values];
     }
     const reference = this.handleInside(values).join(", ");
-    const sql = `DELETE FROM \`${tableName}\` WHERE \`${referenceColumn}\` IN (${reference});`;
+    const sql = `DELETE FROM \`${this.table}\` WHERE \`${referenceColumn}\` IN (${reference});`;
     return await this.execute(sql, values);
   }
 
@@ -259,7 +253,6 @@ class Database {
   }
 
   public duplicate(
-    tableName: any,
     referenceColumn: any,
     referenceValue: any,
     incrementColumn: any,

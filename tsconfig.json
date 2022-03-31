@@ -17,6 +17,7 @@
     "paths": {
       "app/*": ["app/*"],
       "Classes/*": ["app/Classes/*"],
+      "Models/*": ["app/Models/*"],
       "Controllers/*": ["app/Http/Controllers/*"],
       "images/*": ["public/images/*"],
       "fonts/*": ["public/fonts/*"],
