@@ -1,6 +1,7 @@
 import { Request, Response, NextFunction } from "express";
 
-import DB from "Classes/Database";
+import User from "Models/User";
+
 import Auth from "Controllers/AuthenticationController";
 
 export default <any>{
@@ -25,7 +26,10 @@ export default <any>{
       const password: string = req.body.password;
 
       if (username && password) {
-        DB.read("SELECT `password` FROM `users` WHERE `email` = ?", [username])
+        User.read(
+          "SELECT `password` FROM `" + User.table + "` WHERE `email` = ?",
+          [username]
+        )
           .then((result: { [key: string]: string }[]) => {
             const userExists = result.length !== 0;
 

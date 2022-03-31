@@ -102,7 +102,7 @@ class Database {
         lastName: "last name",
       };
 
-      db.create("users", data1)
+      User.create(data1)
         .then((result: any) => {
           // Success
           const insertId = result.insertId;
@@ -225,12 +225,12 @@ class Database {
     /**********
      * TESTER *
      **********/
-    // DB.update("users", { lastName: "00000" });
-    // DB.update("users", { lastName: "11111" }, { id: 1 });
-    // DB.update("users", { lastName: "22222" }, undefined, { id: [1, 2, 3, 4] });
-    // DB.update("users", { lastName: "33333" }, { id: [1, 2, 3, 4] });
-    // DB.update("users", { lastName: "44444" }, { id: 1 }, { id: [2, 3, 4] });
-    // DB.update("users", { lastName: "55555" }, { firstName: "Jude Francis" }, { id: [2, 3, 4] });
+    // User.update({ lastName: "00000" });
+    // User.update({ lastName: "11111" }, { id: 1 });
+    // User.update({ lastName: "22222" }, undefined, { id: [1, 2, 3, 4] });
+    // User.update({ lastName: "33333" }, { id: [1, 2, 3, 4] });
+    // User.update({ lastName: "44444" }, { id: 1 }, { id: [2, 3, 4] });
+    // User.update({ lastName: "55555" }, { firstName: "Jude Francis" }, { id: [2, 3, 4] });
   }
 
   public static async delete(referenceColumn: any, values: any) {
