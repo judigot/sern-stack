@@ -16,9 +16,9 @@
     "Undo-Migrate": "clear && npx sequelize-cli db:migrate:undo:all",
     "Clean-Slate": "clear && npm run Undo-Migrate && npm run Migrate",
     "Clean Slate with Data": "clear && npm run Clean-Slate && npm run Seed",
-    "Reset All": "clear && npx cross-env ACTION=reset ts-node 'DB.ts' & npm run Migrate && npm run Seed",
-    "Create-DB": "clear && npx cross-env ACTION=create ts-node 'DB.ts'",
-    "Drop-DB": "clear && npx cross-env ACTION=drop ts-node 'DB.ts'"
+    "Reset-Database": "clear && npx cross-env ACTION=reset ts-node scripts/Database.ts && npm run Migrate && npm run Seed",
+    "Create-Database": "clear && npx cross-env ACTION=create ts-node scripts/Database.ts",
+    "Drop-Database": "clear && npx cross-env ACTION=drop ts-node scripts/Database.ts"
   },
   "keywords": [],
   "author": "",

@@ -3,6 +3,17 @@ import "dotenv/config";
 
 import DB from "mysql2/promise";
 
+interface Connection {
+  host: string | undefined;
+  database: string | undefined;
+  user: string | undefined;
+  password: string | undefined;
+  port: number | undefined;
+  waitForConnections: boolean | undefined;
+  connectionLimit: number | undefined;
+  queueLimit: number | undefined;
+}
+
 class Database {
   // Static means that it can be accessed my the class' functions
   // Static functions means that it can be accessed without instantiating the class; Commonly used in utility functions
@@ -11,12 +22,12 @@ class Database {
 
   private static message: string = "Hello, Database!";
 
-  private static connection: object = {
+  private static connection: Connection = {
     host: process.env.DB_HOST,
     database: process.env.DB_DATABASE,
     user: process.env.DB_USERNAME,
     password: process.env.DB_PASSWORD,
-    port: process.env.DB_PORT,
+    port: <number>(<unknown>process.env.DB_PORT),
     waitForConnections: true,
     connectionLimit: 10,
     queueLimit: 0,
@@ -47,7 +58,7 @@ class Database {
   }
 
   public static disconnect() {
-    this.pool = null;
+    this.pool.end();
   }
 
   public static async create(data: any) {
@@ -241,6 +252,19 @@ class Database {
     const reference = this.handleInside(values).join(", ");
     const sql = `DELETE FROM \`${this.table}\` WHERE \`${referenceColumn}\` IN (${reference});`;
     return await this.execute(sql, values);
+  }
+
+  public static async raw(sql: any, values: any) {
+    delete this.connection.database;
+
+    const pool: any = DB.createPool(this.connection);
+
+    try {
+      const [rows, columns] = await pool.execute(sql, values);
+      return rows;
+    } catch (error) {
+      return error;
+    }
   }
 
   public static async execute(sql: any, values: any) {
