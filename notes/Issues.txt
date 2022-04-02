@@ -1,0 +1,1 @@
+Sequelize migrate/seed becomes case sensitive when using docker volumes
