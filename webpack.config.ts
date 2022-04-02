@@ -33,9 +33,6 @@ const build: any = {
       `react`,
       `react-dom`,
       `bootstrap/dist/js/bootstrap.min.js`,
-
-      // `./${entryFolder}/${jsDirectory}/main.js`, // Version 2
-      // `./${entryFolder}/${scssDirectory}/main.scss`, // Version 2
     ],
     main: [
       // `./${entryFolder}/${assetsFolderName}/${scssDirectory}/main.scss`, // Version 1
@@ -50,7 +47,6 @@ const build: any = {
     publicPath: `/`,
     path: path.resolve(__dirname, `./${entryFolder}/${assetsFolderName}`),
     filename: `[name]${NODE_ENV ? ".[chunkhash]" : ""}.js`, // Chunkhash for file versioning/long-term caching - Version 1
-    // filename: `${jsDirectory}/[name]${NODE_ENV ? ".[chunkhash]" : ""}.js`, // Chunkhash for file versioning/long-term caching - Version 2
 
     // assetModuleFilename: "images/[hash][ext][query]",
     assetModuleFilename: "[hash][ext][query]",
@@ -100,7 +96,6 @@ const build: any = {
   plugins: [
     new MiniCssExtractPlugin({
       filename: `[name]${NODE_ENV ? ".[chunkhash]" : ""}.css`, // Chunkhash for file versioning/long-term caching - Version 1
-      // filename: `${cssDirectory}/[name]${NODE_ENV ? ".[chunkhash]" : ""}.css`, // Chunkhash for file versioning/long-term caching - Version 2
     }),
   ],
   // watch: true,
@@ -127,7 +122,6 @@ const loadPlugins = () => {
     }),
 
     new CopyPlugin({
-      // Version 2 - comment out favicon in HtmlWebpackPlugin, then add favicon statically in HTML pages (<link rel="icon" type="image/png" href="/favicon.png">)
       patterns: [
         // Copy partials folder
         {
