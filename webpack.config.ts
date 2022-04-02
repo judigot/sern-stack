@@ -26,11 +26,9 @@ const templatingEngineExtension = "ejs";
 
 const assetsFolderName = "public";
 
-const chunkName = "vendor";
-
 const build: any = {
   entry: {
-    [chunkName]: [
+    vendor: [
       `jquery/dist/jquery.js`,
       `react`,
       `react-dom`,
