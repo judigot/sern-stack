@@ -1,11 +1,26 @@
-# This Dockerfile installs Linux Alpine and Node.js and Git
-
+# Install Linux Alpine and Node.js
 # *use alpine for smaller file size
-
 FROM node:alpine
 
-RUN apk update
+# Create app directory
+WORKDIR /usr/src/app
 
-RUN apk add git
+# Install app dependencies
+# A wildcard is used to ensure both package.json AND package-lock.json are copied
+# where available (npm@5+)
+COPY package*.json ./
 
-EXPOSE 3000 5000
+RUN npm install
+# If you are building your code for production
+# RUN npm ci --only=production
+
+# Bundle app source
+COPY . .
+
+# Production host
+EXPOSE 3000
+
+# Start app
+CMD ["node", "src/index.ts"]
+
+#
