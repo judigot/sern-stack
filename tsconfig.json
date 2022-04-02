@@ -23,7 +23,6 @@
       "fonts/*": ["public/fonts/*"],
       "styles/*": ["public/scss/*"],
       "components/*": ["components/*"],
-      "models/*": ["models/*"]
     },
     "allowSyntheticDefaultImports": true,
     "esModuleInterop": true,
