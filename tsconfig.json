@@ -22,12 +22,12 @@
       "images/*": ["public/images/*"],
       "fonts/*": ["public/fonts/*"],
       "styles/*": ["public/scss/*"],
-      "components/*": ["components/*"],
+      "components/*": ["components/*"]
     },
     "allowSyntheticDefaultImports": true,
     "esModuleInterop": true,
     "skipLibCheck": true,
     "forceConsistentCasingInFileNames": true
   },
-  "include": ["src", "scripts"]
+  "include": ["src"]
 }
