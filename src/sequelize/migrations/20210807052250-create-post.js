@@ -17,7 +17,7 @@ module.exports = {
 
         // Add foreign key
         references: {
-          model: "users",
+          model: "Users",
           key: "id",
         },
       },

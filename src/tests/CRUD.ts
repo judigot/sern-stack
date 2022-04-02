@@ -1,10 +1,32 @@
 import "tsconfig-paths/register"; // Parse path aliases
 
-import User from "Models/User";
+import DB from "Classes/Postgres";
 
-User.all().then((result: { [key: string]: string }[]) => {
-  console.log(result);
-});
+DB.raw(`CREATE DATABASE bigbang;`, [])
+  .then((value) => {
+    console.log(value);
+  })
+  .catch((error) => {
+    console.log(error);
+  })
+  .finally(() => {
+    // Finally
+  });
+
+// DB.read("SELECT * FROM `users`;")
+//   .then((value) => {
+//     console.log(value);
+//   })
+//   .catch((error) => {
+//     console.log(error);
+//   })
+//   .finally(() => {
+//     // Finally
+//   });
+
+// User.all().then((result: { [key: string]: string }[]) => {
+//   console.log(result);
+// });
 
 // User.create({
 //   firstName: "Jude",
