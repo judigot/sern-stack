@@ -1,7 +1,7 @@
 cd src
 
-npx sequelize-cli model:generate --name User --attributes firstName:string,lastName:string,email:string,password:string --force
+npx sequelize-cli model:generate --name user --attributes firstName:string,lastName:string,email:string,password:string --force
 
-npx sequelize-cli model:generate --name Post --attributes postName:string,postOwner:integer --force
+npx sequelize-cli model:generate --name post --attributes postName:string,postOwner:integer --force
 
 git status
