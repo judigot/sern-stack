@@ -2,6 +2,17 @@ import "tsconfig-paths/register"; // Parse path aliases
 
 import User from "Models/User";
 
+User.create({
+  firstName: "Jude",
+  lastName: "Igot",
+  email: "judigot@gmail.com",
+  password: "hash",
+  createdAt: new Date(),
+  updatedAt: new Date(),
+}).then(async (result) => {
+  console.log(result);
+});
+
 User.create([
   {
     firstName: "Jude",
@@ -31,17 +42,6 @@ User.create([
   });
 
 User.all().then((result: { [key: string]: string }[]) => {
-  console.log(result);
-});
-
-User.create({
-  firstName: "Jude",
-  lastName: "Igot",
-  email: "judigot@gmail.com",
-  password: "hash",
-  createdAt: new Date(),
-  updatedAt: new Date(),
-}).then(async (result) => {
   console.log(result);
 });
 
