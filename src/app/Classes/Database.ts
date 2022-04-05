@@ -53,6 +53,38 @@ class Database {
     return this.testVariable;
   }
 
+  public static async execute(
+    sql: any,
+    values: any,
+    connectionWithoutDBName?: any
+  ) {
+    let pool: any;
+    const connection = connectionWithoutDBName || Database.connection;
+    const DBType: string | undefined = process.env.DB_CONNECTION;
+
+    let result: any;
+
+    try {
+      switch (DBType) {
+        case "mysql":
+          pool = MySQL.createPool(connection);
+          result = await pool.execute(sql, values);
+          break;
+
+        case "postgres":
+          pool = new PostgreSQL(connection);
+          result = await pool.query(sql, values);
+          break;
+
+        default:
+          break;
+      }
+      return result;
+    } catch (error) {
+      return error;
+    }
+  }
+
   // static connect() {
   //   return this.pool;
   // }
@@ -261,38 +293,6 @@ class Database {
     // const poolWithoutDBName: any = MySQL.createPool(this.connection);
 
     return this.execute(sql, values, this.connection);
-  }
-
-  public static async execute(
-    sql: any,
-    values: any,
-    connectionWithoutDBName?: any
-  ) {
-    let pool: any;
-    const connection = connectionWithoutDBName || Database.connection;
-    const DBType: string | undefined = process.env.DB_CONNECTION;
-
-    let result: any;
-
-    try {
-      switch (DBType) {
-        case "mysql":
-          pool = MySQL.createPool(connection);
-          result = await pool.execute(sql, values);
-          break;
-
-        case "postgres":
-          pool = new PostgreSQL(connection);
-          result = await pool.query(sql, values);
-          break;
-
-        default:
-          break;
-      }
-      return result;
-    } catch (error) {
-      return error;
-    }
   }
 
   static duplicate(
