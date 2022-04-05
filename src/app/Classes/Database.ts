@@ -24,6 +24,8 @@ class Database {
 
   private static message: string = "Hello, Database!";
 
+  private static DBType: string | undefined = process.env.DB_CONNECTION;
+
   private static connection: Connection = {
     host: process.env.DB_HOST,
     database: process.env.DB_DATABASE,
@@ -53,6 +55,15 @@ class Database {
     return this.testVariable;
   }
 
+  static replaceParameters(oldParameters: string[]) {
+    const parameters = [];
+    for (let i = 0; i < oldParameters.length; i++) {
+      const element = oldParameters[i];
+      parameters.push(`$${i + 1}`);
+    }
+    return oldParameters;
+  }
+
   public static async execute(
     sql: any,
     values: any,
@@ -60,7 +71,7 @@ class Database {
   ) {
     let pool: any;
     const connection = connectionWithoutDBName || Database.connection;
-    const DBType: string | undefined = process.env.DB_CONNECTION;
+    const DBType: string | undefined = this.DBType;
 
     let result: any;
 
