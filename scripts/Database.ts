@@ -7,7 +7,9 @@ import postgres from "../src/app/Classes/Postgres";
 
 import { exit } from "process";
 
-const DB: any = process.env.DB_CONNECTION === "mysql" ? mysql : postgres;
+const DBType: string | undefined = process.env.DB_CONNECTION;
+
+const DB: any = DBType === "mysql" ? mysql : postgres;
 
 const action: string | undefined = "" || process.env.ACTION; // Default is an empty string. If set, this will override the database name in the .env file
 
@@ -29,7 +31,11 @@ let sql = "";
 
 switch (action) {
   case "create":
-    sql = `CREATE DATABASE ${database};`;
+    sql = `CREATE DATABASE ${database} ${
+      DBType === "mysql"
+        ? "DEFAULT CHARACTER SET utf8 COLLATE utf8_general_ci;"
+        : "ENCODING 'UTF8' LC_COLLATE = 'en_US.utf8' LC_CTYPE = 'en_US.utf8';"
+    }`;
     break;
 
   default:
@@ -40,6 +46,9 @@ switch (action) {
 
 DB.raw(sql, [])
   .then((result: any) => {
+    if (result) {
+      console.log(result);
+    }
     if (action === "reset") {
       sql = `CREATE DATABASE ${database};`;
 
