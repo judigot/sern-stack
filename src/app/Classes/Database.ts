@@ -1,7 +1,9 @@
 // Importing dotenv here is optional if you've already imported it in the main server file e.g. index.js
 import "dotenv/config";
 
-import DB from "mysql2/promise";
+import MySQL from "mysql2/promise";
+
+import PostgreSQL from "pg-pool";
 
 interface Connection {
   host: string | undefined;
@@ -33,8 +35,6 @@ class Database {
     queueLimit: 0,
   };
 
-  private static pool: any = DB.createPool(Database.connection);
-
   private static testVariable: string = "Original value";
 
   constructor(model?: string) {
@@ -53,13 +53,13 @@ class Database {
     return this.testVariable;
   }
 
-  static connect() {
-    return this.pool;
-  }
+  // static connect() {
+  //   return this.pool;
+  // }
 
-  static disconnect() {
-    this.pool.end();
-  }
+  // static disconnect() {
+  //   this.pool.end();
+  // }
 
   public static create(data: any) {
     const isMultipleRows = Array.isArray(data);
@@ -258,18 +258,38 @@ class Database {
     // Remove database name from connection
     delete this.connection.database;
 
-    const poolWithoutDBName: any = DB.createPool(this.connection);
+    // const poolWithoutDBName: any = MySQL.createPool(this.connection);
 
-    return this.execute(sql, values, poolWithoutDBName);
+    return this.execute(sql, values, this.connection);
   }
 
-  public static async execute(sql: any, values: any, poolWithoutDBName?: any) {
+  public static async execute(
+    sql: any,
+    values: any,
+    connectionWithoutDBName?: any
+  ) {
+    let pool: any;
+    const connection = connectionWithoutDBName || Database.connection;
+    const DBType: string | undefined = process.env.DB_CONNECTION;
+
+    let result: any;
+
     try {
-      const [rows, columns] = await (poolWithoutDBName || this.pool).execute(
-        sql,
-        values
-      );
-      return rows;
+      switch (DBType) {
+        case "mysql":
+          pool = MySQL.createPool(connection);
+          result = await pool.execute(sql, values);
+          break;
+
+        case "postgres":
+          pool = new PostgreSQL(connection);
+          result = await pool.query(sql, values);
+          break;
+
+        default:
+          break;
+      }
+      return result;
     } catch (error) {
       return error;
     }

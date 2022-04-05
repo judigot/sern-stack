@@ -34,7 +34,6 @@ class Database {
   };
 
   private static pool: any = new DB(Database.connection);
-  // private static pool: any = new DB(Database.connection);
 
   private static testVariable: string = "Original value";
 
@@ -46,23 +45,23 @@ class Database {
 
   private static privateVariable = "This is a private variable.";
 
-  public static get getter() {
+  static get getter() {
     return this.privateVariable;
   }
 
-  public static helloWorld() {
+  static helloWorld() {
     return this.testVariable;
   }
 
-  public static connect() {
+  static connect() {
     return this.pool;
   }
 
-  public static disconnect() {
+  static disconnect() {
     this.pool.end();
   }
 
-  public static async create(data: any) {
+  public static create(data: any) {
     const isMultipleRows = Array.isArray(data);
     const columnNames: string[] = Object.keys(isMultipleRows ? data[0] : data);
     const values: string[] = [];
@@ -75,25 +74,27 @@ class Database {
         const element = data[i];
         for (let key in element) {
           values.push(element[key]);
-          parameter.push("?");
+          parameter.push(`$${i + 1}`);
         }
         parameters.push(`(${parameter.join(", ")})`);
       }
     } else {
       const parameter: string[] = [];
-      for (let key in data) {
+      Object.keys(data).forEach((key, i) => {
         values.push(data[key]);
-        parameter.push("?");
-      }
+        parameter.push(`$${i + 1}`);
+      });
       parameters.push(`(${parameter.join(", ")})`);
     }
 
     // Build query
-    const sql: string = `INSERT INTO \`${this.table}\` (\`${columnNames.join(
-      "`, `"
-    )}\`) VALUES ${parameters.join(", ")};`;
+    const sql: string = `INSERT INTO ${this.table} ("${columnNames.join(
+      `", "`
+    )}\") VALUES ${parameters.join(", ")};`;
 
-    return await this.execute(sql, values);
+    console.log(sql);
+
+    return this.execute(sql, values);
 
     /**************
      * SAMPLE USE *
@@ -134,11 +135,11 @@ class Database {
     */
   }
 
-  public static async read<T>(sql: string, values?: T[]) {
-    return await this.execute(sql, values);
+  public static read<T>(sql: string, values?: T[]) {
+    return this.execute(sql, values);
   }
 
-  public static async update(targetColumns?: any, where?: any, inside?: any) {
+  public static update(targetColumns?: any, where?: any, inside?: any) {
     let targetColumnsArray: any[] = [];
     let whereArray: any[] = [];
     let insideArray: any[] = [];
@@ -232,7 +233,7 @@ class Database {
     const sql = `UPDATE \`${this.table}\`${targetColumnsStatement}${whereStatement}${insideStatement};`;
     // console.log(sql);
     // console.log(values);
-    return await this.execute(sql, values);
+    return this.execute(sql, values);
 
     /**********
      * TESTER *
@@ -245,39 +246,35 @@ class Database {
     // User.update({ lastName: "55555" }, { firstName: "Jude Francis" }, { id: [2, 3, 4] });
   }
 
-  public static async delete(referenceColumn: any, values: any) {
+  public static delete(referenceColumn: any, values: any) {
     // If reference value is not an array, convert it to one
     if (!Array.isArray(values)) {
       values = [values];
     }
     const reference = this.handleInside(values).join(", ");
     const sql = `DELETE FROM \`${this.table}\` WHERE \`${referenceColumn}\` IN (${reference});`;
-    return await this.execute(sql, values);
+    return this.execute(sql, values);
   }
 
-  public static async raw(sql: any, values: any) {
+  public static raw(sql: any, values: any) {
+    // Remove database name from connection
     delete this.connection.database;
 
-    const pool: any = new DB(this.connection);
+    const poolWithoutDBName: any = new DB(this.connection);
 
+    return this.execute(sql, values, poolWithoutDBName);
+  }
+
+  public static async execute(sql: any, values: any, poolWithoutDBName?: any) {
     try {
-      const [rows, columns] = await pool.query(sql, values);
-      return rows;
+      const result = await (poolWithoutDBName || this.pool).query(sql, values);
+      return result;
     } catch (error) {
       return error;
     }
   }
 
-  public static async execute(sql: any, values: any) {
-    try {
-      const [rows, columns] = await this.pool.query(sql, values);
-      return rows;
-    } catch (error) {
-      return error;
-    }
-  }
-
-  public duplicate(
+  static duplicate(
     referenceColumn: any,
     referenceValue: any,
     incrementColumn: any,
@@ -292,11 +289,9 @@ class Database {
     return insideArray;
   }
 
-  public getCredentials() {}
-
   private static dump() {}
 
-  public static unionBuilder(iterator: any, tableDetails: any) {}
+  static unionBuilder(iterator: any, tableDetails: any) {}
 
   private static replaceValues(string: string, replacements: any) {
     let i = 0;
