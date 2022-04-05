@@ -7,8 +7,8 @@ export default <any>{
     view: "user/home",
     chunks: [],
     get: (req: Request, res: Response) => {
-      User.all().then((result: any) => {
-        res.send(result[0]);
+      User.all().then((result: any) => {        
+        res.send(result);
       });
     },
     post: (req: Request, res: Response) => {

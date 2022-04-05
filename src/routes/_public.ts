@@ -26,11 +26,12 @@ export default <any>{
       const password: string = req.body.password;
 
       if (username && password) {
-        User.read(
-          "SELECT `password` FROM `" + User.table + "` WHERE `email` = ?",
-          [username]
-        )
+        User.read(`SELECT "password" FROM "${User.table}" WHERE "email" = ?;`, [
+          username,
+        ])
           .then((result: { [key: string]: string }[]) => {
+            console.log(result);
+            
             const userExists = result.length !== 0;
 
             if (userExists) {
