@@ -132,14 +132,6 @@ class Database {
     return result;
   }
 
-  // static connect() {
-  //   return this.pool;
-  // }
-
-  // static disconnect() {
-  //   this.pool.end();
-  // }
-
   public static create(data: any) {
     const isMultipleRows = Array.isArray(data);
     const columnNames: string[] = Object.keys(isMultipleRows ? data[0] : data);
