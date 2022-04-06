@@ -44,7 +44,7 @@ User.create([
     // Finally
   });
 
-User.read(`SELECT * FROM Users;`)
+User.read(`SELECT * FROM "Users";`)
   .then((value) => {
     console.log(value);
   })

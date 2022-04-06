@@ -66,25 +66,19 @@ class Database {
     return quotedColumnNames;
   }
 
-  static convertToNumberedParameters(oldParameters: any) {
-    let index = 0;
-    if (typeof oldParameters === "string") {
-      return oldParameters.replace(/\?/g, function () {
-        index++;
-        return `$${index}`;
-      });
-    }
-    const parameters: any = [];
-    for (let i = 0; i < oldParameters.length; i++) {
-      const tempArray = oldParameters[i];
-      parameters.push(
-        tempArray.replace(/\?/g, function () {
-          index++;
-          return `$${index}`;
-        })
-      );
-    }
-    return parameters;
+  static convertToNumberedParameters(sql: any) {
+    sql = sql.replace(/\`/g, this.escapeChar);
+
+    let numParam = 0;
+
+    sql = sql.replace(/\?/g, function () {
+      numParam++;
+      return `$${numParam}`;
+    });
+
+    console.log(sql);
+
+    return sql;
   }
 
   public static async execute(

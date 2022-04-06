@@ -26,6 +26,9 @@ class Database {
 
   private static DBType: string | undefined = process.env.DB_CONNECTION;
 
+  private static escapeChar: string | undefined =
+    Database.DBType === "mysql" ? "`" : `"`;
+
   private static connection: Connection = {
     host: process.env.DB_HOST,
     database: process.env.DB_DATABASE,
@@ -55,13 +58,19 @@ class Database {
     return this.testVariable;
   }
 
-  static replaceParameters(oldParameters: string[]) {
-    const parameters = [];
-    for (let i = 0; i < oldParameters.length; i++) {
-      const element = oldParameters[i];
-      parameters.push(`$${i + 1}`);
-    }
-    return oldParameters;
+  static numberedParams(sql: any) {
+    sql = sql.replace(/\`/g, this.escapeChar);
+
+    let numParam = 0;
+
+    sql = sql.replace(/\?/g, function () {
+      numParam++;
+      return `$${numParam}`;
+    });
+
+    console.log(sql);
+
+    return sql;
   }
 
   public static async execute(
@@ -83,6 +92,7 @@ class Database {
           break;
 
         case "postgres":
+          sql = this.numberedParams(sql);
           pool = new PostgreSQL(connection);
           result = await pool.query(sql, values);
           break;
@@ -90,6 +100,7 @@ class Database {
         default:
           break;
       }
+
       return result;
     } catch (error) {
       return error;
@@ -271,7 +282,7 @@ class Database {
 
       values = values.concat(value);
     }
-    const sql = `UPDATE \`${this.table}\`${targetColumnsStatement}${whereStatement}${insideStatement};`;
+    const sql: string = `UPDATE \`${this.table}\`${targetColumnsStatement}${whereStatement}${insideStatement};`;
     // console.log(sql);
     // console.log(values);
     return this.execute(sql, values);
@@ -293,7 +304,7 @@ class Database {
       values = [values];
     }
     const reference = this.handleInside(values).join(", ");
-    const sql = `DELETE FROM \`${this.table}\` WHERE \`${referenceColumn}\` IN (${reference});`;
+    const sql: string = `DELETE FROM \`${this.table}\` WHERE \`${referenceColumn}\` IN (${reference});`;
     return this.execute(sql, values);
   }
 
