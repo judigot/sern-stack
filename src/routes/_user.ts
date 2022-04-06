@@ -8,7 +8,7 @@ export default <any>{
     chunks: [],
     get: (req: Request, res: Response) => {
       User.all().then((result: any) => {
-        res.send(result.rows);
+        res.send(result);
       });
     },
     post: (req: Request, res: Response) => {

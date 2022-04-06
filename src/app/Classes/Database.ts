@@ -79,32 +79,57 @@ class Database {
     connectionWithoutDBName?: any
   ) {
     let pool: any;
+
     const connection = connectionWithoutDBName || Database.connection;
+
     const DBType: string | undefined = this.DBType;
 
     let result: any;
 
-    try {
-      switch (DBType) {
-        case "mysql":
-          pool = MySQL.createPool(connection);
+    switch (DBType) {
+      case "mysql":
+        pool = MySQL.createPool(connection);
+
+        try {
           result = await pool.execute(sql, values);
-          break;
+        } catch (error) {
+          return error;
+        } finally {
+        }
 
-        case "postgres":
-          sql = this.numberedParams(sql);
-          pool = new PostgreSQL(connection);
-          result = await pool.query(sql, values);
-          break;
+        break;
 
-        default:
-          break;
-      }
+      case "postgres":
+        /*************
+         * VERSION 1 *
+         *************/
+        // sql = this.numberedParams(sql);
+        // pool = new PostgreSQL(connection);
+        // result = await pool.query(sql, values);
+        /*************
+         *************/
 
-      return result;
-    } catch (error) {
-      return error;
+        /*************
+         * VERSION 2 *
+         *************/
+        sql = this.numberedParams(sql);
+        pool = new PostgreSQL(connection);
+        const client = await pool.connect();
+        try {
+          result = await client.query(sql, values);
+        } catch (error) {
+          return error;
+        } finally {
+          client.release();
+        }
+        /*************
+         *************/
+        break;
+
+      default:
+        break;
     }
+    return result;
   }
 
   // static connect() {
