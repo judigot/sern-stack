@@ -29,6 +29,6 @@
     "skipLibCheck": true,
     "forceConsistentCasingInFileNames": true
   },
-  "include": ["src"],
+  "include": ["src", ".app-code-runner.ts"],
   "exclude": ["node_modules"]
 }

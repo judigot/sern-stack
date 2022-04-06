@@ -1,5 +1,3 @@
-import "tsconfig-paths/register"; // Parse path aliases
-
 import User from "Models/User";
 
 import Auth from "Controllers/AuthenticationController";
@@ -20,7 +18,7 @@ test("CREATE", async () => {
       createdAt: new Date(),
       updatedAt: new Date(),
     }).then(async (result) => {
-      expect(result["affectedRows"]).toStrictEqual(1);
+      expect(result["affectedRows"] || result["rowCount"]).toStrictEqual(1);
     });
   });
 });
@@ -45,7 +43,7 @@ test("CREATE: Insert Multiple Rows", async () => {
         updatedAt: new Date(),
       },
     ]).then((result) => {
-      expect(result["affectedRows"]).toStrictEqual(2);
+      expect(result["affectedRows"] || result["rowCount"]).toStrictEqual(2);
     });
   });
 });
@@ -55,7 +53,8 @@ test("READ", async () => {
     "SELECT `firstName` FROM `" + User.table + "` WHERE `id` = ?;",
     [1]
   ).then((result) => {
-    expect(result).toStrictEqual([{ firstName: "Jude Francis" }]);
+    const postgresResult = result && result.rows;
+    expect(postgresResult).toStrictEqual([{ firstName: "Jude Francis" }]);
   });
 });
 
@@ -68,9 +67,13 @@ test("UPDATE: All rows", async () => {
         "` WHERE `lastName` = ?;",
       [newValue]
     ).then((result) => {
-      return result[0]["count"];
+      const postgresResult = result && result.rows;
+
+      return postgresResult[0]["count"];
     });
-    expect(result["affectedRows"]).toStrictEqual(totalRows);
+    const postgresResult = result;
+
+    expect(`${postgresResult.rowCount}`).toStrictEqual(`${totalRows}`);
   });
 });
 
@@ -83,10 +86,11 @@ test("UPDATE: Single row with one condition", async () => {
         "SELECT `lastName` FROM `" + User.table + "` WHERE `id` = ?;",
         [referenceValue]
       ).then((result) => {
-        return result[0]["lastName"];
+        const postgresResult = result && result.rows;
+        return postgresResult[0]["lastName"];
       });
       const expected = {
-        affectedRows: result["affectedRows"],
+        affectedRows: result["affectedRows"] || result["rowCount"],
         newValue: affectedValue,
       };
       const reference = {
@@ -109,14 +113,15 @@ test("UPDATE: Multiple rows with one condition (undefined WHERE clause)", async 
         User.table +
         "` WHERE `id` IN (" +
         referenceValue.join(", ") +
-        ") GROUP BY `lastName`;",
-      referenceValue
+        ") GROUP BY `lastName`;"
     ).then((result) => {
-      return result[0]["lastName"];
+      const postgresResult = result && result.rows;
+
+      return postgresResult[0]["lastName"];
     });
 
     const expected = {
-      affectedRows: result1["affectedRows"],
+      affectedRows: result1["affectedRows"] || result1["rowCount"],
       newValue: affectedValue,
     };
 
@@ -124,6 +129,7 @@ test("UPDATE: Multiple rows with one condition (undefined WHERE clause)", async 
       affectedRows: referenceValue.length,
       newValue: newValue,
     };
+
     expect(expected).toStrictEqual(reference);
   });
 });
@@ -142,14 +148,14 @@ test("UPDATE: Multiple rows with one condition (IN operator)", async () => {
         User.table +
         "` WHERE `id` IN (" +
         referenceValue.join(", ") +
-        ") GROUP BY `lastName`;",
-      referenceValue
+        ") GROUP BY `lastName`;"
     ).then((result) => {
-      return result[0]["lastName"];
+      const postgresResult = result && result.rows;
+      return postgresResult[0]["lastName"];
     });
 
     const expected = {
-      affectedRows: result1["affectedRows"],
+      affectedRows: result1["affectedRows"] || result1["rowCount"],
       newValue: affectedValue,
     };
 
@@ -173,14 +179,14 @@ test("UPDATE: Multiple rows with one condition (WHERE and IN combined)", async (
         User.table +
         "` WHERE `id` IN (" +
         referenceValue.join(", ") +
-        ") GROUP BY `lastName`;",
-      referenceValue
+        ") GROUP BY `lastName`;"
     ).then((result) => {
-      return result[0]["lastName"];
+      const postgresResult = result && result.rows;
+      return postgresResult[0]["lastName"];
     });
 
     const expected = {
-      affectedRows: result1["affectedRows"],
+      affectedRows: result1["affectedRows"] || result1["rowCount"],
       newValue: affectedValue,
     };
 
@@ -204,14 +210,14 @@ test("UPDATE: Multiple rows with a different WHERE condition (WHERE and IN combi
         User.table +
         "` WHERE `id` IN (" +
         referenceValue.join(", ") +
-        ") GROUP BY `lastName`;",
-      referenceValue
+        ") GROUP BY `lastName`;"
     ).then((result) => {
-      return result[0]["lastName"];
+      const postgresResult = result && result.rows;
+      return postgresResult[0]["lastName"];
     });
 
     const expected = {
-      affectedRows: result1["affectedRows"],
+      affectedRows: result1["affectedRows"] || result1["rowCount"],
       newValue: affectedValue,
     };
 
@@ -225,18 +231,18 @@ test("UPDATE: Multiple rows with a different WHERE condition (WHERE and IN combi
 
 test("DELETE: Multiple rows a condition", async () => {
   return User.delete("id", [3, 4]).then((result) => {
-    expect(result["affectedRows"]).toStrictEqual(2);
+    expect(result["affectedRows"] || result["rowCount"]).toStrictEqual(2);
   });
 });
 
 test("DELETE: Multiple a single row using a number reference", async () => {
   return User.delete("id", 5).then((result) => {
-    expect(result["affectedRows"]).toStrictEqual(1);
+    expect(result["affectedRows"] || result["rowCount"]).toStrictEqual(1);
   });
 });
 
 test("DELETE: Multiple a single row using a string reference", async () => {
   return User.delete("id", "6").then((result) => {
-    expect(result["affectedRows"]).toStrictEqual(1);
+    expect(result["affectedRows"] || result["rowCount"]).toStrictEqual(1);
   });
 });

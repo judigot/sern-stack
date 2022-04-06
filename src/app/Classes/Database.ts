@@ -68,7 +68,7 @@ class Database {
       return `$${numParam}`;
     });
 
-    console.log(sql);
+    // console.log(sql);
 
     return sql;
   }
