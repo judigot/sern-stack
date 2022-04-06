@@ -58,7 +58,7 @@ class Database {
     return this.testVariable;
   }
 
-  static numberedParams(sql: any) {
+  static cleanQuery(sql: any) {
     sql = sql.replace(/\`/g, this.escapeChar);
 
     let numParam = 0;
@@ -112,7 +112,7 @@ class Database {
         /*************
          * VERSION 2 *
          *************/
-        sql = this.numberedParams(sql);
+        sql = this.cleanQuery(sql);
         pool = new PostgreSQL(connection);
         const client = await pool.connect();
         try {
