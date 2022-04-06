@@ -26,8 +26,10 @@ class Database {
 
   private static DBType: string | undefined = process.env.DB_CONNECTION;
 
-  private static escapeChar: string | undefined =
-    Database.DBType === "mysql" ? "`" : `"`;
+  private static char: any | undefined = {
+    backtick: "`",
+    doubleQuotes: `"`,
+  };
 
   private static connection: Connection = {
     host: process.env.DB_HOST,
@@ -59,17 +61,25 @@ class Database {
   }
 
   static cleanQuery(sql: any) {
-    sql = sql.replace(/\`/g, this.escapeChar);
+    switch (this.DBType) {
+      case "mysql":
+        sql = sql.replace(/\"/g, this.char.backtick);
+        break;
 
-    let numParam = 0;
+      case "postgres":
+        let numParam = 0;
+        sql = sql.replace(/\`/g, this.char.doubleQuotes);
+        sql = sql.replace(/\?/g, function () {
+          numParam++;
+          return `$${numParam}`;
+        });
+        break;
 
-    sql = sql.replace(/\?/g, function () {
-      numParam++;
-      return `$${numParam}`;
-    });
+      default:
+        break;
+    }
 
-    // console.log(sql);
-
+    console.log(sql);
     return sql;
   }
 
@@ -78,15 +88,13 @@ class Database {
     values: any,
     connectionWithoutDBName?: any
   ) {
+    let result: any;
     let pool: any;
-
     const connection = connectionWithoutDBName || Database.connection;
 
-    const DBType: string | undefined = this.DBType;
+    sql = this.cleanQuery(sql);
 
-    let result: any;
-
-    switch (DBType) {
+    switch (this.DBType) {
       case "mysql":
         pool = MySQL.createPool(connection);
 
@@ -103,7 +111,6 @@ class Database {
         /*************
          * VERSION 1 *
          *************/
-        // sql = this.numberedParams(sql);
         // pool = new PostgreSQL(connection);
         // result = await pool.query(sql, values);
         /*************
@@ -112,7 +119,6 @@ class Database {
         /*************
          * VERSION 2 *
          *************/
-        sql = this.cleanQuery(sql);
         pool = new PostgreSQL(connection);
         const client = await pool.connect();
         try {
@@ -199,7 +205,7 @@ class Database {
           const sqlMessage = error.sqlMessage;
         })
         .finally(() => {
-          // Run this code wether successful or failed
+          // This code always runs
         });
     */
   }
