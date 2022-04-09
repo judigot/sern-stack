@@ -13,6 +13,15 @@ const sequelize = new Sequelize(
   }
 );
 
+// {
+//   database: process.env.DB_DATABASE,
+//   username: process.env.DB_USERNAME,
+//   password: process.env.DB_PASSWORD,
+//   host: process.env.DB_HOST,
+//   dialect: process.env.DB_CONNECTION,
+//   port: process.env.DB_PORT,
+// }
+
 const User = sequelize.define("User", {
   id: {
     allowNull: false,
