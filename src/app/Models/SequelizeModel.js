@@ -1,5 +1,15 @@
-import "dotenv/config";
+//==========USAGE==========//
+// import Models from "./src/sequelize/models/";
+// User.findAll()
+//   .then((data: any) => {
+//     console.log(data);
+//   })
+//   .catch((error: any) => {
+//     console.log(error);
+//   });
+//==========USAGE==========//
 
+import "dotenv/config";
 import Sequelize from "sequelize";
 
 const sequelize = new Sequelize(
