@@ -14,12 +14,13 @@ module.exports = (sequelize, DataTypes) => {
   User.init(
     {
       // ID is optional. Sequelize automatically adds an id
-      // Only add id column if you want to customize its name, type, etc.
-      id: {
-        type: DataTypes.INTEGER,
-        allowNull: false,
-        primaryKey: true,
-      },
+      // Only add an id column if you want to customize its name, type, etc.
+      // id: {
+      //   type: DataTypes.INTEGER,
+      //   allowNull: false,
+      //   autoIncrement: true,
+      //   primaryKey: true,
+      // },
       firstName: {
         type: DataTypes.STRING,
         allowNull: false,

@@ -10,7 +10,7 @@ module.exports = [
   {
     firstName: "Judyboy",
     lastName: "Igot",
-    email: "judigot@gmail.com",
+    email: "judigot1@gmail.com",
     password: "$2b$10$hi41dPYJv0a6NcnvrUFVqevSI5Ehxzp29yNvAkD.GXfuz98Mlt0wq",
     createdAt: new Date(),
     updatedAt: new Date(),
@@ -18,7 +18,7 @@ module.exports = [
   {
     firstName: "Judas",
     lastName: "Igot",
-    email: "judigot@gmail.com",
+    email: "judigot2@gmail.com",
     password: "$2b$10$hi41dPYJv0a6NcnvrUFVqevSI5Ehxzp29yNvAkD.GXfuz98Mlt0wq",
     createdAt: new Date(),
     updatedAt: new Date(),
@@ -26,7 +26,7 @@ module.exports = [
   {
     firstName: "Hudas",
     lastName: "Igot",
-    email: "judigot@gmail.com",
+    email: "judigot3@gmail.com",
     password: "$2b$10$hi41dPYJv0a6NcnvrUFVqevSI5Ehxzp29yNvAkD.GXfuz98Mlt0wq",
     createdAt: new Date(),
     updatedAt: new Date(),
@@ -34,7 +34,7 @@ module.exports = [
   {
     firstName: "Torot",
     lastName: "Igot",
-    email: "judigot@gmail.com",
+    email: "judigot4@gmail.com",
     password: "$2b$10$hi41dPYJv0a6NcnvrUFVqevSI5Ehxzp29yNvAkD.GXfuz98Mlt0wq",
     createdAt: new Date(),
     updatedAt: new Date(),
@@ -42,7 +42,7 @@ module.exports = [
   {
     firstName: "Judigot",
     lastName: "Igot",
-    email: "judigot@gmail.com",
+    email: "judigot5@gmail.com",
     password: "$2b$10$hi41dPYJv0a6NcnvrUFVqevSI5Ehxzp29yNvAkD.GXfuz98Mlt0wq",
     createdAt: new Date(),
     updatedAt: new Date(),
@@ -50,7 +50,7 @@ module.exports = [
   {
     firstName: "Gwafo",
     lastName: "Igot",
-    email: "judigot@gmail.com",
+    email: "judigot6@gmail.com",
     password: "$2b$10$hi41dPYJv0a6NcnvrUFVqevSI5Ehxzp29yNvAkD.GXfuz98Mlt0wq",
     createdAt: new Date(),
     updatedAt: new Date(),

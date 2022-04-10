@@ -1,6 +1,6 @@
 import { exit } from "process";
 
-import Model from "../src/sequelize/models/";
+import Model from "../src/sequelize/models";
 
 Model.sequelize
   .query("SET FOREIGN_KEY_CHECKS = 0;")
