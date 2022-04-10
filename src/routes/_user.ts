@@ -25,4 +25,11 @@ export default <any>{
       });
     },
   },
+  "/home/:id": {
+    view: "user/home",
+    chunks: [],
+    get: (req: Request, res: Response) => {
+      res.send(`<h1>User ID = ${req.params.id}</h1>`);
+    },
+  },
 };
