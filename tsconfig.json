@@ -17,6 +17,7 @@
     "baseUrl": "./src",
     "paths": {
       "app/*": ["app/*"],
+      "Root/*": ["src/*"],
       "Sequelize/*": ["sequelize/*"],
       "Classes/*": ["app/Classes/*"],
       "Models/*": ["app/Models/*"],
