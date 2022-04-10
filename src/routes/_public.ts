@@ -9,7 +9,10 @@ export default <any>{
     view: "index",
     chunks: ["main"],
     get: (req: Request, res: Response) => {
-      res.render("index.ejs", { NODE_ENV: process.env.NODE_ENV });
+      res.render("index.ejs", {
+        pageTitle: Object.keys(req),
+        NODE_ENV: process.env.NODE_ENV,
+      });
     },
     post: () => {},
   },
@@ -31,7 +34,7 @@ export default <any>{
         ])
           .then((result: { [key: string]: string }[]) => {
             console.log(result);
-            
+
             const userExists = result.length !== 0;
 
             if (userExists) {
