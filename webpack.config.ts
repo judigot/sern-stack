@@ -121,9 +121,9 @@ const loadPlugins = () => {
       _: "lodash",
     }),
 
+    // Copy partials folder to dist
     new CopyPlugin({
       patterns: [
-        // Copy partials folder
         {
           from: path.resolve(
             __dirname,
