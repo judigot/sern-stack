@@ -39,7 +39,7 @@ import User from "../app/Models/SequelizeModel";
 //   })
 //   .catch((error: any) => {})
 //   .finally(() => {});
-
+//
 Model.User.findAll()
   .then((result: any) => {
     for (let i = 0; i < result.length; i++) {
