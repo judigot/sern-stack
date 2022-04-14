@@ -16,14 +16,17 @@ export default <any>{
     },
     post: () => {},
   },
+
   "/login": {
     view: "login",
     chunks: ["login"],
+
     get: (req: Request, res: Response) => {
       res.render("login.ejs", {
         NODE_ENV: process.env.NODE_ENV,
       });
     },
+
     post: (req: Request, res: Response) => {
       const username: string = req.body.username;
       const password: string = req.body.password;
