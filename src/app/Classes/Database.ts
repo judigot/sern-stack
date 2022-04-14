@@ -99,7 +99,8 @@ class Database {
         pool = MySQL.createPool(connection);
 
         try {
-          result = await pool.execute(sql, values);
+          const [rows] = await pool.execute(sql, values);
+          result = rows;
         } catch (error) {
           return error;
         } finally {

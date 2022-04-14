@@ -36,12 +36,11 @@ export default <any>{
           username,
         ])
           .then((result: { [key: string]: string }[]) => {
-            const data: any = result[0];
 
-            const userExists = data.length !== 0;
+            const userExists = result.length !== 0;
 
             if (userExists) {
-              const hash: string = data[0].password;
+              const hash: string = result[0].password;
               Auth.verifyPassword(password, hash).then((passVerifiedResult) => {
                 res.send({
                   userExists: true,
