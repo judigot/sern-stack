@@ -2,14 +2,11 @@ import "tsconfig-paths/register"; // Parse path aliases
 
 import "dotenv/config";
 
-import mysql from "../src/app/Classes/Database";
-import postgres from "../src/app/Classes/Postgres";
+import DB from "../src/app/Classes/Database";
 
 import { exit } from "process";
 
 const DBType: string | undefined = process.env.DB_CONNECTION;
-
-const DB: any = DBType === "mysql" ? mysql : postgres;
 
 const action: string | undefined = "" || process.env.ACTION; // Default is an empty string. If set, this will override the database name in the .env file
 
