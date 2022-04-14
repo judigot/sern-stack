@@ -79,7 +79,7 @@ class Database {
         break;
     }
 
-    console.log(sql);
+    // console.log(sql);
     return sql;
   }
 

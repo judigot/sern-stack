@@ -125,14 +125,14 @@ function reportBuilder(rowCount: number, table: any) {
   }
 
   for (let i = 0; i < rowCount; i++) {
-    let x: any = {};
+    let statics: any = {};
     for (let j = 0; j < iterators.length; j++) {
       const iterator = iterators[j];
       const columnName: any = columnNames[iterator];
       const value: any = table[columnName];
-      x[`${columnName}`] = value[i];
+      statics[`${columnName}`] = value[i];
     }
-    staticValues[i] = x;
+    staticValues[i] = statics;
   }
   //   console.log(staticValues);
 

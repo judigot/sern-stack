@@ -7,6 +7,7 @@ const PORT = process.env.PORT || 3000;
 // Load environment
 import path from "path";
 import express, { Application } from "express";
+import cookieParser from "cookie-parser";
 
 // Variables
 const app: Application = express();
@@ -45,6 +46,8 @@ app.set("view engine", "ejs");
 // Parses incoming requests with JSON
 app.use(express.json());
 
+app.use(cookieParser());
+
 // Serve static files (CSS, JS, images, fonts, etc.)
 app.use(express.static(path.resolve(__dirname, "public")));
 
@@ -52,9 +55,133 @@ app.use(express.static(path.resolve(__dirname, "public")));
 app.use(express.urlencoded({ extended: true }));
 
 //================================================================================//
-import routes from "./routes/RoutesMaster";
+// import routes from "./routes/RoutesMaster";
 
-app.use("/", routes);
+// RoutesMaster
+// app.use("/", routes);
+
+//====================JWT====================//
+import User from "Models/User";
+import Auth from "Controllers/AuthenticationController";
+import jwt from "jsonwebtoken";
+
+app.get("/user", authenticate, (req, res) => {
+  res.send(
+    `<h1>Logged in</h1>
+    <form action="/logout" method="post">
+    <input type="submit" value="Submit">
+    </form>`
+  );
+});
+
+app.get("/login", checkIfAuthenticated, (req: any, res) => {
+  if (req.user) {
+    res.redirect("/user");
+  } else {
+    res.render("login.ejs", {
+      NODE_ENV: process.env.NODE_ENV,
+    });
+  }
+});
+
+app.post("/logout", (req: any, res) => {
+  res.clearCookie("accessToken");
+  res.redirect("/login");
+});
+
+// Check if token is verified or expired
+function authenticate(req: any, res: any, next: any) {
+  const token = req.cookies.accessToken;
+
+  // Redirect if token is expired.
+  // Prevents redirecting too many times
+  if (token == null) res.redirect("/login");
+
+  jwt.verify(
+    token,
+    <string>process.env.ACCESS_TOKEN_SECRET,
+    (error: any, user: any) => {
+      // Forbidden
+      // if (error) return res.sendStatus(403);
+      if (error) {
+        res.redirect("/login");
+      } else {
+        req.user = user;
+        next();
+      }
+    }
+  );
+}
+
+// Check if token is verified or expired
+function checkIfAuthenticated(req: any, res: any, next: any) {
+  const token = req.cookies.accessToken;
+  if (token) {
+    jwt.verify(
+      token,
+      <string>process.env.ACCESS_TOKEN_SECRET,
+      (error: any, user: any) => {
+        req.user = user;
+        res.redirect("/user");
+      }
+    );
+  } else {
+    next();
+  }
+}
+
+app.post("/login", (req, res) => {
+  const username: string = req.body.username;
+  const password: string = req.body.password;
+
+  if (username && password) {
+    User.read(`SELECT "password" FROM "${User.table}" WHERE "email" = ?;`, [
+      username,
+    ])
+      .then((result: { [key: string]: string }[]) => {
+        const userExists = result.length !== 0;
+        if (userExists) {
+          const hash: string = result[0].password;
+          Auth.verifyPassword(password, hash).then((passVerifiedResult) => {
+            //====================JWT====================//
+            const accessToken = jwt.sign(
+              { username: username },
+              <string>process.env.ACCESS_TOKEN_SECRET,
+              { expiresIn: "10s" }
+            );
+            const refreshToken = jwt.sign(
+              { username: username },
+              <string>process.env.REFRESH_TOKEN_SECRET,
+              { expiresIn: "1d" }
+            );
+
+            res.cookie("accessToken", accessToken, {
+              httpOnly: true,
+              maxAge: 30 * 60 * 1000,
+            });
+
+            res.json({
+              userExists: true,
+              passWordValid: passVerifiedResult,
+              accessToken: accessToken,
+            });
+            //====================JWT====================//
+          });
+        }
+        if (!userExists) {
+          res.send({
+            userExists: false,
+          });
+        }
+      })
+      .catch((error: any) => {
+        res.send({
+          error: error,
+        });
+      });
+  }
+});
+//====================JWT====================//
 
 //================================================================================//
 // Initialize port

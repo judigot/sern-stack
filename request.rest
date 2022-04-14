@@ -6,7 +6,7 @@ GET http://localhost:3000/user/idParam/typeParam
 ###
 
 POST http://localhost:3000/user HTTP/1.1
-content-type: application/json
+Content-Type: application/json
 
 {
     "firstName": "Judy",
@@ -15,4 +15,13 @@ content-type: application/json
     "password": "$2b$10$hi41dPYJv0a6NcnvrUFVqevSI5Ehxzp29yNvAkD.GXfuz98Mlt0wq",
     "createdAt": "",
     "updatedAt": ""
+}
+
+###
+POST http://localhost:5000/login HTTP/1.1
+Content-Type: application/json
+
+{
+    "username": "judigot@gmail.com",
+    "password": "123",
 }

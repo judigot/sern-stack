@@ -4,6 +4,10 @@ import User from "Models/User";
 
 import Auth from "Controllers/AuthenticationController";
 
+import "dotenv/config";
+
+import jwt from "jsonwebtoken";
+
 export default <any>{
   "/": {
     view: "index",
@@ -36,16 +40,28 @@ export default <any>{
           username,
         ])
           .then((result: { [key: string]: string }[]) => {
-
             const userExists = result.length !== 0;
 
             if (userExists) {
               const hash: string = result[0].password;
               Auth.verifyPassword(password, hash).then((passVerifiedResult) => {
-                res.send({
+                //====================JWT====================//
+                const accessToken = jwt.sign(
+                  { username: username },
+                  <string>process.env.ACCESS_TOKEN_SECRET,
+                  { expiresIn: "30s" }
+                );
+                const refreshToken = jwt.sign(
+                  { username: username },
+                  <string>process.env.REFRESH_TOKEN_SECRET,
+                  { expiresIn: "1d" }
+                );
+                res.json({
                   userExists: true,
                   passWordValid: passVerifiedResult,
+                  accessToken: accessToken,
                 });
+                //====================JWT====================//
               });
             }
 
