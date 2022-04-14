@@ -1,5 +1,6 @@
 {
   "compilerOptions": {
+    "noEmitOnError": true,
     "target": "es6",
     "module": "commonjs",
     "resolveJsonModule": true,
