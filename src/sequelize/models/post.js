@@ -10,7 +10,7 @@ module.exports = (sequelize, DataTypes) => {
     static associate(models) {
       // define association here
 
-      // Foreign key
+      // Foreign key alternative 1
       Post.belongsTo(models.User, {
         foreignKey: {
           name: "postOwner",
@@ -22,6 +22,15 @@ module.exports = (sequelize, DataTypes) => {
     {
       postName: DataTypes.STRING,
       postOwner: DataTypes.INTEGER,
+
+      // Foreign key alternative 2
+      // postOwner: {
+      //   type: DataTypes.INTEGER,
+      //   references: {
+      //     model: "app_user",
+      //     key: "user_id",
+      //   },
+      // },
     },
     {
       sequelize,
