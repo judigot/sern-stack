@@ -11,11 +11,13 @@ module.exports = (sequelize, DataTypes) => {
       // define association here
 
       // Foreign key alternative 1
+      //==========FOREIGN KEY 1==========//
       Post.belongsTo(models.User, {
         foreignKey: {
           name: "postOwner",
         },
       });
+      //==========FOREIGN KEY 1==========//
     }
   }
   Post.init(
@@ -24,13 +26,16 @@ module.exports = (sequelize, DataTypes) => {
       postOwner: DataTypes.INTEGER,
 
       // Foreign key alternative 2
-      // postOwner: {
-      //   type: DataTypes.INTEGER,
-      //   references: {
-      //     model: "app_user",
-      //     key: "user_id",
-      //   },
-      // },
+      postOwner: {
+        type: DataTypes.INTEGER,
+        //==========FOREIGN KEY 2==========//
+        // onUpdate: "CASCADE",
+        // references: {
+        //   model: "app_user",
+        //   key: "user_id",
+        // },
+        //==========FOREIGN KEY 2==========//
+      },
     },
     {
       sequelize,
