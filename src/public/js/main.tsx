@@ -13,4 +13,4 @@ ParentComponent("root");
 var jude = new Person("Jude", "Francis");
 var personName = jude.getFullName();
 
-alert(personName);
+// alert(personName);
