@@ -4,14 +4,13 @@ import User from "Models/User";
 
 import Auth from "Controllers/AuthenticationController";
 
-import "dotenv/config";
-
-import jwt from "jsonwebtoken";
+import JWTAuthController from "Controllers/JWTAuthController";
 
 export default <any>{
   "/": {
     view: "index",
     chunks: ["main"],
+    middleware: JWTAuthController.checkIfAuthenticated,
     get: (req: Request, res: Response) => {
       res.render("index.ejs", {
         pageTitle: Object.keys(req),
@@ -24,6 +23,7 @@ export default <any>{
   "/login": {
     view: "login",
     chunks: ["login"],
+    middleware: JWTAuthController.checkIfAuthenticated,
 
     get: (req: Request, res: Response) => {
       res.render("login.ejs", {
@@ -44,23 +44,20 @@ export default <any>{
 
             if (userExists) {
               const hash: string = result[0].password;
-              Auth.verifyPassword(password, hash).then((passVerifiedResult) => {
+              Auth.verifyPassword(password, hash).then((isPasswordValid) => {
                 //====================JWT====================//
-                const accessToken = jwt.sign(
-                  { username: username },
-                  <string>process.env.ACCESS_TOKEN_SECRET,
-                  { expiresIn: "30s" }
-                );
-                const refreshToken = jwt.sign(
-                  { username: username },
-                  <string>process.env.REFRESH_TOKEN_SECRET,
-                  { expiresIn: "1d" }
-                );
-                res.json({
+                const response: {
+                  userExists: boolean;
+                  passWordValid: boolean;
+                  accessToken?: string;
+                } = {
                   userExists: true,
-                  passWordValid: passVerifiedResult,
-                  accessToken: accessToken,
-                });
+                  passWordValid: isPasswordValid,
+                };
+                if (isPasswordValid) {
+                  response.accessToken = JWTAuthController.login(username, res);
+                }
+                res.json(response);
                 //====================JWT====================//
               });
             }

@@ -2,15 +2,34 @@ import { Request, Response, NextFunction } from "express";
 
 import User from "Models/User";
 
+import JWTAuthController from "Controllers/JWTAuthController";
+
 export default <any>{
+  "/logout": {
+    view: "",
+    chunks: [],
+    get: (req: Request, res: Response) => {
+      JWTAuthController.logout(res);
+    },
+    post: (req: Request, res: Response) => {
+      JWTAuthController.logout(res);
+    },
+  },
+
   "/": {
     view: "user/home",
     chunks: [],
-
+    // middleware: JWTAuthController.authenticate,
     get: (req: Request, res: Response) => {
-      User.all().then((result: any) => {
-        res.send(result);
-      });
+      // User.all().then((result: any) => {
+      //   res.send(result);
+      // });
+      res.send(
+        `<h1>Logged in</h1>
+        <form action="/user/logout" method="post">
+        <input type="submit" value="Log Out">
+        </form>`
+      );
     },
 
     post: (req: Request, res: Response) => {
@@ -29,6 +48,7 @@ export default <any>{
       });
     },
   },
+
   "/home/:id": {
     view: "user/home",
     chunks: [],

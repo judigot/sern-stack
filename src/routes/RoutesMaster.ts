@@ -2,29 +2,49 @@ import publicRoutes from "./_public";
 import userRoutes from "./_user";
 import express from "express";
 
-const router = express.Router();
-
 export const routes: any = [];
 
 routes["public"] = publicRoutes;
 routes["user"] = addBaseURL("/user", userRoutes);
 routes["globalChunks"] = ["vendor"];
 
-useRoute(routes.public);
-useRoute(routes.user);
+export const PublicRouter = useRoute(routes.public);
+
+export const PrivateRouter = useRoute(routes.user);
 
 function useRoute(routes: any) {
+  const router = express.Router();
   Object.keys(routes).forEach((url, index, array) => {
     const routeDetails = routes[url];
     if ("get" in routeDetails) {
-      router.get(url, (req, res) => {
-        routes[url].get(req, res);
-      });
+      if (routes[url].middleware) {
+        const middleware = routes[url].middleware;
+        router.get(url, middleware, (req, res) => {
+          routes[url].get(req, res);
+        });
+      } else {
+        router.get(url, (req, res) => {
+          routes[url].get(req, res);
+        });
+      }
+      // router.get(url, (req, res) => {
+      //   routes[url].get(req, res);
+      // });
     }
     if ("post" in routeDetails) {
-      router.post(url, (req, res) => {
-        routes[url].post(req, res);
-      });
+      if (routes[url].middleware) {
+        const middleware = routes[url].middleware;
+        router.post(url, middleware, (req, res) => {
+          routes[url].post(req, res);
+        });
+      } else {
+        router.post(url, (req, res) => {
+          routes[url].post(req, res);
+        });
+      }
+      // router.post(url, (req, res) => {
+      //   routes[url].post(req, res);
+      // });
     }
     if ("put" in routeDetails) {
     }
@@ -33,6 +53,7 @@ function useRoute(routes: any) {
     if ("patch" in routeDetails) {
     }
   });
+  return router;
 }
 
 function addBaseURL(baseURL: string, rawRoutes: object) {
@@ -44,5 +65,3 @@ function addBaseURL(baseURL: string, rawRoutes: object) {
   );
   return routesWithBaseURL;
 }
-
-export default router;
