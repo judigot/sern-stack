@@ -146,24 +146,26 @@ const loadPlugins = () => {
     const route = Routes[key]; // public, user, global
     // Loop through route paths
     Object.keys(route).forEach((key) => {
-      const viewLocation = route[key].view; // e.g.: index.ejs, login.ejs
+      const view = route[key].view; // e.g.: index.ejs, login.ejs
       const chunks = route[key].chunks; // e.g.: ["vendor", "main"]
       const mergedChunks = [...RoutesMaster.globalChunks, ...chunks];
 
-      plugins.push(
-        new HtmlWebpackPlugin({
-          favicon: `${entryFolder}/${assetsFolderName}/${imagesDirectory}/favicon.png`, // Version 1
-          template: path.resolve(
-            __dirname,
-            `${entryFolder}/${viewsDirectory}/${viewLocation}.${templatingEngineExtension}`
-          ), // Destination
-          filename: path.resolve(
-            __dirname,
-            `${outputFolder}/${viewsDirectory}/${viewLocation}.${templatingEngineExtension}`
-          ), // Destination
-          chunks: mergedChunks, // Specify specific bundles in string (e.g. `app`, `main`, `index`)
-        })
-      );
+      if (view) {
+        plugins.push(
+          new HtmlWebpackPlugin({
+            favicon: `${entryFolder}/${assetsFolderName}/${imagesDirectory}/favicon.png`, // Version 1
+            template: path.resolve(
+              __dirname,
+              `${entryFolder}/${viewsDirectory}/${view}.${templatingEngineExtension}`
+            ), // Destination
+            filename: path.resolve(
+              __dirname,
+              `${outputFolder}/${viewsDirectory}/${view}.${templatingEngineExtension}`
+            ), // Destination
+            chunks: mergedChunks, // Specify specific bundles in string (e.g. `app`, `main`, `index`)
+          })
+        );
+      }
     });
   });
   return plugins;

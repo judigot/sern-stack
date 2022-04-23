@@ -63,7 +63,7 @@ import JWTAuthController from "app/Http/Controllers/JWTAuthController";
 
 app.use("/", PublicRouter);
 
-app.use("/", JWTAuthController.authenticate, PrivateRouter);
+app.use("/", JWTAuthController.checkNotAuthenticated, PrivateRouter);
 //====================ROUTESMASTER====================//
 
 //================================================================================//

@@ -10,7 +10,7 @@ export default <any>{
   "/": {
     view: "index",
     chunks: ["main"],
-    middleware: JWTAuthController.checkIfAuthenticated,
+    middleware: JWTAuthController.checkAuthenticated,
     get: (req: Request, res: Response) => {
       res.render("index.ejs", {
         pageTitle: Object.keys(req),
@@ -23,7 +23,7 @@ export default <any>{
   "/login": {
     view: "login",
     chunks: ["login"],
-    middleware: JWTAuthController.checkIfAuthenticated,
+    middleware: JWTAuthController.checkAuthenticated,
 
     get: (req: Request, res: Response) => {
       res.render("login.ejs", {
@@ -36,7 +36,7 @@ export default <any>{
       const password: string = req.body.password;
 
       if (username && password) {
-        User.read(`SELECT "password" FROM "${User.table}" WHERE "email" = ?;`, [
+        User.read(`SELECT * FROM "${User.table}" WHERE "email" = ?;`, [
           username,
         ])
           .then((result: { [key: string]: string }[]) => {
@@ -55,7 +55,10 @@ export default <any>{
                   passWordValid: isPasswordValid,
                 };
                 if (isPasswordValid) {
-                  response.accessToken = JWTAuthController.login(username, res);
+                  response.accessToken = JWTAuthController.login(
+                    { username, user: result },
+                    res
+                  );
                 }
                 res.json(response);
                 //====================JWT====================//
@@ -68,7 +71,7 @@ export default <any>{
               });
             }
           })
-          .catch((error: any) => {
+          .catch((error: string) => {
             res.send({
               error: error,
             });

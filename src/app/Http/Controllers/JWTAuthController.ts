@@ -3,15 +3,15 @@ import { Request, Response, NextFunction } from "express";
 import jwt from "jsonwebtoken";
 
 class JWTAuthController {
-  static login(username: string, res: Response) {
+  static login(user: object, res: Response) {
     const accessToken = jwt.sign(
-      { username: username },
+      user,
       <string>process.env.ACCESS_TOKEN_SECRET
       // { expiresIn: "10m" }
     );
 
     const refreshToken = jwt.sign(
-      { username: username },
+      user,
       <string>process.env.REFRESH_TOKEN_SECRET
       // { expiresIn: "1d" }
     );
@@ -30,14 +30,19 @@ class JWTAuthController {
   }
 
   // Check if token is verified or expired
-  static checkIfAuthenticated(req: Request, res: Response, next: NextFunction) {
+  static checkAuthenticated(req: Request, res: Response, next: NextFunction) {
     const token = req.cookies.accessToken;
     if (token) {
       jwt.verify(
         token,
         <string>process.env.ACCESS_TOKEN_SECRET,
         (error: any, user: any) => {
-          // req.user = user;
+          // Forbidden
+          // if (error) return res.sendStatus(403);
+          //=====CUSTOM=====//
+          if (error) this.logout(res);
+          //=====CUSTOM=====//
+          req.user = user;
           res.redirect("/user");
         }
       );
@@ -47,27 +52,37 @@ class JWTAuthController {
   }
 
   // Check if token is verified or expired
-  static authenticate(req: Request, res: Response, next: NextFunction) {
+  static checkNotAuthenticated(
+    req: Request,
+    res: Response,
+    next: NextFunction
+  ) {
+    const user = req.user;
     const token = req.cookies.accessToken;
 
-    // Redirect if token is expired.
-    // Prevents redirecting too many times
-    if (token == null) res.redirect("/login");
-
-    jwt.verify(
-      token,
-      <string>process.env.ACCESS_TOKEN_SECRET,
-      (error: any, user: any) => {
-        // Forbidden
-        // if (error) return res.sendStatus(403);
-        if (error) {
-          this.logout(res);
-        } else {
-          // req.user = user;
+    if (token) {
+      jwt.verify(
+        token,
+        <string>process.env.ACCESS_TOKEN_SECRET,
+        (error: any, user: any) => {
+          // Forbidden
+          // if (error) return res.sendStatus(403);
+          //=====CUSTOM=====//
+          if (error) this.logout(res);
+          //=====CUSTOM=====//
+          req.user = user;
           next();
         }
-      }
-    );
+      );
+    } else {
+      // Redirect if token is expired.
+      // Prevents redirecting too many times
+      // Forbidden
+      // if (token == null) return res.sendStatus(403);
+      //=====CUSTOM=====//
+      res.redirect("/login");
+      //=====CUSTOM=====//
+    }
   }
 }
 

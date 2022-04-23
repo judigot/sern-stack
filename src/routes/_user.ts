@@ -21,11 +21,13 @@ export default <any>{
     chunks: [],
     // middleware: JWTAuthController.authenticate,
     get: (req: Request, res: Response) => {
-      // User.all().then((result: any) => {
+      // User.all().then((result: object) => {
       //   res.send(result);
       // });
+      const user: any = req.user;
+
       res.send(
-        `<h1>Logged in</h1>
+        `<h1>Welcome back, ${user.username}</h1> 
         <form action="/user/logout" method="post">
         <input type="submit" value="Log Out">
         </form>`
