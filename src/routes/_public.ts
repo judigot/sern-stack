@@ -13,7 +13,7 @@ export default <any>{
     middleware: JWTAuthController.checkAuthenticated,
     get: (req: Request, res: Response) => {
       res.render("index.ejs", {
-        pageTitle: Object.keys(req),
+        pageTitle: "Big Bang",
         NODE_ENV: process.env.NODE_ENV,
       });
     },
