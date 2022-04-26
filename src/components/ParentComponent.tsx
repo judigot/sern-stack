@@ -179,6 +179,9 @@ export const ParentComponent = (props: Props) => {
 
       <h2>Get data from child to parent</h2>
       <hr />
+
+      <h2>Custom hooks</h2>
+      <hr />
     </div>
   );
 };
