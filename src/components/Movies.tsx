@@ -1,12 +1,16 @@
 import React, { useRef, useState } from "react";
 
+interface Movie {
+  Title?: string;
+}
+
 function MovieList() {
-  const searchInput = useRef("app-input1");
+  const searchInput = useRef<HTMLInputElement>(null!);
 
   const [movieList, setMovieList] = useState([]);
   const [noResult, setNoResult] = useState(false);
 
-  const handleSearch = async (e) => {
+  const handleSearch = async () => {
     const year = parseInt(searchInput.current.value);
 
     if (true) {
@@ -26,7 +30,8 @@ function MovieList() {
   };
   const movies = movieList ? (
     <ul className="mt-50 styled" data-testid="movieList">
-      {movieList && movieList.map((row, i) => <li key={i}>{row.Title}</li>)}
+      {movieList &&
+        movieList.map((row: Movie, i) => <li key={i}>{row.Title}</li>)}
     </ul>
   ) : null;
   return (
@@ -40,8 +45,8 @@ function MovieList() {
           data-testid="app-input"
         />
         <button
-          onClick={(e) => {
-            handleSearch(e);
+          onClick={() => {
+            handleSearch();
           }}
           className=""
           data-testid="submit-button"
