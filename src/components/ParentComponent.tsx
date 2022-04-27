@@ -1,6 +1,8 @@
 import React, { useEffect, useState, useRef, useMemo } from "react";
 import { ChildComponent } from "./ChildComponent";
 
+import Movies from "./Movies";
+
 interface Props {}
 
 export const ParentComponent = (props: Props) => {
@@ -100,6 +102,11 @@ export const ParentComponent = (props: Props) => {
   return (
     <div className="SampleComponent">
       <h1>React</h1>
+
+      <h2>Fetch data from an API</h2>
+      <Movies />
+      <hr />
+
       <h2>*Check console for the initial code</h2>
       <hr />
 
