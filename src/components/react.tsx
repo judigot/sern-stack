@@ -1,12 +1,11 @@
 import React from "react";
-import ReactDOM from "react-dom";
+import ReactDOM from "react-dom/client";
 import { ParentComponent } from "./ParentComponent";
 
 export const Component = (elementID: string) => {
-  ReactDOM.render(
+  ReactDOM.createRoot(document.getElementById(elementID)!).render(
     <React.StrictMode>
       <ParentComponent />
-    </React.StrictMode>,
-    document.getElementById(elementID)
+    </React.StrictMode>
   );
 };
