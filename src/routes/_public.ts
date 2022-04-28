@@ -20,6 +20,22 @@ export default <any>{
     post: () => {},
   },
 
+  "/auth": {
+    view: "index",
+    chunks: ["main"],
+    post: (req: Request, res: Response) => {
+      res.json(JWTAuthController.auth(req, res));
+    },
+  },
+
+  "/logout": {
+    view: "",
+    chunks: [],
+    post: (req: Request, res: Response) => {
+      res.json(JWTAuthController.logoutClient(res));
+    },
+  },
+
   "/login": {
     view: "login",
     chunks: ["login"],
@@ -66,13 +82,13 @@ export default <any>{
             }
 
             if (!userExists) {
-              res.send({
+              res.json({
                 userExists: false,
               });
             }
           })
           .catch((error: string) => {
-            res.send({
+            res.json({
               error: error,
             });
           });

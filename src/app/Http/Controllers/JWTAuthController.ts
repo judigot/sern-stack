@@ -24,9 +24,43 @@ class JWTAuthController {
     return accessToken;
   }
 
+  static logoutClient(res: Response) {
+    res.clearCookie("accessToken");
+    // res.redirect("/login");
+    return {
+      redirect: "login",
+    };
+  }
+
   static logout(res: Response) {
     res.clearCookie("accessToken");
     res.redirect("/login");
+  }
+
+  // Check if token is verified or expired
+  static auth(req: Request, res: Response) {
+    const authHeader = req.headers["authorization"];
+    const token = authHeader && authHeader.split(" ")[1];
+    // const token = req.cookies.accessToken;
+    if (token) {
+      try {
+        const user: any = jwt.verify(
+          token,
+          <string>process.env.ACCESS_TOKEN_SECRET
+        );
+        req.user = user;
+        return {
+          redirect: "user",
+          user,
+        };
+      } catch (error) {
+        res.sendStatus(403);
+      }
+    } else {
+      return {
+        redirect: "login",
+      };
+    }
   }
 
   // Check if token is verified or expired

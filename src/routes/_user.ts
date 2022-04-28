@@ -12,7 +12,7 @@ export default <any>{
       JWTAuthController.logout(res);
     },
     post: (req: Request, res: Response) => {
-      JWTAuthController.logout(res);
+      res.json(JWTAuthController.logout(res));
     },
   },
 
