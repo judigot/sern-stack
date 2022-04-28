@@ -7,7 +7,7 @@ class JWTAuthController {
     const accessToken = jwt.sign(
       user,
       <string>process.env.ACCESS_TOKEN_SECRET
-      // { expiresIn: "10m" }
+      // { expiresIn: "5s" }
     );
 
     const refreshToken = jwt.sign(
