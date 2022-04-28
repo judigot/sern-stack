@@ -40,10 +40,15 @@ class JWTAuthController {
           // Forbidden
           // if (error) return res.sendStatus(403);
           //=====CUSTOM=====//
-          if (error) this.logout(res);
+          if (error) {
+            this.logout(res);
+          } else {
+            req.user = user;
+            res.redirect("/user");
+          }
           //=====CUSTOM=====//
-          req.user = user;
-          res.redirect("/user");
+          // req.user = user;
+          // res.redirect("/user");
         }
       );
     } else {
@@ -68,10 +73,15 @@ class JWTAuthController {
           // Forbidden
           // if (error) return res.sendStatus(403);
           //=====CUSTOM=====//
-          if (error) this.logout(res);
+          if (error) {
+            this.logout(res);
+          } else {
+            req.user = user;
+            next();
+          }
           //=====CUSTOM=====//
-          req.user = user;
-          next();
+          // req.user = user;
+          // next();
         }
       );
     } else {
