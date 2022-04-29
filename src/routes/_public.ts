@@ -58,6 +58,8 @@ export default <any>{
           .then((result: { [key: string]: string }[]) => {
             const userExists = result.length !== 0;
 
+            const user: { [key: string]: string } = result[0];
+
             if (userExists) {
               const hash: string = result[0].password;
               Auth.verifyPassword(password, hash).then((isPasswordValid) => {
@@ -72,7 +74,7 @@ export default <any>{
                 };
                 if (isPasswordValid) {
                   response.accessToken = JWTAuthController.login(
-                    { username, user: result },
+                    { username, user },
                     res
                   );
                 }
