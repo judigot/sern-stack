@@ -1,5 +1,4 @@
 import React, { useRef, useState } from "react";
-import "./index.css";
 
 export default function StockData() {
   const searchInput = useRef();
