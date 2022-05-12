@@ -4,7 +4,7 @@ import User from "Models/User";
 
 import JWTAuthController from "Controllers/JWTAuthController";
 
-export default <any>{
+export default <object>{
   "/logout": {
     view: "",
     chunks: [],

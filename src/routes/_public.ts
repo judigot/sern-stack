@@ -6,7 +6,7 @@ import Auth from "Controllers/AuthenticationController";
 
 import JWTAuthController from "Controllers/JWTAuthController";
 
-export default <any>{
+export default <object>{
   "/": {
     view: "index",
     chunks: ["main"],
