@@ -13,7 +13,7 @@ function MovieList() {
   const handleSearch = async () => {
     const year = parseInt(searchInput.current.value);
 
-    if (true) {
+    if (year) {
       fetch("https://jsonmock.hackerrank.com/api/movies?Year=" + year)
         .then((response) => response.json())
         .then((result) => {
