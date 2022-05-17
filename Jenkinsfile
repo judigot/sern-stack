@@ -25,7 +25,7 @@ pipeline {
             when {
                 expression {
                 // Build only if there are changes in the code
-                    BRANCH_NAME == 'dev' && CODE_CHANGES == true
+                    BRANCH_NAME == 'main' && CODE_CHANGES == true
                 }
             }
             steps {
@@ -47,7 +47,7 @@ pipeline {
             when {
                 expression {
                     // Test only in dev branch
-                    BRANCH_NAME == 'dev' || BRANCH_NAME == 'main'
+                    BRANCH_NAME == 'main' || BRANCH_NAME == 'main'
                 }
             }
             steps {
@@ -76,7 +76,7 @@ pipeline {
         }
 
         success {
-            echo 'SUCCESS! -judigot'
+            
         }
 
         failure {
