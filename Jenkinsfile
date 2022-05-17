@@ -25,21 +25,16 @@ pipeline {
         // SERVER_CREDENTIALS = credentials('<credential-ID>') // Finds the credentials that are available in Jenkins
     }
     stages {
-        stage("Check NVM") {
-            steps {
-                sh "node -v"
-            }
-        }
-        stage("Initialize Environment") {
-            steps {
-                echo "Initializing environment..."
-                echo "${HOME}"
-                sh "ls"
+        // stage("Initialize Environment") {
+        //     steps {
+        //         echo "Initializing environment..."
+        //         echo "${HOME}"
+        //         sh "ls"
 
-                sh "chmod +x -R ${WORKSPACE}"
-                sh "./initialize.sh"
-            }
-        }
+        //         sh "chmod +x -R ${WORKSPACE}"
+        //         sh "./initialize.sh"
+        //     }
+        // }
         stage("Build") {
             // when {
             //     expression {
@@ -55,8 +50,8 @@ pipeline {
                 sh "./build.sh"
 
                 //=====NODE.JS=====//
-                // sh 'npm install'
-                // sh 'npm run build'
+                sh 'npm install'
+                sh 'npm run build'
                 // sh 'npm start dist/index.js'
                 //=====NODE.JS=====//
             }
@@ -86,9 +81,9 @@ pipeline {
 
                 // Actual deploy script
                 // sh "chmod +x -R ${WORKSPACE}"
-                sh "./deploy.sh"
+                // sh "./deploy.sh"
 
-                // sh 'npm start'
+                sh 'npm start'
             }
         }
     }
