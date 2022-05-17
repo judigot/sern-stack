@@ -76,7 +76,7 @@ pipeline {
         }
 
         success {
-            
+            echo 'SUCCESS! -judigot'
         }
 
         failure {
