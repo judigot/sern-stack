@@ -71,7 +71,7 @@ pipeline {
                 // sh "chmod +x -R ${WORKSPACE}"
                 // sh "./test.sh"
 
-                sh 'npm run Test'
+                sh 'npm run test'
             }
         }
 
