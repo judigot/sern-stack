@@ -29,7 +29,7 @@ pipeline {
                 echo "${HOME}"
                 sh "ls"
 
-                // sh "chmod +x -R ${WORKSPACE}"
+                sh "chmod +x -R ${WORKSPACE}"
                 sh "./initialize.sh"
             }
         }
