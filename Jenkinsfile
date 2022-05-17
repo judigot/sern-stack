@@ -23,14 +23,14 @@ pipeline {
         // SERVER_CREDENTIALS = credentials('<credential-ID>') // Finds the credentials that are available in Jenkins
     }
     stages {
-        stage("Check NVM") {
-            steps {
-                script {
-                    command -v nvm >/dev/null 2>&1 || { echo >&2 "nvm is required, but it's not installed.  Aborting."; exit 1; }
-                    // 
-                }
-            }
-        }
+        // stage("Check NVM") {
+        //     steps {
+        //         script {
+        //             command -v nvm >/dev/null 2>&1 || { echo >&2 "nvm is required, but it's not installed.  Aborting."; exit 1; }
+        //             // 
+        //         }
+        //     }
+        // }
         stage("Initialize Environment") {
             steps {
                 echo "Initializing environment..."
