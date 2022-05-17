@@ -18,7 +18,7 @@ pipeline {
         NEW_VERSION = '1.0'
 
         // "Credentials Binding" plugin allows you to use Jenkins credentials in Jenkinsfile
-        SERVER_CREDENTIALS = credentials('judigot') // Finds the credentials that are available in Jenkins
+        // SERVER_CREDENTIALS = credentials('judigot') // Finds the credentials that are available in Jenkins
     }
     stages {
         // stage("Install Node.js") {
