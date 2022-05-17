@@ -5,4 +5,6 @@ export NVM_DIR="$([ -z "${XDG_CONFIG_HOME-}" ] && printf %s "${HOME}/.nvm" || pr
 nvm install $NODE_VERSION
 nvm use $NODE_VERSION
 
-node -v
+npm install
+npm build
+npm start
