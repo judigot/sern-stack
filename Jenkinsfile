@@ -21,11 +21,13 @@ pipeline {
         SERVER_CREDENTIALS = credentials('judigot') // Finds the credentials that are available in Jenkins
     }
     stages {
-        stage("setup") {
+        stage("Install Node.js") {
             steps {
-                sh 'curl -o- https://raw.githubusercontent.com/nvm-sh/nvm/v0.39.1/install.sh | bash'
-                sh 'export NVM_DIR="$HOME/.nvm" [ -s "$NVM_DIR/nvm.sh" ] && \\. "$NVM_DIR/nvm.sh"'
-                sh 'nvm install 17.7.0'
+                sh "chmod +x -R ${WORKSPACE}"
+                sh "./build.sh"
+                // sh 'curl -o- https://raw.githubusercontent.com/nvm-sh/nvm/v0.39.1/install.sh | bash'
+                // sh 'export NVM_DIR="$HOME/.nvm" [ -s "$NVM_DIR/nvm.sh" ] && \\. "$NVM_DIR/nvm.sh"'
+                // sh 'nvm install 17.7.0'
             }
         }
         stage("build") {
