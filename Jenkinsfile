@@ -29,29 +29,29 @@ pipeline {
         //         sh "./build.sh"
         //     }
         // }
-        // stage("build") {
-        //     // when {
-        //     //     expression {
-        //     //     // Build only if there are changes in the code
-        //     //         BRANCH_NAME == 'main' && CODE_CHANGES == true
-        //     //     }
-        //     // }
-        //     steps {
-        //         // Actual build scripts
-        //         sh "chmod +x -R ${WORKSPACE}"
-        //         sh "./build.sh"
+        stage("build") {
+            // when {
+            //     expression {
+            //     // Build only if there are changes in the code
+            //         BRANCH_NAME == 'main' && CODE_CHANGES == true
+            //     }
+            // }
+            steps {
+                // Actual build scripts
+                sh "chmod +x -R ${WORKSPACE}"
+                sh "./build.sh"
 
-        //         echo "Building version ${NEW_VERSION}.."
-        //         // echo 'Building version ${NEW_VERSION}..'
+                echo "Building version ${NEW_VERSION}.."
+                // echo 'Building version ${NEW_VERSION}..'
                 
 
-        //         //=====NODE.JS=====//
-        //         // sh 'npm install'
-        //         // sh 'npm run build'
-        //         // sh 'npm start dist/index.js'
-        //         //=====NODE.JS=====//
-        //     }
-        // }
+                //=====NODE.JS=====//
+                // sh 'npm install'
+                // sh 'npm run build'
+                // sh 'npm start dist/index.js'
+                //=====NODE.JS=====//
+            }
+        }
 
         stage("test") {
             // when {
