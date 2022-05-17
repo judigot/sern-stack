@@ -12,7 +12,9 @@
 
 pipeline {
     agent any
-
+    tools {
+        nodejs "17.7.0"
+    }
     // Environment variables are accessible in the stages
     environment {
         NEW_VERSION = '1.0'
@@ -25,13 +27,7 @@ pipeline {
     stages {
         stage("Check NVM") {
             steps {
-                script {
-                        if (sh 'command -v nvm &> /dev/null') {
-                            echo 'True'
-                        }  else {
-                            echo 'False'
-                        }
-                    }
+                sh "node -v"
             }
         }
         stage("Initialize Environment") {
