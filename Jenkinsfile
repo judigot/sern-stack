@@ -26,7 +26,7 @@ pipeline {
         stage("Check NVM") {
             steps {
                 script {
-                        if (true) {
+                        if (false) {
                             echo 'True'
                         }  else {
                             echo 'False'
