@@ -23,13 +23,13 @@ pipeline {
         // SERVER_CREDENTIALS = credentials('<credential-ID>') // Finds the credentials that are available in Jenkins
     }
     stages {
-        // stage("Install Node.js") {
-        //     steps {
-        //         sh "chmod +x -R ${WORKSPACE}"
-        //         sh "./build.sh"
-        //     }
-        // }
-        stage("build") {
+        stage("Install Node.js") {
+            steps {
+                sh "chmod +x -R ${WORKSPACE}"
+                sh "./initialize.sh"
+            }
+        }
+        stage("Build") {
             // when {
             //     expression {
             //     // Build only if there are changes in the code
@@ -53,7 +53,7 @@ pipeline {
             }
         }
 
-        stage("test") {
+        stage("Test") {
             // when {
             //     expression {
             //         // Test only in dev branch
@@ -69,7 +69,7 @@ pipeline {
             }
         }
 
-        stage("deploy") {
+        stage("Deploy") {
             steps {
                 // Actual deploy scripts
                 echo 'Deploying..'
