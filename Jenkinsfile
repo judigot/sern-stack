@@ -23,8 +23,10 @@ pipeline {
         // SERVER_CREDENTIALS = credentials('<credential-ID>') // Finds the credentials that are available in Jenkins
     }
     stages {
-        stage("Install Node.js") {
+        stage("Initialize Environment") {
             steps {
+                echo "Initializing environment..."
+
                 sh "chmod +x -R ${WORKSPACE}"
                 sh "./initialize.sh"
             }
@@ -37,13 +39,11 @@ pipeline {
             //     }
             // }
             steps {
-                // Actual build scripts
+                echo "Building version ${NEW_VERSION}..."
+
+                // Actual build script
                 sh "chmod +x -R ${WORKSPACE}"
                 sh "./build.sh"
-
-                echo "Building version ${NEW_VERSION}.."
-                // echo 'Building version ${NEW_VERSION}..'
-                
 
                 //=====NODE.JS=====//
                 // sh 'npm install'
@@ -61,20 +61,24 @@ pipeline {
             //     }
             // }
             steps {
-                // Actual test scripts
-                echo 'Testing..'
+                echo "Testing..."
                 
+                // Actual test script
                 sh "chmod +x -R ${WORKSPACE}"
                 sh "./test.sh"
+
+                // sh 'npm start'
             }
         }
 
         stage("Deploy") {
             steps {
-                // Actual deploy scripts
-                echo 'Deploying..'
+                echo "Deploying..."
+
+                // Actual deploy script
                 sh "chmod +x -R ${WORKSPACE}"
                 sh "./deploy.sh"
+                
                 // sh 'npm start'
             }
         }
