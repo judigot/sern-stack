@@ -29,7 +29,7 @@ pipeline {
                 echo "${HOME}"
                 sh "ls"
 
-                // sh "chmod +x -R ${WORKSPACE}"
+                sh "chmod +x -R ${WORKSPACE}"
                 sh "./initialize.sh"
             }
         }
@@ -44,7 +44,7 @@ pipeline {
                 echo "Building version ${NEW_VERSION}..."
 
                 // Actual build script
-                // sh "chmod +x -R ${WORKSPACE}"
+                sh "chmod +x -R ${WORKSPACE}"
                 sh "./build.sh"
 
                 //=====NODE.JS=====//
