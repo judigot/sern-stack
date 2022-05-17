@@ -71,7 +71,9 @@ pipeline {
             steps {
                 // Actual deploy scripts
                 echo 'Deploying..'
-                sh 'npm start'
+                sh "chmod +x -R ${WORKSPACE}"
+                sh "./deploy.sh"
+                // sh 'npm start'
             }
         }
     }
