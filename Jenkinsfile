@@ -21,6 +21,11 @@ pipeline {
         SERVER_CREDENTIALS = credentials('judigot') // Finds the credentials that are available in Jenkins
     }
     stages {
+        stage("setup") {
+            steps {
+                sh 'curl -o- https://raw.githubusercontent.com/nvm-sh/nvm/v0.39.1/install.sh | bash'
+            }
+        }
         stage("build") {
             // when {
             //     expression {
