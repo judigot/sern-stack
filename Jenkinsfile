@@ -66,7 +66,7 @@ pipeline {
                 echo "Testing..."
                 
                 // Actual test script
-                sh "chmod +x -R ${WORKSPACE}"
+                // sh "chmod +x -R ${WORKSPACE}"
                 sh "./test.sh"
 
                 // sh 'npm start'
