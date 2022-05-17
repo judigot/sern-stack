@@ -45,7 +45,7 @@ pipeline {
 
                 //=====NODE.JS=====//
                 // sh 'npm install'
-                // sh 'npm build'
+                // sh 'npm run build'
                 // sh 'npm start dist/index.js'
                 //=====NODE.JS=====//
             }
