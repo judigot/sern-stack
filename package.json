@@ -4,7 +4,7 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "start": "NODE_ENV=development node dist/index.js",
+    "start": "node dist/index.js",
     "build": "NODE_ENV=production npx webpack --env buildType=production --mode production & npx babel --extensions '.tsx,.ts,.jsx,.js' src --ignore src/sequelize/config,src/sequelize/migrations,src/sequelize/seeders,src/seed,src/components,src/public,src/tests,src/types -d dist",
     "Test": "jest --clearCache && clear && jest src",
     "Start Production (F9)": "clear && NODE_ENV=production node dist/index.js\n",
