@@ -65,7 +65,7 @@ pipeline {
                 echo 'Testing..'
                 
                 sh "chmod +x -R ${WORKSPACE}"
-                sh "./build.sh"
+                sh "./test.sh"
             }
         }
 
