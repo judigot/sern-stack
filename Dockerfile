@@ -14,6 +14,8 @@ RUN npm install
 # If you are building your code for production
 # RUN npm ci --only=production
 
+RUN npm run build
+
 # Bundle app source
 COPY . .
 
@@ -21,6 +23,6 @@ COPY . .
 EXPOSE 3000
 
 # Start app
-CMD ["node", "src/index.ts"]
+CMD ["node", "dist/index.js"]
 
 #
