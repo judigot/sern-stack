@@ -71,7 +71,7 @@ pipeline {
             steps {
                 // Actual deploy scripts
                 echo 'Deploying..'
-                sh 'npm run start'
+                sh 'npm start'
             }
         }
     }
