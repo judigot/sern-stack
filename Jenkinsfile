@@ -26,7 +26,7 @@ pipeline {
         stage("Check NVM") {
             steps {
                 script {
-                        if (command -v nvm &> /dev/null) {
+                        if (sh 'command -v nvm &> /dev/null') {
                             echo 'True'
                         }  else {
                             echo 'False'
