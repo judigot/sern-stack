@@ -24,6 +24,7 @@ pipeline {
         stage("setup") {
             steps {
                 sh 'curl -o- https://raw.githubusercontent.com/nvm-sh/nvm/v0.39.1/install.sh | bash'
+                sh 'nvm install 17.7.0'
             }
         }
         stage("build") {
