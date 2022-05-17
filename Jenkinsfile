@@ -71,7 +71,7 @@ pipeline {
                 // sh "chmod +x -R ${WORKSPACE}"
                 // sh "./test.sh"
 
-                // sh 'npm start'
+                sh 'npm run Test'
             }
         }
 
@@ -94,7 +94,6 @@ pipeline {
         // This script always executes whether the build was successful or not
         // Examples (send email to the dev team about the build condition/result)
         // always {
-
         // }
 
         success {
@@ -102,7 +101,6 @@ pipeline {
         }
 
         // failure {
-
         // }
     }
 }
