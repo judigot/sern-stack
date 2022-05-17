@@ -26,6 +26,7 @@ pipeline {
         stage("Initialize Environment") {
             steps {
                 echo "Initializing environment..."
+                echo "${HOME}"
 
                 sh "chmod +x -R ${WORKSPACE}"
                 sh "./initialize.sh"
@@ -78,7 +79,7 @@ pipeline {
                 // Actual deploy script
                 sh "chmod +x -R ${WORKSPACE}"
                 sh "./deploy.sh"
-                
+
                 // sh 'npm start'
             }
         }
