@@ -8,7 +8,7 @@
 //=====PLUGINS=====//
 
 // Custom environmental variable
-CODE_CHANGES = getGitChanges
+// CODE_CHANGES = getGitChanges
 
 pipeline {
     agent any
