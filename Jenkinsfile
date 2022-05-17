@@ -47,7 +47,7 @@ pipeline {
 
                 // Actual build script
                 // sh "chmod +x -R ${WORKSPACE}"
-                sh "./build.sh"
+                // sh "./build.sh"
 
                 //=====NODE.JS=====//
                 sh 'npm install'
@@ -69,7 +69,7 @@ pipeline {
                 
                 // Actual test script
                 // sh "chmod +x -R ${WORKSPACE}"
-                sh "./test.sh"
+                // sh "./test.sh"
 
                 // sh 'npm start'
             }
