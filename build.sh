@@ -7,8 +7,8 @@ export NVM_DIR="$([ -z "${XDG_CONFIG_HOME-}" ] && printf %s "${HOME}/.nvm" || pr
 nvm install $NODE_VERSION
 nvm use $NODE_VERSION
 
-NODE_ENV=production npx webpack --env buildType=production --mode production
 
-# npm install
+npm install
+# NODE_ENV=production npx webpack --env buildType=production --mode production
 # npm run build
 # npm start
