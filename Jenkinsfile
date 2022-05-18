@@ -28,8 +28,6 @@ pipeline {
         // stage("Initialize Environment") {
         //     steps {
         //         echo "Initializing environment..."
-        //         echo "${HOME}"
-        //         sh "ls"
 
         //         sh "chmod +x -R ${WORKSPACE}"
         //         sh "./initialize.sh"
