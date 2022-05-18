@@ -82,10 +82,10 @@ pipeline {
                 echo "Testing..."
                 
                 // Actual test script
-                // sh "chmod +x -R ${WORKSPACE}"
-                // sh "./test.sh"
+                sh "chmod +x -R ${WORKSPACE}"
+                sh "./test.sh"
 
-                sh 'npm run test'
+                // sh 'npm run test'
             }
         }
 
@@ -95,9 +95,9 @@ pipeline {
 
                 // Actual deploy script
                 // sh "chmod +x -R ${WORKSPACE}"
-                sh "chmod +x ./deploy.sh && ./deploy.sh"
+                // sh "chmod +x ./deploy.sh && ./deploy.sh"
 
-                // sh 'npm start'
+                sh 'npm start'
             }
         }
     }
