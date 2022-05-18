@@ -7,12 +7,8 @@
 // Credentials Binding
 //=====PLUGINS=====//
 
-def boolean getGitChanges() {
-    return currentBuild.changeSets.size() > 0
-}
-
 // Custom environmental variable
-CODE_CHANGES = getGitChanges()
+CODE_CHANGES = currentBuild.changeSets.size() > 0
 
 pipeline {
     agent any
@@ -34,7 +30,6 @@ pipeline {
                 expression {
                 // Build only if there are changes in the code
                     CODE_CHANGES == true
-                    // currentBuild.changeSets.size() > 0
                 }
             }
             steps {
