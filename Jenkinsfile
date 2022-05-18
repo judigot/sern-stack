@@ -29,6 +29,7 @@ pipeline {
             steps {
                 echo "Initializing environment..."
 
+                // Grant execute permission to .sh files 
                 sh "chmod +x -R ${WORKSPACE}/*.sh"
                 // sh "./initialize.sh"
             }
@@ -56,13 +57,10 @@ pipeline {
                 echo "Building version ${NEW_VERSION}..."
 
                 // Build script
-                // sh "chmod +x -R ${WORKSPACE}"
-                // sh "chmod +x ./build.sh && ./build.sh"
+                sh "./build.sh"
 
-                //=====NODE.JS=====//
-                sh "npm install"
-                sh "npm run build"
-                //=====NODE.JS=====//
+                // sh "npm install"
+                // sh "npm run build"
             }
         }
 
@@ -82,7 +80,6 @@ pipeline {
                 echo "Testing..."
                 
                 // Test script
-                // sh "chmod +x ./test.sh && ./test.sh"
                 sh "./test.sh"
 
                 // sh "npm run test"
@@ -94,7 +91,6 @@ pipeline {
                 echo "Deploying..."
 
                 // Deploy script
-                // sh "chmod +x ./deploy.sh && ./deploy.sh"
                 sh "./deploy.sh"
 
                 // sh "npm start"
