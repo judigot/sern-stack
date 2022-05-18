@@ -7,7 +7,7 @@
 // Credentials Binding
 //=====PLUGINS=====//
 
-boolean getGitChanges() {
+def getGitChanges() {
     return currentBuild.changeSets.size() > 0
 }
 
