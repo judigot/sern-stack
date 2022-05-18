@@ -48,11 +48,11 @@ pipeline {
         // }
 
         stage("Build") {
-            when {
-                expression {
-                    currentBuild.changeSets.size() > 0
-                }
-            }
+            // when {
+            //     expression {
+            //         currentBuild.changeSets.size() > 0
+            //     }
+            // }
             steps {
                 echo "Building version ${NEW_VERSION}..."
 
