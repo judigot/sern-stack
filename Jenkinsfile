@@ -8,7 +8,7 @@
 //=====PLUGINS=====//
 
 // Custom environmental variable
-// CODE_CHANGES = currentBuild.changeSets.size() > 0
+// CODE_CHANGES = getGitChanges()
 
 pipeline {
     agent any
@@ -18,7 +18,6 @@ pipeline {
     // Environment variables are accessible in the stages
     environment {
         NEW_VERSION = '1.0'
-        CODE_CHANGES = currentBuild.changeSets.size() > 0
 
         // "Credentials Binding" plugin allows you to use Jenkins credentials in Jenkinsfile
 
@@ -30,7 +29,7 @@ pipeline {
             when {
                 expression {
                 // Build only if there are changes in the code
-                    CODE_CHANGES == true
+                    currentBuild.changeSets.size() > 0
                 }
             }
             steps {
