@@ -30,7 +30,7 @@ pipeline {
                 echo "Initializing environment..."
 
                 sh "chmod +x -R ${WORKSPACE}/*.sh"
-                sh "./initialize.sh"
+                // sh "./initialize.sh"
             }
         }
 
@@ -60,8 +60,8 @@ pipeline {
                 // sh "chmod +x ./build.sh && ./build.sh"
 
                 //=====NODE.JS=====//
-                sh 'npm install'
-                sh 'npm run build'
+                sh "npm install"
+                sh "npm run build"
                 //=====NODE.JS=====//
             }
         }
@@ -83,8 +83,9 @@ pipeline {
                 
                 // Test script
                 // sh "chmod +x ./test.sh && ./test.sh"
+                sh "./test.sh"
 
-                sh 'npm run test'
+                // sh "npm run test"
             }
         }
 
@@ -96,7 +97,7 @@ pipeline {
                 // sh "chmod +x ./deploy.sh && ./deploy.sh"
                 sh "./deploy.sh"
 
-                // sh 'npm start'
+                // sh "npm start"
             }
         }
     }
