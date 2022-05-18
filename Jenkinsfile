@@ -25,7 +25,7 @@ pipeline {
         // SERVER_CREDENTIALS = credentials('<credential-ID>') // Finds the credentials that are available in Jenkins
     }
     stages {
-        stage("Initialize Environment") {
+        stage("Initialize environment") {
             steps {
                 echo "Initializing environment..."
 
@@ -71,11 +71,11 @@ pipeline {
             //         BRANCH_NAME == 'dev'
             //     }
             // }
-            when {
-                expression {
-                    currentBuild.changeSets.size() > 0
-                }
-            }
+            // when {
+            //     expression {
+            //         currentBuild.changeSets.size() > 0
+            //     }
+            // }
             steps {
                 echo "Testing..."
                 
