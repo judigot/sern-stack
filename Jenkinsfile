@@ -8,7 +8,7 @@
 //=====PLUGINS=====//
 
 // Custom environmental variable
-CODE_CHANGES = currentBuild.changeSets.size() > 0
+// CODE_CHANGES = currentBuild.changeSets.size() > 0
 
 pipeline {
     agent any
@@ -18,6 +18,7 @@ pipeline {
     // Environment variables are accessible in the stages
     environment {
         NEW_VERSION = '1.0'
+        CODE_CHANGES = currentBuild.changeSets.size() > 0
 
         // "Credentials Binding" plugin allows you to use Jenkins credentials in Jenkinsfile
 
