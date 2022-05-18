@@ -89,17 +89,17 @@ pipeline {
             }
         }
 
-        // stage("Deploy") {
-        //     steps {
-        //         echo "Deploying..."
+        stage("Deploy") {
+            steps {
+                echo "Deploying..."
 
-        //         // Actual deploy script
-        //         // sh "chmod +x -R ${WORKSPACE}"
-        //         // sh "./deploy.sh"
+                // Actual deploy script
+                sh "chmod +x -R ${WORKSPACE}"
+                sh "./deploy.sh"
 
-        //         sh 'npm start'
-        //     }
-        // }
+                // sh 'npm start'
+            }
+        }
     }
 
     // Executes after all the stages are executed
