@@ -25,14 +25,14 @@ pipeline {
         // SERVER_CREDENTIALS = credentials('<credential-ID>') // Finds the credentials that are available in Jenkins
     }
     stages {
-        // stage("Initialize Environment") {
-        //     steps {
-        //         echo "Initializing environment..."
+        stage("Initialize Environment") {
+            steps {
+                echo "Initializing environment..."
 
-        //         sh "chmod +x -R ${WORKSPACE}"
-        //         sh "./initialize.sh"
-        //     }
-        // }
+                sh "chmod +x -R ${WORKSPACE}/*.sh"
+                sh "./initialize.sh"
+            }
+        }
 
         // stage("Check for Changes") {
         //     when {
@@ -45,6 +45,7 @@ pipeline {
         //         echo "There are changes in the code."
         //     }
         // }
+
         stage("Build") {
             when {
                 expression {
@@ -54,14 +55,13 @@ pipeline {
             steps {
                 echo "Building version ${NEW_VERSION}..."
 
-                // Actual build script
+                // Build script
                 // sh "chmod +x -R ${WORKSPACE}"
-                // sh "./build.sh"
+                // sh "chmod +x ./build.sh && ./build.sh"
 
                 //=====NODE.JS=====//
                 sh 'npm install'
                 sh 'npm run build'
-                // sh 'npm start dist/index.js'
                 //=====NODE.JS=====//
             }
         }
@@ -81,11 +81,10 @@ pipeline {
             steps {
                 echo "Testing..."
                 
-                // Actual test script
-                sh "chmod +x -R ${WORKSPACE}"
-                sh "./test.sh"
+                // Test script
+                // sh "chmod +x ./test.sh && ./test.sh"
 
-                // sh 'npm run test'
+                sh 'npm run test'
             }
         }
 
@@ -93,11 +92,11 @@ pipeline {
             steps {
                 echo "Deploying..."
 
-                // Actual deploy script
-                // sh "chmod +x -R ${WORKSPACE}"
+                // Deploy script
                 // sh "chmod +x ./deploy.sh && ./deploy.sh"
+                sh "./deploy.sh"
 
-                sh 'npm start'
+                // sh 'npm start'
             }
         }
     }
