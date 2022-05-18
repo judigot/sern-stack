@@ -36,17 +36,6 @@ pipeline {
                 echo "There are changes in the code."
             }
         }
-        stage("Initialize Environment 2") {
-            when {
-                expression {
-                // Build only if there are changes in the code
-                    CODE_CHANGES == false
-                }
-            }
-            steps {
-                echo "There are no changes in the code."
-            }
-        }
         stage("Build") {
             // when {
             //     expression {
