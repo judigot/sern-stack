@@ -25,24 +25,32 @@ pipeline {
         // SERVER_CREDENTIALS = credentials('<credential-ID>') // Finds the credentials that are available in Jenkins
     }
     stages {
-        stage("Initialize Environment") {
+        // stage("Initialize Environment") {
+        //     steps {
+        //         echo "Initializing environment..."
+
+        //         sh "chmod +x -R ${WORKSPACE}"
+        //         sh "./initialize.sh"
+        //     }
+        // }
+
+        // stage("Check for Changes") {
+        //     when {
+        //         expression {
+        //         // Build only if there are changes in the code
+        //         BRANCH_NAME == 'main' && currentBuild.changeSets.size() > 0
+        //         }
+        //     }
+        //     steps {
+        //         echo "There are changes in the code."
+        //     }
+        // }
+        stage("Build") {
             when {
                 expression {
-                // Build only if there are changes in the code
                     currentBuild.changeSets.size() > 0
                 }
             }
-            steps {
-                echo "There are changes in the code."
-            }
-        }
-        stage("Build") {
-            // when {
-            //     expression {
-            //     // Build only if there are changes in the code
-            //         BRANCH_NAME == 'main' && CODE_CHANGES == true
-            //     }
-            // }
             steps {
                 echo "Building version ${NEW_VERSION}..."
 
@@ -62,9 +70,14 @@ pipeline {
             // when {
             //     expression {
             //         // Test only in dev branch
-            //         BRANCH_NAME == 'main' || BRANCH_NAME == 'main'
+            //         BRANCH_NAME == 'dev'
             //     }
             // }
+            when {
+                expression {
+                    currentBuild.changeSets.size() > 0
+                }
+            }
             steps {
                 echo "Testing..."
                 
@@ -76,17 +89,17 @@ pipeline {
             }
         }
 
-        stage("Deploy") {
-            steps {
-                echo "Deploying..."
+        // stage("Deploy") {
+        //     steps {
+        //         echo "Deploying..."
 
-                // Actual deploy script
-                // sh "chmod +x -R ${WORKSPACE}"
-                // sh "./deploy.sh"
+        //         // Actual deploy script
+        //         // sh "chmod +x -R ${WORKSPACE}"
+        //         // sh "./deploy.sh"
 
-                sh 'npm start'
-            }
-        }
+        //         sh 'npm start'
+        //     }
+        // }
     }
 
     // Executes after all the stages are executed
