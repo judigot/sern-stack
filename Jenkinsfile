@@ -111,10 +111,11 @@ pipeline {
         // }
 
         success {
-            echo 'Success! -judigot'
+            echo 'Success!'
         }
 
-        // failure {
-        // }
+        failure {
+            echo 'Failure!'
+        }
     }
 }
