@@ -25,14 +25,28 @@ pipeline {
         // SERVER_CREDENTIALS = credentials('<credential-ID>') // Finds the credentials that are available in Jenkins
     }
     stages {
-        // stage("Initialize Environment") {
-        //     steps {
-        //         echo "Initializing environment..."
-
-        //         sh "chmod +x -R ${WORKSPACE}"
-        //         sh "./initialize.sh"
-        //     }
-        // }
+        stage("Initialize Environment") {
+            when {
+                expression {
+                // Build only if there are changes in the code
+                    CODE_CHANGES == true
+                }
+            }
+            steps {
+                echo "There are changes in the code."
+            }
+        }
+        stage("Initialize Environment 2") {
+            when {
+                expression {
+                // Build only if there are changes in the code
+                    CODE_CHANGES == false
+                }
+            }
+            steps {
+                echo "There are no changes in the code."
+            }
+        }
         stage("Build") {
             // when {
             //     expression {
