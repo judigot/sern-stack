@@ -95,7 +95,7 @@ pipeline {
 
                 // Actual deploy script
                 // sh "chmod +x -R ${WORKSPACE}"
-                sh "SCRIPT=\"deploy\" && chmod +x ./$SCRIPT.sh && ./$SCRIPT.sh"
+                sh "SCRIPT=\"deploy\" && echo $SCRIPT"
 
                 // sh 'npm start'
             }
