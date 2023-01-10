@@ -17,7 +17,7 @@ interface Connection {
 }
 
 class Database {
-  // Static means that it can be accessed by the class's functions
+  // Static variables means that it can be accessed by the class's functions
   // Static functions means that it can be accessed without instantiating the class; Commonly used in utility functions
 
   static table: string | undefined = ""; // This value will be overridden by models
