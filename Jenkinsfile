@@ -1,6 +1,7 @@
-// Environmental variables out of the box
+//=====DEFAULT ENVIRONMENTAL VARIABLES=====//
 // localhost:8080/env-vars.html
 // sh means "shell script"
+//=====DEFAULT ENVIRONMENTAL VARIABLES=====//
 
 //=====PLUGINS=====//
 // Credentials
