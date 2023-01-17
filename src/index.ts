@@ -63,6 +63,7 @@ import JWTAuthController from "app/Http/Controllers/JWTAuthController";
 
 app.use("/", PublicRouter);
 
+// Add an auth middleware to private routes
 app.use("/", JWTAuthController.checkNotAuthenticated, PrivateRouter);
 //====================ROUTESMASTER====================//
 
