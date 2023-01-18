@@ -12,6 +12,7 @@ import cookieParser from "cookie-parser";
 // Variables
 const app: Application = express();
 const viewsFolder: string = `views`;
+// 
 
 //==========CORS==========//
 // Disable CORS errors; Enable requests from front-end
