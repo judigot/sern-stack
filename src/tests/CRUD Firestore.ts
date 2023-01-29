@@ -12,6 +12,7 @@ import {
   where,
   getDocs,
   deleteDoc,
+  deleteField,
 } from "firebase/firestore";
 // TODO: Add SDKs for Firebase products that you want to use
 // https://firebase.google.com/docs/web/setup#available-libraries
@@ -126,10 +127,15 @@ const users = collection(db, "users");
 //   //=====DELETE COLLECTION=====//
 //   return await deleteDoc(doc(users));
 //   //=====DELETE COLLECTION=====//
-
 //   //=====DELETE DOCUMENT=====//
 //   return await deleteDoc(doc(users, "2HyoXfpCZZHaDGT7Xd3x"));
 //   //=====DELETE DOCUMENT=====//
+//   //=====DELETE DOCUMENT FIELDS=====//
+//   return await updateDoc(doc(users, "4wZMZaJn06tRbXaXikB7"), {
+//     firstName: deleteField(),
+//     lastName: deleteField(),
+//   });
+//   //=====DELETE DOCUMENT FIELDS=====//
 // };
 // del()
 //   .then((result) => {
