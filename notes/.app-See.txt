@@ -30,7 +30,7 @@ Prisma and next.js or remix
 use json web tokens to protect endpoints and routes
 combine vendor.js and main.js
 webpack 5 asset module
-Expres.js strictly as a server/API, react as a SPA
+Express.js strictly as a server/API, react as a SPA
 postcss
 .browserlistrc
 inline assets load faster than downloaded ones
