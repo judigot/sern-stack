@@ -147,13 +147,22 @@ class Database {
 
     // Store values and parameters inside arrays
     if (isMultipleRows) {
+      /* Iterate through multiple rows
+        [
+          {firstName, lastName},
+          {firstName, lastName}
+        ]
+      */
       for (let i = 0; i < data.length; i++) {
         const parameter: string[] = [];
-        const element = data[i];
-        for (let key in element) {
-          values.push(element[key]);
+        const row = data[i];
+
+        // Iterate through row attributes ( {firstName, lastName} )
+        for (let key in row) {
+          values.push(row[key]);
           parameter.push("?");
         }
+
         parameters.push(`(${parameter.join(", ")})`);
       }
     } else {
