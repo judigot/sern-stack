@@ -5,6 +5,7 @@ import User from "Models/User";
 // const argLen = ["1", "2", "3"].length;
 // const placeHolders = Array(argLen).fill("?");
 
+// Insert a single row
 User.create({
   firstName: "Jude",
   lastName: "Igot",
@@ -16,6 +17,7 @@ User.create({
   console.log(result);
 });
 
+// Insert multiple rows
 User.create([
   {
     firstName: "Jude",
