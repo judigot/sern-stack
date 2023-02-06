@@ -8,69 +8,77 @@ import User from "Models/User";
 // const placeHolders = Array(argLen).fill("?");
 
 // Insert a single row
-User.create({
-  firstName: "Jude",
-  lastName: "Igot",
-  email: `judigot-${crypto.randomUUID()}@gmail.com`,
-  password: "hash",
-  createdAt: new Date(),
-  updatedAt: new Date(),
-}).then((result) => {
-  console.log(result);
-});
+// User.create({
+//   firstName: "Jude",
+//   lastName: "Igot",
+//   email: `judigot-${crypto.randomUUID()}@gmail.com`,
+//   password: "hash",
+//   createdAt: new Date(),
+//   updatedAt: new Date(),
+// }).then((result) => {
+//   console.log(result);
+// });
 
-// Insert multiple rows
-User.create([
-  {
-    firstName: "Jude",
-    lastName: "Igot",
-    email: `judigot-${crypto.randomUUID()}@gmail.com`,
-    password: "hash",
-    createdAt: new Date(),
-    updatedAt: new Date(),
-  },
-  {
-    firstName: "Francis",
-    lastName: "Igot",
-    email: `judigot-${crypto.randomUUID()}@gmail.com`,
-    password: "hash",
-    createdAt: new Date(),
-    updatedAt: new Date(),
-  },
-])
-  .then((value) => {
+// // Insert multiple rows
+// User.create([
+//   {
+//     firstName: "Jude",
+//     lastName: "Igot",
+//     email: `judigot-${crypto.randomUUID()}@gmail.com`,
+//     password: "hash",
+//     createdAt: new Date(),
+//     updatedAt: new Date(),
+//   },
+//   {
+//     firstName: "Francis",
+//     lastName: "Igot",
+//     email: `judigot-${crypto.randomUUID()}@gmail.com`,
+//     password: "hash",
+//     createdAt: new Date(),
+//     updatedAt: new Date(),
+//   },
+// ])
+//   .then((value) => {
+//     console.log(value);
+//   })
+//   .catch((error) => {
+//     console.log(error);
+//   })
+//   .finally(() => {
+//     // Finally
+//   });
+
+// To do
+User.read(`SELECT * FROM Users;`)
+User.read(`SELECT * FROM Users WHERE email = ?;`, "judigot@gmail.com")
+User.read(
+`SELECT * FROM Users WHERE id = ? && email = ?;`,
+1,
+"judigot@gmail.com"
+)
+User.read(`SELECT * FROM Users WHERE email = ?;`, ["judigot@gmail.com"])
+  .then((value: any) => {
     console.log(value);
   })
-  .catch((error) => {
+  .catch((error: string) => {
     console.log(error);
   })
   .finally(() => {
     // Finally
   });
 
-User.read(`SELECT * FROM "Users";`)
-  .then((value) => {
-    console.log(value);
-  })
-  .catch((error) => {
-    console.log(error);
-  })
-  .finally(() => {
-    // Finally
-  });
+// User.update({ lastName: "00000" }).then((result) => {
+//   console.log(result);
+// });
+// User.update({ lastName: "newValue" }, { id: 1 }).then((result) => {
+//   console.log(result);
+// });
+// User.update({ lastName: "xxxxxxxxxxx" }, undefined, {
+//   id: 1,
+// }).then((result) => {
+//   console.log(result);
+// });
 
-User.update({ lastName: "00000" }).then((result) => {
-  console.log(result);
-});
-User.update({ lastName: "newValue" }, { id: 1 }).then((result) => {
-  console.log(result);
-});
-User.update({ lastName: "xxxxxxxxxxx" }, undefined, {
-  id: 1,
-}).then((result) => {
-  console.log(result);
-});
-
-User.delete("id", [37]).then((result) => {
-  console.log(result);
-});
+// User.delete("id", [37]).then((result) => {
+//   console.log(result);
+// });
