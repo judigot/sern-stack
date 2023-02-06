@@ -220,7 +220,46 @@ class Database {
     */
   }
 
-  public static read<T>(sql: string, values?: T[]) {
+  // public static read<T>(sql: string, values?: T[]) {
+  //   return this.execute(sql, values);
+  // }
+
+  public static read(...params: any[]) {
+    const sql: string = params[0];
+    let values: any[] = [];
+
+    // Query only
+    if (params.length === 1) {
+      params[1] = [];
+    }
+
+    // A query and 1 replacement
+    if (params.length === 2) {
+      if (Array.isArray(params[1])) {
+        values = params[1];
+      } else {
+        values = [params[1]];
+      }
+    }
+
+    // A query and many replacements
+    if (params.length > 2) {
+      const replacements: any[] = [];
+      for (let i = 0; i < params.length; i++) {
+        const isFirstIndex: boolean = i === 0;
+
+        // Skip first parameter (query)
+        if (!isFirstIndex) {
+          const value = params[i];
+          replacements.push(value);
+        }
+      }
+      values = replacements;
+    }
+
+    console.log(sql);
+    console.log(values);
+
     return this.execute(sql, values);
   }
 
