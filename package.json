@@ -23,6 +23,9 @@
     "Sync-Tables": "clear && npx cross-env ACTION=create ts-node scripts/SyncTables.ts",
     "Drop-Database": "clear && npx cross-env ACTION=drop ts-node scripts/Database.ts"
   },
+  "prisma": {
+    "schema": "src/prisma/schema.prisma"
+  },
   "keywords": [],
   "author": "",
   "license": "ISC",
