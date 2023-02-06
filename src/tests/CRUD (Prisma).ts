@@ -6,7 +6,7 @@ const prisma = new PrismaClient();
 
 const Users = prisma.users;
 
-// Run npx prisma generate to use/access prisma models
+// Run npx prisma generate to use/access prisma models asdasd
 
 // Users.create({
 //   data: {
