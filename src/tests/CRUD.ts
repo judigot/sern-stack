@@ -1,5 +1,7 @@
 import "tsconfig-paths/register"; // Parse path aliases
 
+import crypto from "crypto";
+
 import User from "Models/User";
 
 // const argLen = ["1", "2", "3"].length;
@@ -9,11 +11,11 @@ import User from "Models/User";
 User.create({
   firstName: "Jude",
   lastName: "Igot",
-  email: "judigot@gmail.com",
+  email: `judigot-${crypto.randomUUID()}@gmail.com`,
   password: "hash",
   createdAt: new Date(),
   updatedAt: new Date(),
-}).then(async (result) => {
+}).then((result) => {
   console.log(result);
 });
 
@@ -22,7 +24,7 @@ User.create([
   {
     firstName: "Jude",
     lastName: "Igot",
-    email: "judigot@gmail.com",
+    email: `judigot-${crypto.randomUUID()}@gmail.com`,
     password: "hash",
     createdAt: new Date(),
     updatedAt: new Date(),
@@ -30,7 +32,7 @@ User.create([
   {
     firstName: "Francis",
     lastName: "Igot",
-    email: "judigot@gmail.com",
+    email: `judigot-${crypto.randomUUID()}@gmail.com`,
     password: "hash",
     createdAt: new Date(),
     updatedAt: new Date(),
