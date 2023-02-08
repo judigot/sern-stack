@@ -1,7 +1,14 @@
 import React, { useRef, useState } from "react";
 
+interface Stock {
+  open?: number;
+  close?: number;
+  high?: number;
+  low?: number;
+}
+
 export default function StockData() {
-  const searchInput = useRef();
+  const searchInput = useRef<HTMLInputElement>(null!);
 
   const [stockList, setStockList] = useState([]);
   const [noResult, setNoResult] = useState(false);
@@ -49,7 +56,7 @@ export default function StockData() {
       </section>
 
       {stockList &&
-        stockList.map((row, i) => (
+        stockList.map((row: Stock, i) => (
           <ul
             className="mt-50 slide-up-fade-in styled"
             id="stockData"
