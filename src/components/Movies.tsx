@@ -5,13 +5,13 @@ interface Movie {
 }
 
 function MovieList() {
-  const searchInput = useRef<HTMLInputElement>(null!);
+  const searchInputRef = useRef<HTMLInputElement>(null!);
 
   const [movieList, setMovieList] = useState([]);
   const [noResult, setNoResult] = useState(false);
 
   const handleSearch = async () => {
-    const year = parseInt(searchInput.current.value);
+    const year = parseInt(searchInputRef.current.value);
 
     if (year) {
       fetch("https://jsonmock.hackerrank.com/api/movies?Year=" + year)
@@ -38,7 +38,7 @@ function MovieList() {
     <div className="layout-column align-items-center mt-50">
       <section className="layout-row align-items-center justify-content-center">
         <input
-          ref={searchInput}
+          ref={searchInputRef}
           type="number"
           className="large"
           placeholder="Enter Year eg 2015"
