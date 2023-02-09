@@ -38,9 +38,6 @@ const build: any = {
       // `./${entryFolder}/${assetsFolderName}/${scssDirectory}/main.scss`, // Version 1
       `./${entryFolder}/${assetsFolderName}/${jsDirectory}/main.tsx`, // Version 1
     ],
-    login: [
-      `./${entryFolder}/${assetsFolderName}/${jsDirectory}/login.tsx`, // Version 1
-    ],
   },
 
   output: {
