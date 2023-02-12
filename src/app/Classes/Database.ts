@@ -101,12 +101,12 @@ class Database {
         try {
           const [rows] = await pool.execute(sql, values);
           result = rows;
+          pool.end();
+          return result;
         } catch (error) {
           return error;
         } finally {
         }
-
-        break;
 
       case "postgres":
         /*************
@@ -124,19 +124,18 @@ class Database {
         const client = await pool.connect();
         try {
           result = await client.query(sql, values);
+          client.release();
+          return result;
         } catch (error) {
           return error;
         } finally {
-          client.release();
         }
-        /*************
-         *************/
-        break;
+      /*************
+       *************/
 
       default:
         break;
     }
-    return result;
   }
 
   public static create(data: any) {
