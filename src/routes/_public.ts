@@ -20,6 +20,26 @@ export default <object>{
     post: () => {},
   },
 
+  "/api/users": {
+    view: "",
+    chunks: [],
+    middleware: JWTAuthController.checkAuthenticated,
+    get: (req: Request, res: Response) => {
+      User.all()
+        .then((result) => {
+          // Success
+          res.json(result);
+        })
+        .catch((error) => {
+          // Failure
+        })
+        .finally(() => {
+          // Finally
+        });
+    },
+    post: () => {},
+  },
+
   "/auth": {
     view: "index",
     chunks: ["main"],
