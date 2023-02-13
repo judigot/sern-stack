@@ -37,7 +37,24 @@ export default <object>{
           // Finally
         });
     },
-    post: () => {},
+    post: (req: Request, res: Response) => {
+      const { searchQuery } = req.body;
+      User.read(
+        `SELECT * FROM Users WHERE firstName LIKE '%${searchQuery}%' OR lastName LIKE '%${searchQuery}%' OR email LIKE '%${searchQuery}%';`
+      )
+        .then((result) => {
+          // Success
+          console.log(result);
+          res.json(result);
+        })
+        .catch((error) => {
+          // Failure
+          throw new Error(error);
+        })
+        .finally(() => {
+          // Finally
+        });
+    },
   },
 
   "/auth": {
