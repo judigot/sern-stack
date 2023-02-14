@@ -45,11 +45,31 @@ export default <object>{
         .then((result) => {
           // Success
           console.log(result);
-          res.json(result);
+          res.json(result || null);
         })
         .catch((error) => {
           // Failure
           throw new Error(error);
+        })
+        .finally(() => {
+          // Finally
+        });
+    },
+  },
+
+  "/api/users/:id": {
+    view: "",
+    chunks: [],
+    middleware: JWTAuthController.checkAuthenticated,
+    patch: (req: Request, res: Response) => {
+      const { columnName, newValue } = req.body;
+      User.update({ [columnName]: newValue }, { id: req.params.id })
+        .then((result) => {
+          // Success
+          res.json(result);
+        })
+        .catch((error) => {
+          // Failure
         })
         .finally(() => {
           // Finally
