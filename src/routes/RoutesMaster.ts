@@ -46,11 +46,50 @@ function useRoute(routes: any) {
       //   routes[url].post(req, res);
       // });
     }
+    if ("patch" in routeDetails) {
+      if (routes[url].middleware) {
+        const middleware = routes[url].middleware;
+        router.patch(url, middleware, (req, res) => {
+          routes[url].patch(req, res);
+        });
+      } else {
+        router.patch(url, (req, res) => {
+          routes[url].patch(req, res);
+        });
+      }
+      // router.patch(url, (req, res) => {
+      //   routes[url].patch(req, res);
+      // });
+    }
     if ("put" in routeDetails) {
+      if (routes[url].middleware) {
+        const middleware = routes[url].middleware;
+        router.put(url, middleware, (req, res) => {
+          routes[url].put(req, res);
+        });
+      } else {
+        router.put(url, (req, res) => {
+          routes[url].put(req, res);
+        });
+      }
+      // router.put(url, (req, res) => {
+      //   routes[url].put(req, res);
+      // });
     }
     if ("delete" in routeDetails) {
-    }
-    if ("patch" in routeDetails) {
+      if (routes[url].middleware) {
+        const middleware = routes[url].middleware;
+        router.delete(url, middleware, (req, res) => {
+          routes[url].delete(req, res);
+        });
+      } else {
+        router.delete(url, (req, res) => {
+          routes[url].delete(req, res);
+        });
+      }
+      // router.delete(url, (req, res) => {
+      //   routes[url].delete(req, res);
+      // });
     }
   });
   return router;
