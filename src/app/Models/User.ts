@@ -7,7 +7,7 @@ class User extends DB {
   static table: string | undefined = `Users`;
 
   static all() {
-    return super.read(`SELECT * FROM "${this.table}";`, []);
+    return this.read(`SELECT * FROM "${this.table}";`, []);
   }
 }
 
