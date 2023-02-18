@@ -1,6 +1,8 @@
 require("dotenv").config();
 const SequelizeAuto = require("sequelize-auto");
 
+const path = require("path");
+
 const auto = new SequelizeAuto(
   process.env.DB_DATABASE,
   process.env.DB_USERNAME,
@@ -8,7 +10,7 @@ const auto = new SequelizeAuto(
   {
     host: process.env.DB_HOST,
     dialect: process.env.DB_CONNECTION,
-    directory: "../models", // where to write files
+    directory: path.resolve(__dirname, `../models`), // where to write files
     port: process.env.DB_PORT,
     noInitModels: true, // Prevent writing the init-models.js file
     singularize: true, // Singularize model and file names from plural table
@@ -25,11 +27,20 @@ const auto = new SequelizeAuto(
   }
 );
 
-auto.run().then((data) => {
-  console.log(data.tables); // table and field list
-  console.log(data.foreignKeys); // table foreign key list
-  console.log(data.indexes); // table indexes
-  console.log(data.hasTriggerTables); // tables that have triggers
-  console.log(data.relations); // relationships between models
-  console.log(data.text); // text of generated models
-});
+auto
+  .run()
+  .then((data) => {
+    console.log(data.tables); // table and field list
+    console.log(data.foreignKeys); // table foreign key list
+    console.log(data.indexes); // table indexes
+    console.log(data.hasTriggerTables); // tables that have triggers
+    console.log(data.relations); // relationships between models
+    console.log(data.text); // text of generated models
+  })
+  .catch((error) => {
+    // Failure
+    throw new Error(error);
+  })
+  .finally(() => {
+    // Finally
+  });
