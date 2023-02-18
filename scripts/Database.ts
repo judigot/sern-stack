@@ -2,7 +2,7 @@ import "tsconfig-paths/register"; // Parse path aliases
 
 import "dotenv/config";
 
-import DB from "../src/app/Classes/Database";
+import DB from "../src/app/Modules/Database";
 
 import { exit } from "process";
 

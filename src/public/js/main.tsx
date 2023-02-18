@@ -2,7 +2,7 @@
  * DON'T MIX NODE.JS AND WEB JAVASCRIPT (WEBPACK CAN'T BUNDLE SEQUELIZE) *
  *************************************************************************/
 
-import Person from "Classes/Person";
+import Person from "Modules/Person";
 
 
 import "styles/main.scss";

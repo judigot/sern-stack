@@ -23,7 +23,7 @@
       "app/*": ["app/*"],
       "Root/*": ["src/*"],
       "Sequelize/*": ["sequelize/*"],
-      "Classes/*": ["app/Classes/*"],
+      "Modules/*": ["app/Modules/*"],
       "Models/*": ["app/Models/*"],
       "Controllers/*": ["app/Http/Controllers/*"],
       "images/*": ["public/images/*"],
