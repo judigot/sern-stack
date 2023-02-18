@@ -1,6 +1,8 @@
 import Model from "../sequelize/models";
 
-import User from "../app/Models/SequelizeModel";
+import { QueryTypes } from "sequelize";
+
+import SequelizeModel from "../app/Models/SequelizeModel";
 
 // Model.User.create({
 //   firstName: "Sequalize",
@@ -40,22 +42,57 @@ import User from "../app/Models/SequelizeModel";
 //   .catch((error: any) => {})
 //   .finally(() => {});
 //
-Model.User.findAll()
-  .then((result: any) => {
-    for (let i = 0; i < result.length; i++) {
-      const row = result[i];
-      console.log(row.dataValues);
-    }
-  })
-  .catch((error: any) => {})
-  .finally(() => {});
 
-User.findAll()
-  .then((result: any) => {
-    for (let i = 0; i < result.length; i++) {
-      const row = result[i];
-      console.log(row.dataValues);
-    }
+Model.sequelize
+  .query("SELECT * FROM `Users` WHERE `id` = ?;", {
+    replacements: [1],
+    type: QueryTypes.SELECT,
   })
-  .catch((error: any) => {})
-  .finally(() => {});
+  .then((result: any) => {
+    // Success
+    console.log(result);
+  })
+  .catch((error: any) => {
+    // Failure
+    throw new Error(error);
+  })
+  .finally(() => {
+    // Finally
+  });
+
+Model.sequelize
+  .query("SELECT * FROM `Users` WHERE `id` IN (:ids);", {
+    replacements: { ids: [1] },
+    type: QueryTypes.SELECT,
+  })
+  .then((result: any) => {
+    // Success
+    console.log(result);
+  })
+  .catch((error: any) => {
+    // Failure
+    throw new Error(error);
+  })
+  .finally(() => {
+    // Finally
+  });
+
+// Model.User.findAll()
+//   .then((result: any) => {
+//     for (let i = 0; i < result.length; i++) {
+//       const row = result[i];
+//       console.log(row.dataValues);
+//     }
+//   })
+//   .catch((error: any) => {})
+//   .finally(() => {});
+
+// SequelizeModel.findAll()
+//   .then((result: any) => {
+//     for (let i = 0; i < result.length; i++) {
+//       const row = result[i];
+//       console.log(row.dataValues);
+//     }
+//   })
+//   .catch((error: any) => {})
+//   .finally(() => {});
