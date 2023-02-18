@@ -20,7 +20,8 @@
     "Clean Slate with Data": "clear && npm run Clean-Slate && npm run Seed",
     "Reset-Database": "clear && npx cross-env ACTION=reset ts-node scripts/Database.ts && npm run Migrate && npm run Seed",
     "Create-Database": "clear && npx cross-env ACTION=create ts-node scripts/Database.ts",
-    "Sync-Tables": "clear && npx cross-env ACTION=create ts-node scripts/SyncTables.ts",
+    "sequelize-push-schema": "clear && npx cross-env ACTION=create ts-node ./src/sequelize/scripts/SyncTables.ts",
+    "sequelize-pull-schema": "clear && npx cross-env ACTION=create ts-node ./src/sequelize/scripts/SequelizeAuto.js",
     "Drop-Database": "clear && npx cross-env ACTION=drop ts-node scripts/Database.ts"
   },
   "prisma": {
