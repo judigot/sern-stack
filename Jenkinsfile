@@ -14,7 +14,7 @@
 pipeline {
     agent any
     tools {
-        nodejs "17.7.0"
+        nodejs "19.0.0"
     }
     // Environment variables are accessible in the stages
     environment {
