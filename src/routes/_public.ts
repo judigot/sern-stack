@@ -105,9 +105,7 @@ export default <object>{
     },
 
     post: (req: Request, res: Response) => {
-      const username: string = req.body.username;
-      const password: string = req.body.password;
-
+      const { username, password } = req.body;
       if (username && password) {
         User.read(`SELECT * FROM "${User.table}" WHERE "email" = ?;`, [
           username,
