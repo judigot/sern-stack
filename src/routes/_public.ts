@@ -2,7 +2,11 @@ import { Request, Response, NextFunction } from "express";
 
 import User from "Models/User";
 
-import Auth from "Controllers/AuthenticationController";
+import bcrypt from "bcrypt";
+
+import jwt from "jsonwebtoken";
+
+import cookie from "cookie";
 
 import JWTAuthController from "Controllers/JWTAuthController";
 
@@ -106,42 +110,39 @@ export default <object>{
 
     post: (req: Request, res: Response) => {
       const { username, password } = req.body;
+      console.log(req.body);
       if (username && password) {
-        User.read(`SELECT * FROM "${User.table}" WHERE "email" = ?;`, [
-          username,
-        ])
-          .then((result: { [key: string]: string }[]) => {
-            const userExists = result.length !== 0;
-
-            const user: { [key: string]: string } = result[0];
-
-            if (userExists) {
-              const hash: string = result[0].password;
-              Auth.verifyPassword(password, hash).then((isPasswordValid) => {
-                //====================JWT====================//
-                const response: {
-                  userExists: boolean;
-                  passWordValid: boolean;
-                  accessToken?: string;
-                } = {
-                  userExists: true,
-                  passWordValid: isPasswordValid,
-                };
-                if (isPasswordValid) {
-                  response.accessToken = JWTAuthController.login(
-                    { username, user },
-                    res
+        User.read(`SELECT "username", "password" FROM "user" WHERE "username" = ?;`, [username])
+          .then((result) => {
+            const user: { [key: string]: string } = result && result.rows[0];
+            // If user exists
+            if (user) {
+              const hash: string = user.password;
+              bcrypt.compare(password, hash).then((isCorrectPassword) => {
+                let accessToken = undefined;
+                if (isCorrectPassword) {
+                  //====================JWT====================//
+                  accessToken = jwt.sign(
+                    user,
+                    <string>process.env.ACCESS_TOKEN_SECRET
+                    // { expiresIn: "5s" }
                   );
+                  res.setHeader(
+                    "Set-Cookie",
+                    cookie.serialize("accessToken", accessToken, {
+                      httpOnly: true,
+                      // maxAge: 60 * 60 * 24 * 7, // 1 week
+                    })
+                  );
+                  //====================JWT====================//
                 }
-                res.json(response);
-                //====================JWT====================//
+                res.status(200).json({
+                  accessToken,
+                });
               });
             }
-
-            if (!userExists) {
-              res.json({
-                userExists: false,
-              });
+            if (!user) {
+              res.status(200).json(false);
             }
           })
           .catch((error: string) => {
