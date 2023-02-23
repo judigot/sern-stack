@@ -1,6 +1,7 @@
 import { Request, Response, NextFunction } from "express";
 
 import jwt from "jsonwebtoken";
+import cookie from "cookie";
 
 class JWTAuthController {
   static login(user: object, res: Response) {
@@ -15,6 +16,14 @@ class JWTAuthController {
       <string>process.env.REFRESH_TOKEN_SECRET
       // { expiresIn: "1d" }
     );
+
+    // res.setHeader(
+    //   "Set-Cookie",
+    //   cookie.serialize("accessToken", accessToken, {
+    //     httpOnly: true,
+    //     maxAge: 60 * 60 * 24 * 7, // 1 week
+    //   })
+    // );
 
     res.cookie("accessToken", accessToken, {
       httpOnly: true,
