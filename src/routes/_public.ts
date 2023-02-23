@@ -85,7 +85,7 @@ export default <object>{
     },
   },
 
-  "/logout": {
+  "/user/logout": {
     view: "",
     chunks: [],
     post: (req: Request, res: Response) => {
