@@ -52,6 +52,27 @@ const Users = prisma.users;
 //   });
 //=====READ=====//
 
+Users.findUnique({
+  select: {
+    first_name: true,
+    last_name: true,
+  },
+  where: {
+    user_id: 1,
+  },
+})
+  .then((result: any) => {
+    // Success
+    console.log(result);
+  })
+  .catch((error: string) => {
+    // Failure
+    console.log(error);
+  })
+  .finally(() => {
+    // Finally
+  });
+
 Users.findMany()
   .then((result: any) => {
     // Success
