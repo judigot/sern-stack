@@ -124,7 +124,7 @@ export default <object>{
                   //====================JWT====================//
                   accessToken = jwt.sign(
                     user,
-                    <string>process.env.ACCESS_TOKEN_SECRET
+                    `${process.env.ACCESS_TOKEN_SECRET}`
                     // { expiresIn: "5s" }
                   );
                   res.setHeader(

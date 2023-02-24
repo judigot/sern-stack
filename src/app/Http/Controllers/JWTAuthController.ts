@@ -7,13 +7,13 @@ class JWTAuthController {
   static login(user: object, res: Response) {
     const accessToken = jwt.sign(
       user,
-      <string>process.env.ACCESS_TOKEN_SECRET
+      `${process.env.ACCESS_TOKEN_SECRE}`
       // { expiresIn: "5s" }
     );
 
     const refreshToken = jwt.sign(
       user,
-      <string>process.env.REFRESH_TOKEN_SECRET
+      `${process.env.REFRESH_TOKEN_SECRE}`
       // { expiresIn: "1d" }
     );
 
@@ -55,7 +55,7 @@ class JWTAuthController {
       try {
         const user: any = jwt.verify(
           token,
-          <string>process.env.ACCESS_TOKEN_SECRET
+          `${process.env.ACCESS_TOKEN_SECRE}`
         );
         req.user = user;
         return {
@@ -78,7 +78,7 @@ class JWTAuthController {
     if (token) {
       jwt.verify(
         token,
-        <string>process.env.ACCESS_TOKEN_SECRET,
+        `${process.env.ACCESS_TOKEN_SECRET}`,
         (error: any, user: any) => {
           // Forbidden
           // if (error) return res.sendStatus(403);
@@ -111,7 +111,7 @@ class JWTAuthController {
     if (token) {
       jwt.verify(
         token,
-        <string>process.env.ACCESS_TOKEN_SECRET,
+        `${process.env.ACCESS_TOKEN_SECRET}`,
         (error: any, user: any) => {
           // Forbidden
           // if (error) return res.sendStatus(403);
