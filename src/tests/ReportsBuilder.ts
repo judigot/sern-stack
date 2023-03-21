@@ -28,7 +28,7 @@ const table = {
   Month: months,
   "Customer Name": customer,
   "Custom Identifier": numbers,
-  "Week 1 (1 - 7)": function (index: number) {
+  "Week 1 (1 - 7)": (index: number) => {
     const month = index + 1 < 10 ? "0" + (index + 1) : index + 1;
 
     const start = `${year}-${month}-01`;
@@ -42,7 +42,7 @@ const table = {
       "') + INTERVAL 1 DAY)"
     );
   },
-  "Week 2 (8 - 14)": function (index: number) {
+  "Week 2 (8 - 14)": (index: number) => {
     const month = index + 1 < 10 ? "0" + (index + 1) : index + 1;
 
     const start = `${year}-${month}-08`;
@@ -56,7 +56,7 @@ const table = {
       "') + INTERVAL 1 DAY)"
     );
   },
-  "Week 3 (15 - 21)": function (index: number) {
+  "Week 3 (15 - 21)": (index: number) => {
     const month = index + 1 < 10 ? "0" + (index + 1) : index + 1;
 
     const start = `${year}-${month}-15`;
@@ -70,7 +70,7 @@ const table = {
       "') + INTERVAL 1 DAY)"
     );
   },
-  "Week 4 (22 - 31)": function (index: number) {
+  "Week 4 (22 - 31)": (index: number) => {
     const month = index + 1 < 10 ? "0" + (index + 1) : index + 1;
     const maxDaysInAMonth = new Date(year, <number>month, 0).getDate();
 
@@ -85,7 +85,7 @@ const table = {
       "') + INTERVAL 1 DAY)"
     );
   },
-  "Gross Sales": function (index: number) {
+  "Gross Sales": (index: number) => {
     const month = index + 1 < 10 ? "0" + (index + 1) : index + 1;
     const maxDaysInAMonth = new Date(year, <number>month, 0).getDate();
 
