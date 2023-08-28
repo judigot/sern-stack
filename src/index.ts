@@ -13,13 +13,13 @@ import cookieParser from "cookie-parser";
 // Variables
 const app: Application = express();
 const viewsFolder: string = `views`;
-// 
+//
 
 //==========CORS==========//
 // Disable CORS errors; Enable requests from front-end
 app.use(function (req, res, next) {
   // res.header("Access-Control-Allow-Origin", "*"); // Allow all websites to access the server
-  res.header("Access-Control-Allow-Origin", "http://localhost:3000"); // Allow only specific sites to access the server
+  res.header("Access-Control-Allow-Origin", "*"); // Allow only specific sites to access the server
   res.header(
     "Access-Control-Allow-Headers",
     "Origin, X-Requested-With, Content-Type, Accept, Authorization"
@@ -58,15 +58,79 @@ app.use(express.urlencoded({ extended: true }));
 
 //================================================================================//
 
+import { MongoClient, ServerApiVersion } from "mongodb";
+
+// const url = "mongodb://root:example@localhost:27017";
+const url =
+  "mongodb+srv://admin:123@firstcluster.gyxjlfz.mongodb.net/?retryWrites=true&w=majority";
+
+const client = new MongoClient(url, {
+  serverApi: {
+    version: ServerApiVersion.v1,
+    strict: true,
+    deprecationErrors: true,
+  },
+});
+interface GameData {
+  player1: string;
+  player2: string;
+  scoreBoard: {
+    winner: number;
+    board: Array<(boolean | string)[]>;
+  }[];
+  date: Date;
+}
+
 //====================ROUTESMASTER====================//
-import { PublicRouter, PrivateRouter } from "./routes/RoutesMaster";
 
-import JWTAuthController from "app/Http/Controllers/JWTAuthController";
+const dbName = "tictactoe";
 
-app.use("/", PublicRouter);
+app.get("/getSessions", async (req, res) => {
+  try {
+    await client.connect();
+    const DB = client.db(dbName);
+    const Sessions = DB.collection("sessions");
+    const data = await Sessions.find({}).sort({ date: -1 }).toArray();
+    res.json(data);
+  } catch (error: unknown) {
+    if (typeof error === `string`) {
+      throw new Error(`There was an error: error`);
+    }
+    if (error instanceof Error) {
+      throw new Error(`There was an error: ${error.message}`);
+    }
+    if (error instanceof SyntaxError) {
+      // Unexpected token < in JSON
+      throw new Error(`Syntax Error: error`);
+    }
+  }
+});
 
-// Add an auth middleware to private routes
-app.use("/", JWTAuthController.checkNotAuthenticated, PrivateRouter);
+app.post("/insertSession", async (req, res) => {
+  const data: GameData = {
+    ...req.body,
+    ...{ date: new Date() },
+  };
+  try {
+    await client.connect();
+    const DB = client.db(dbName);
+    const Sessions = DB.collection("sessions");
+    const result = await Sessions.insertOne(data);
+    res.json(result);
+  } catch (error: unknown) {
+    if (typeof error === `string`) {
+      throw new Error(`There was an error: error`);
+    }
+    if (error instanceof Error) {
+      throw new Error(`There was an error: ${error.message}`);
+    }
+    if (error instanceof SyntaxError) {
+      // Unexpected token < in JSON
+      throw new Error(`Syntax Error: error`);
+    }
+  }
+});
+
 //====================ROUTESMASTER====================//
 
 //================================================================================//

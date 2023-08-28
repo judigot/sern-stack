@@ -9,7 +9,7 @@
     "test": "jest --clearCache && jest src",
     "Start Production (F9)": "clear && NODE_ENV=production node dist/index.js\n",
     "Start Development (F10)": "clear && NODE_ENV=development nodemon --exec ts-node -r tsconfig-paths/register src/index.ts\n",
-    "Build & Run - Prod (Ctrl + F9)": "clear && NODE_ENV=production npx webpack --env buildType=production --mode production & npx babel --extensions '.tsx,.ts,.jsx,.js' src --ignore src/sequelize/config,src/sequelize/migrations,src/sequelize/seeders,src/seed,src/public,src/tests,src/types -d dist && NODE_ENV=production node dist/index.js\n",
+    "Build & Run - Prod (Ctrl + F9)": "clear && NODE_ENV=production npx babel --extensions '.tsx,.ts,.jsx,.js' src --ignore src/sequelize/config,src/sequelize/migrations,src/sequelize/seeders,src/seed,src/public,src/tests,src/types -d dist && NODE_ENV=production node dist/index.js\n",
     "Build & Run - Dev (Ctrl + F10)": "clear && NODE_ENV=development npx webpack --env buildType=development --mode development & NODE_ENV=development nodemon --exec ts-node -r tsconfig-paths/register src/index.ts\n",
     "Seed": "clear && npx sequelize-cli db:seed:all",
     "Undo-Seed": "clear && npx sequelize-cli db:seed:undo:all",
